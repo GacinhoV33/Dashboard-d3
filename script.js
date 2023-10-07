@@ -18,12 +18,10 @@ function startDashboard() {
     .then((data) => {
       // Once the data is loaded successfully, store it in the globalData variable.
       globalDataSuicide = data;
-      console.log(globalDataSuicide);
     })
     .then(() => {
       d3.csv("forest_area_adjusted_nni_inflation_ready_df.csv").then((data) => {
         globalDataForestIncomeInflation = data;
-        console.log(globalDataForestIncomeInflation);
         createChoroplethMap(globalDataSuicide, globalDataForestIncomeInflation);
         createPyramidChart(globalDataSuicide, globalDataForestIncomeInflation);
         createCustomBubbleChart(
@@ -40,26 +38,29 @@ function startDashboard() {
 }
 
 // // This function updates the visualizations based on the selected data type.
-// function updateIdioms(data) {
-//   // Use a switch statement to check which data type is selected.
-//   switch (data) {
-//     case "old":
-//       // If "old" is selected, update the visualizations with data before or equal to 2010.
-//       updateBarChart(globalData.filter((item) => item.oscar_year <= 2010));
-//       updateScatterPlot(globalData.filter((item) => item.oscar_year <= 2010));
-//       updateLineChart(globalData.filter((item) => item.oscar_year <= 2010));
-//       break;
-//     case "new":
-//       // If "new" is selected, update the visualizations with data after 2010.
-//       updateBarChart(globalData.filter((item) => item.oscar_year > 2010));
-//       updateScatterPlot(globalData.filter((item) => item.oscar_year > 2010));
-//       updateLineChart(globalData.filter((item) => item.oscar_year > 2010));
-//       break;
-//     default:
-//       // If no specific data type is selected, update the visualizations with all the data.
-//       updateBarChart(globalData);
-//       updateScatterPlot(globalData);
-//       updateLineChart(globalData);
-//       break;
-//   }
-// }
+function updateIdioms(yearsRange) {
+  // Use a switch statement to check which data type is selected.
+  switch (yearsRange) {
+    case "first":
+      // If "old" is selected, update the visualizations with data before or equal to 2010.
+      updateCustomBubbleChart(globalDataSuicide.filter((item) => Number(item.year) > 2009 && Number(item.year) < 2016), globalDataForestIncomeInflation);
+      updateChoroplethChart(globalDataSuicide.filter((item) => Number(item.year) > 2009 && Number(item.year) < 2016), globalDataForestIncomeInflation);
+      updateLineChart(globalDataSuicide.filter((item) => Number(item.year) > 2009 && Number(item.year) < 2016), globalDataForestIncomeInflation);
+      updatePyramidChart(globalDataSuicide.filter((item) => Number(item.year) > 2009 && Number(item.year) < 2016), globalDataForestIncomeInflation);
+      break;
+    case "one":
+      // If "new" is selected, update the visualizations with data after 2010.
+      updateCustomBubbleChart(globalDataSuicide.filter((item) => Number(item.year) === 2011), globalDataForestIncomeInflation);
+      updateChoroplethChart(globalDataSuicide.filter((item) => Number(item.year) === 2011), globalDataForestIncomeInflation);
+      updateLineChart(globalDataSuicide.filter((item) => Number(item.year) === 2011), globalDataForestIncomeInflation);
+      updatePyramidChart(globalDataSuicide.filter((item) => Number(item.year) === 2011), globalDataForestIncomeInflation);
+      break;
+    default:
+      // If no specific data type is selected, update the visualizations with all the data.
+      updateCustomBubbleChart(globalDataSuicide, globalDataForestIncomeInflation);
+      updateChoroplethChart(globalDataSuicide, globalDataForestIncomeInflation);
+      updateLineChart(globalDataSuicide, globalDataForestIncomeInflation);
+      updatePyramidChart(globalDataSuicide, globalDataForestIncomeInflation);
+      break;
+  }
+}

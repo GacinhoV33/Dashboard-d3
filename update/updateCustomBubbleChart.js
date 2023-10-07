@@ -1,3 +1,3 @@
-function updateCustomBubbleChart(data) {
+function updateCustomBubbleChart(suicideData, inflationData) {
   // #TODO
 }

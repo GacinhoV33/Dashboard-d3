@@ -1,3 +1,3 @@
-function updateChoroplethChart(data) {
+function updateChoroplethChart(suicideData, inflationData) {
   // #TODO
 }

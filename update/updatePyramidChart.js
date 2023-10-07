@@ -1,3 +1,3 @@
-function updatePyramidChart(data) {
+function updatePyramidChart(suicideData, inflationData) {
   // #TODO
 }

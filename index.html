@@ -13,6 +13,10 @@
     <script src="./create/createCustomBubbleChart.js"></script>
     <script src="./create/createPyramidChart.js"></script>
     <script src="./create/create.js"></script>
+    <script src="./update/updateChoroplethMap.js"></script>
+    <script src="./update/updateCustomBubbleChart.js"></script>
+    <script src="./update/updateLineChart.js"></script>
+    <script src="./update/updatePyramidChart.js"></script>
     <script src="./update/update.js"></script>
     <script src="linked.js"></script>
     <script src="extractData.js"></script>
@@ -20,11 +24,11 @@
   <!-- Start the dashboard upon page load -->
   <body onload="startDashboard()">
     <!-- Buttons to update the data visualization -->
-    <!-- <div class="button-container">
-      <button onclick="updateIdioms('old')">Old Data</button>
-      <button onclick="updateIdioms('new')">New Data</button>
-      <button onclick="updateIdioms('all')">All Data</button> -->
-    <!-- </div> -->
+    <div class="button-container">
+      <button onclick="updateIdioms('first')">2010-2015</button>
+      <button onclick="updateIdioms('one')">2010-2011</button>
+      <button onclick="updateIdioms('all')">All Data</button>
+    </div>
     <!-- The main grid layout of the dashboard -->
     <div class="dashboard">
       <div class="visualization" id="lineChart"></div>
