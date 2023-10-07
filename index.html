@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <!-- Styling for the dashboard -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Load the D3.js library for data visualization -->
+    <script src="https://d3js.org/d3.v7.js"></script>
+    <!-- Load JavaScript files for the dashboard -->
+    <script src="script.js"></script>
+    <script src="./create/createLineChart.js"></script>
+    <script src="./create/createChoroplethMap.js"></script>
+    <script src="./create/createCustomBubbleChart.js"></script>
+    <script src="./create/createPyramidChart.js"></script>
+    <script src="./create/create.js"></script>
+    <script src="./update/update.js"></script>
+    <script src="linked.js"></script>
+    <script src="extractData.js"></script>
+  </head>
+  <!-- Start the dashboard upon page load -->
+  <body onload="startDashboard()">
+    <!-- Buttons to update the data visualization -->
+    <!-- <div class="button-container">
+      <button onclick="updateIdioms('old')">Old Data</button>
+      <button onclick="updateIdioms('new')">New Data</button>
+      <button onclick="updateIdioms('all')">All Data</button> -->
+    <!-- </div> -->
+    <!-- The main grid layout of the dashboard -->
+    <div class="dashboard">
+      <div class="visualization" id="lineChart"></div>
+      <div class="dashboard-row" id="second-row">
+        <div class="visualization" id="ChoroplethChart">Choropleth</div>
+        <div class="visualization" id="PyramidChart">Pyramid</div>
+      </div>
+      <div class="visualization" id="CustomBubbleChart">CustomPlot</div>
+    </div>
+  </body>
+</html>

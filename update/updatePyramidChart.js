@@ -1,0 +1,3 @@
+function updatePyramidChart(data) {
+  // #TODO
+}
