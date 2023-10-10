@@ -60,34 +60,29 @@ function extractPyramidChart(data1, data2) {
   return null; //
 }
 
-function mergeTwoDatasets(data1, data2) {
-  return null;
+function calcRatioForCountries(data1, data2){
+  const countries = data1.reduce((countries, object) => {
+    const key = object.country;
+    if (!countries[key]) {
+      countries[key] = [];
+    }
+    countries[key].push(object);
+    return countries;
+  }, {});
+  const countriesData = [];
+  for (const key in countries) {
+    if (countries.hasOwnProperty(key)) {
+      if (!countriesData[key]) {
+        countriesData[key] = 0;
+      }
+      countries[key].forEach((country) => {
+        countriesData[key] += Number(country.suicides_ratio);
+      });
+      countriesData[key] = Number(
+        Number(countriesData[key] / countries[key].length).toPrecision(4)
+      );
+    }
+  }
+  return countriesData;
 }
-
-
- // THIS CODE MIGHT BE USEFUL IN FUTURE
-//   const countries = data1.reduce((countries, object) => {
-//     const key = object.country;
-//     if (!countries[key]) {
-//       countries[key] = [];
-//     }
-//     countries[key].push(object);
-//     return countries;
-//   }, {});
-//   const countriesData = [];
-//   for (const key in countries) {
-//     if (countries.hasOwnProperty(key)) {
-//       if (!countriesData[key]) {
-//         countriesData[key] = 0;
-//       }
-//       countries[key].forEach((country) => {
-//         countriesData[key] += Number(country.suicides_ratio);
-//       });
-//       countriesData[key] = Number(
-//         Number(countriesData[key] / countries[key].length).toPrecision(4)
-//       );
-//     }
-//   }
-//   return countriesData;
-// }
 

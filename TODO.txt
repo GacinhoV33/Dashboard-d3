@@ -1,0 +1,5 @@
+#TODO 
+1. Think about scale on Choropleth chart
+2. Data filtration affecting all charts 
+
+#DONE 

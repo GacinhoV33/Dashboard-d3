@@ -3,7 +3,7 @@
   <head>
     <title>Dashboard</title>
     <!-- Styling for the dashboard -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"/>
     <!-- Load the D3.js library for data visualization -->
     <script src="https://d3js.org/d3.v7.js"></script>
     <!-- Load JavaScript files for the dashboard -->
@@ -18,8 +18,11 @@
     <script src="./update/updateLineChart.js"></script>
     <script src="./update/updatePyramidChart.js"></script>
     <script src="./update/update.js"></script>
+    <script src="./handleMouse/handleMouseChoropleth.js"></script>
+    <script src="./handleMouse/onClickChoropleth.js"></script>
     <script src="linked.js"></script>
     <script src="extractData.js"></script>
+    <script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
   </head>
   <!-- Start the dashboard upon page load -->
   <body onload="startDashboard()">
@@ -28,13 +31,17 @@
       <button onclick="updateIdioms('first')">2010-2015</button>
       <button onclick="updateIdioms('one')">2010-2011</button>
       <button onclick="updateIdioms('all')">All Data</button>
+      <button onclick="selectAllCountries()">Select All Countries</button>
     </div>
     <!-- The main grid layout of the dashboard -->
     <div class="dashboard">
       <div class="visualization" id="lineChart"></div>
       <div class="dashboard-row" id="second-row">
-        <div class="visualization" id="ChoroplethChart">Choropleth</div>
-        <div class="visualization" id="PyramidChart">Pyramid</div>
+        <div class="choroplethContainer">
+          <div id="choroplethTitle"></div>
+          <div class="visualization" id="ChoroplethChart"></div>
+        </div>
+        <div class="visualization" id="PyramidChart"></div>
       </div>
       <div class="visualization" id="CustomBubbleChart">CustomPlot</div>
     </div>
