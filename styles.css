@@ -1,7 +1,7 @@
 .dashboard {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 4fr 4fr;
+  grid-template-rows: 1fr 2.5fr 2.5fr;
   gap: 20px;
   padding: 20px;
 }
@@ -96,4 +96,43 @@ text.copyright {
 }
 .legend{
   font-size: 20px;
+}
+
+.button-year{
+  background-color: #fff;
+  border: 1px red solid;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+#d3_tooltip{
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  width: 160px;
+  height: 120px;
+  position:absolute;
+  color: black;
+  background: #fafafa;
+  align-items: center;
+  border: 1px solid #6F257F;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.tooltip-row{
+  display: flex;
+  gap: 5px;
+}
+
+#d3_header{
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+#d3_suicide_ratio{
+  
 }

@@ -11,7 +11,7 @@ function updateLineChart(suicideData, inflationData) {
     .padding(1);
   const yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(data, (d) => d[1]) + 0.000025])
+    .domain([0, d3.max(data, (d) => d[1]) + 0.05])
     .range([heightLineChart, 0]);
 
   // Create a line generator to draw the path based on the data points
@@ -73,8 +73,8 @@ function updateLineChart(suicideData, inflationData) {
   // Add tooltips to all circles with the movie title as the content
   svg
     .selectAll(".circle")
-    // .on("mouseover", handleMouseOver) #TODO 
-    // .on("mouseout", handleMouseOut) #TODO 
+    // .on("mouseover", handleMouseOverChoropleth) 
+    // .on("mouseout", handleMouseOutChoropleth) 
     .append("title")
     .text((d) => "text TODO");
 }

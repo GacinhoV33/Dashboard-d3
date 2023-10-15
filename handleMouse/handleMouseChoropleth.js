@@ -1,5 +1,6 @@
 function handleMouseOverChoropleth(event, item) {
   // Select all elements with class "data" and filter based on the item's properties
+  showChoroplethTooltip(event, item);
   d3.selectAll(".data")
     .filter(function (d) {
       // Check if "properties" exist in both item and d objects
@@ -53,7 +54,22 @@ function handleMouseOutChoropleth(event, item) {
       })
       .attr("fill", d3.interpolateBlues(colorScale(element[1])));
   });
+  document.getElementById("d3_tooltip").style.opacity = 0;
 
-  // Reset the fill color of all elements with class "circle data" to steelblue
-  d3.selectAll("circle.data").attr("fill", "steelblue");
+
+}
+
+
+function showChoroplethTooltip(event, item){
+  document.getElementById("d3_tooltip").style.opacity = 1;
+  document.getElementById("d3_header").textContent = `${
+    item.properties.name}`;
+  document.getElementById("d3_suicide_ratio").textContent = 'suicide_ratio';
+  document.getElementById("d3_inflation").textContent = 'inflation';
+  document.getElementById("d3_forest_area").textContent = 'forest area';
+  document.getElementById("d3_income").textContent = 'income';
+
+  document.getElementById("d3_tooltip").style.left = `${event.clientX + 20}px`;
+  document.getElementById("d3_tooltip").style.top = `${event.clientY}px`;
+
 }

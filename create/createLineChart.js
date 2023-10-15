@@ -15,9 +15,10 @@ function createLineChart(data1, data2) {
     .domain(lineChartData.map((d) => d[0]))
     .range([widthLineChart, 0])
     .padding(1);
+
   const yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(lineChartData, (d) => d[1]) + 0.000025])
+    .domain([0, d3.max(lineChartData, (d) => d[1]) + 0.05])
     .range([heightLineChart, 0]);
 
   const line = d3
@@ -45,8 +46,8 @@ function createLineChart(data1, data2) {
     .attr("r", 5)
     .attr("fill", "steelblue")
     .attr("stroke", "black")
-    // .on("mouseover", handleMouseOver)
-    // .on("mouseout", handleMouseOut)
+    // .on("mouseover", handleMouseOverChoropleth)
+    // .on("mouseout", handleMouseOutChoropleth)
     .append("title")
     .text((d) => d[1]);
 
@@ -60,6 +61,7 @@ function createLineChart(data1, data2) {
     .selectAll(".x-axis text")
     .attr("transform", "rotate(-45)")
     .style("text-anchor", "end")
+    .style("font-size", "12px")
     .attr("dx", "-0.8em")
     .attr("dy", "0.15em");
 
@@ -77,6 +79,7 @@ function createLineChart(data1, data2) {
     .attr("x", widthLineChart / 2)
     .attr("y", heightLineChart + margin.top + 30)
     .style("text-anchor", "middle")
+    .style("font-size", "18px")
     .text("Year");
 
   svg
@@ -86,5 +89,8 @@ function createLineChart(data1, data2) {
     .attr("y", -margin.left + 30)
     .style("text-anchor", "middle")
     .attr("transform", "rotate(-90)")
-    .text("Suicide Ratio %"); // TODO MAKE PROMILS
+    .style("font-size", "18px")
+    .text("Suicide Ratio \u2030"); // TODO MAKE PROMILS
+
+  svg.attr("class", "y-axis text").attr("font-size", "20px");
 }

@@ -1,5 +1,10 @@
 #TODO 
 1. Think about scale on Choropleth chart
 2. Data filtration affecting all charts 
-
+3. Change scale on ChoroplethChart to batches
+4. On click choropleth map highlight only the border
 #DONE 
+
+
+#Questions
+Ask which colorscale better for choropleth - log or linear? 

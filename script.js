@@ -5,8 +5,20 @@ var filteredGlobalDataSuicide;
 var filteredGlobalDataForestIncomeInflation;
 var globalDataCountries;
 var highlightedItems = [];
-var availableCountries; 
-
+var availableCountries;
+var yearsArray = [
+  "2006",
+  "2007",
+  "2008",
+  "2009",
+  "2010",
+  "2011",
+  "2012",
+  "2013",
+  "2014",
+  "2015",
+  "2016",
+];
 // Define margins for the visualizations.
 const margin = { top: 20, right: 20, bottom: 50, left: 80 };
 
@@ -43,13 +55,12 @@ function startDashboard() {
       d3.csv("forest_area_adjusted_nni_inflation_ready_df.csv").then((data) => {
         globalDataForestIncomeInflation = data;
         createChoroplethMap(globalDataSuicide, globalDataForestIncomeInflation);
-        createPyramidChart(globalDataSuicide, globalDataForestIncomeInflation);
-        createCustomBubbleChart(
-          globalDataSuicide,
-          globalDataForestIncomeInflation
-        );
+        // createPyramidChart(globalDataSuicide, globalDataForestIncomeInflation);
+        // createCustomBubbleChart(
+        //   globalDataSuicide,
+        //   globalDataForestIncomeInflation
+        // );
         createLineChart(globalDataSuicide, globalDataForestIncomeInflation);
-
         //utils
         const suicideData = calcRatioForCountries(
           globalDataSuicide,
@@ -66,64 +77,45 @@ function startDashboard() {
 }
 
 // // This function updates the visualizations based on the selected data type.
-function updateIdioms(yearsRange) {
-  // Use a switch statement to check which data type is selected.
-  switch (yearsRange) {
-    case "first":
-      // If "old" is selected, update the visualizations with data before or equal to 2010.
-      updateCustomBubbleChart(
-        globalDataSuicide.filter(
-          (item) => Number(item.year) > 2009 && Number(item.year) < 2016
-        ),
-        globalDataForestIncomeInflation
-      );
-      updateChoroplethChart(
-        globalDataSuicide.filter(
-          (item) => Number(item.year) > 2009 && Number(item.year) < 2016
-        ),
-        globalDataForestIncomeInflation
-      );
-      updateLineChart(
-        globalDataSuicide.filter(
-          (item) => Number(item.year) > 2009 && Number(item.year) < 2016
-        ),
-        globalDataForestIncomeInflation
-      );
-      updatePyramidChart(
-        globalDataSuicide.filter(
-          (item) => Number(item.year) > 2009 && Number(item.year) < 2016
-        ),
-        globalDataForestIncomeInflation
-      );
-      break;
-    case "one":
-      // If "new" is selected, update the visualizations with data after 2010.
-      updateCustomBubbleChart(
-        globalDataSuicide.filter((item) => Number(item.year) === 2011),
-        globalDataForestIncomeInflation
-      );
-      updateChoroplethChart(
-        globalDataSuicide.filter((item) => Number(item.year) === 2011),
-        globalDataForestIncomeInflation
-      );
-      updateLineChart(
-        globalDataSuicide.filter((item) => Number(item.year) === 2011),
-        globalDataForestIncomeInflation
-      );
-      updatePyramidChart(
-        globalDataSuicide.filter((item) => Number(item.year) === 2011),
-        globalDataForestIncomeInflation
-      );
-      break;
-    default:
-      // If no specific data type is selected, update the visualizations with all the data.
-      updateCustomBubbleChart(
-        globalDataSuicide,
-        globalDataForestIncomeInflation
-      );
-      updateChoroplethChart(globalDataSuicide, globalDataForestIncomeInflation);
-      updateLineChart(globalDataSuicide, globalDataForestIncomeInflation);
-      updatePyramidChart(globalDataSuicide, globalDataForestIncomeInflation);
-      break;
+
+
+function filterYears(year) {
+  if (year === "all") {
+    yearsArray = [
+      "2006",
+      "2007",
+      "2008",
+      "2009",
+      "2010",
+      "2011",
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+    ];
+    yearsArray.forEach((year) => {
+      document.getElementById(`button-${year}`).style.border = '1px red solid';
+    });
+  } else {
+    if (yearsArray.includes(year)) {
+      yearsArray = yearsArray.filter((item) => item !== year);
+      document.getElementById(`button-${year}`).style.border = '1px solid #ccc';
+
+    } else {
+      yearsArray.push(year);
+      document.getElementById(`button-${year}`).style.border = '1px red solid';
+
+    }
   }
+
+  updateLineChart(
+    globalDataSuicide.filter((item) => yearsArray.includes(item.year)),
+    globalDataForestIncomeInflation
+  );
+
+  updateChoroplethChart(
+    globalDataSuicide.filter((item) => yearsArray.includes(item.year)),
+    globalDataForestIncomeInflation
+  );
 }

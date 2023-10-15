@@ -22,7 +22,7 @@ function createChoroplethMap(data1, data2) {
 
   const projection = d3
     .geoMercator()
-    .fitSize([width, height], globalDataCountries); 
+    .fitSize([width, height], globalDataCountries);
 
   const path = d3.geoPath().projection(projection);
 
@@ -35,10 +35,9 @@ function createChoroplethMap(data1, data2) {
     .attr("d", path)
     .attr("stroke", "#DDD")
     .on("mouseover", handleMouseOverChoropleth) // Function to handle mouseover event
-    .on("mouseout", handleMouseOutChoropleth)   // Function to handle mouseout event
+    .on("mouseout", handleMouseOutChoropleth) // Function to handle mouseout event
     .on("click", (item) => onClickChoropleth(item))
-    .append("title")
-    .text((d) => createTooltipChoropleth(d, dataSuicide)); 
+    .append("title");
 
   Object.entries(dataSuicide).forEach((element) => {
     mapGroup
@@ -63,33 +62,48 @@ function createChoroplethMap(data1, data2) {
   function zoomed(event) {
     mapGroup.attr("transform", event.transform);
   }
-
   // Create a legend for the choropleth map
-  const svg2 = d3
+  createChoroplethLegend(dataSuicide);
+}
+
+function createTooltipChoropleth(d, dataSuicide) {
+  if (Object.keys(dataSuicide).includes(d.properties.name)) {
+    return (
+      d.properties.name +
+      `\nSuicide ratio - ${dataSuicide[d.properties.name]}\u2030`
+    );
+  } else {
+    return d.properties.name + " - Data not available";
+  }
+}
+
+function createChoroplethLegend(dataSuicide) {
+  // Create a legend for the choropleth map
+  const svgTitle = d3
     .select("#choroplethTitle")
     .append("svg")
     .attr("width", width)
     .attr("height", height / 3);
 
-  const defs = svg2.append("defs");
+  const defs = svgTitle.append("defs");
   const gradient = defs
     .append("linearGradient")
     .attr("id", "colorScaleGradient")
-    .attr("x1", "100%")
+    .attr("x1", "0%")
     .attr("y1", "0%")
-    .attr("x2", "0%")
+    .attr("x2", "100%")
     .attr("y2", "0%");
   gradient
     .append("stop")
     .attr("offset", "0%")
-    .attr("stop-color", d3.min(Object.values(dataSuicide)));
+    .attr("stop-color", d3.interpolateBlues(0));
   gradient
     .append("stop")
     .attr("offset", "100%")
-    .attr("stop-color", d3.max(Object.values(dataSuicide)));
+    .attr("stop-color", d3.interpolateBlues(1));
 
   // Create the legend rectangle filled with the color scale gradient
-  const legend = svg2.append("g").attr("transform", `translate(0, 40)`);
+  const legend = svgTitle.append("g").attr("transform", `translate(0, 40)`);
   const legendHeight = 50;
   const legendWidth = width - 50;
   legend
@@ -99,21 +113,11 @@ function createChoroplethMap(data1, data2) {
     .style("fill", "url(#colorScaleGradient)");
 
   // Add tick marks and labels to the legend
-  for (let index = 0; index <= 1; index += 0.25) {
+  for (let index = 0; index < 5; index += 1) {
     legend
       .append("text")
-      .attr("x", legendWidth * index - (index % 4) * 8)
+      .attr("x", (legendWidth * index) / 4 - (index % 5) * 7)
       .attr("y", legendHeight + 20)
-      .text(index);
-  }
-}
-
-
-function createTooltipChoropleth(d, dataSuicide){
-  if(Object.keys(dataSuicide).includes(d.properties.name)){
-    return d.properties.name + `\nSuicide ratio - ${dataSuicide[d.properties.name]}%`; // MAKE PROMIL INSTEAD OF PERCENTAGE
-  }
-  else{
-    return d.properties.name + " - Data not available";
+      .text(((d3.max(Object.values(dataSuicide)) / 4) * index).toPrecision(4));
   }
 }

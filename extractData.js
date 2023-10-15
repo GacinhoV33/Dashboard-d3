@@ -29,7 +29,7 @@ function extractLineChart(data1, data2) {
   
   const finalData = [];
   Object.entries(yearData).forEach((item) => {
-    finalData.push([Number(item[0]), Number(item[1].suicides_no)/Number(item[1].population)]);
+    finalData.push([Number(item[0]), Number(item[1].suicides_no)/Number(item[1].population)*1000]);
   })
   return finalData.sort((item1, item2) => item2[0] - item1[0]);
 }
