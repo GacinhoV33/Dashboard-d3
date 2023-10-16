@@ -10,3 +10,4 @@
 
 #Questions
 Ask which colorscale better for choropleth - log or linear? 
+Ask whether all highlighted on beginning or nothing highlighted 

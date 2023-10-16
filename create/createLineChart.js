@@ -1,5 +1,5 @@
 const widthLineChart = 1200 - margin.left - margin.right;
-const heightLineChart = 250 - margin.top - margin.bottom;
+const heightLineChart = 200 - margin.top - margin.bottom;
 
 function createLineChart(data1, data2) {
   var lineChartData = extractData(data1, data2, "lineChart");
@@ -90,7 +90,7 @@ function createLineChart(data1, data2) {
     .style("text-anchor", "middle")
     .attr("transform", "rotate(-90)")
     .style("font-size", "18px")
-    .text("Suicide Ratio \u2030"); // TODO MAKE PROMILS
+    .text("Suicide Ratio \u2030");
 
   svg.attr("class", "y-axis text").attr("font-size", "20px");
 }

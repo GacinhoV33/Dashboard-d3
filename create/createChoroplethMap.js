@@ -92,7 +92,6 @@ function createChoroplethLegend(dataSuicide) {
     .enter()
     .append("g")
     .attr("transform", function (d, i) {
-      console.log(i);
       let numb = i * 55;
       numb = numb === 'Nan' ? 0 : numb;
       return "translate(" + numb + ", 0)";

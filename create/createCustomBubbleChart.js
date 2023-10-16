@@ -12,7 +12,6 @@ function createCustomBubbleChart(data1, data2) {
   var forestExtractedData = Object.entries(currentData);
   var mergedData = mergeTwoRatios(suicideData, currentData);
   var mergedDataExtracted = Object.entries(mergedData);
-  console.log("IM THERE", mergedData);
 
   // Create an SVG element to hold the scatter plot
   const svg = d3
@@ -24,7 +23,6 @@ function createCustomBubbleChart(data1, data2) {
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Create x and y scales for the scatter plot
-  console.log(d3.min(mergedDataExtracted, (d) => d[1].inflation));
   const xScale = d3
     .scaleLinear()
     .domain([
@@ -49,10 +47,6 @@ function createCustomBubbleChart(data1, data2) {
     ])
     .range([3, 15]);
 
-  console.log(
-    "forest",
-    d3.min(mergedDataExtracted, (d) => d[1].inflation)
-  );
   const colorScale = d3
     .scaleLinear()
     .domain([
@@ -75,13 +69,18 @@ function createCustomBubbleChart(data1, data2) {
     .attr("stroke", "black")
     .attr("fill", (d) =>
       d3.interpolateGreens(Number(colorScale(d[1].forest_area)))
-    );
-
-  // .on("mouseover", handleMouseOver) // Function to handle mouseover event
-  // .on("mouseout", handleMouseOut) // Function to handle mouseout event
-  // .on("click", handleClick)
+    )
+    .on("mouseover", handleMouseOverCustom) // Function to handle mouseover event
+    .on("mouseout", handleMouseOutCustom) // Function to handle mouseout event
+    .on("click", onClickBubble);
   // .append("title");
   // .text((d) => d.country + tooltipSupport(d.country, currentData));
+
+  //highlighted items
+  svg
+    .selectAll(".circle")
+    .filter((d) => highlightedItems.includes(d[0]))
+    .attr("stroke", "lime");
 
   // Create tick marks and labels for the x and y axes
   var xTicks = [];
@@ -121,7 +120,7 @@ function createCustomBubbleChart(data1, data2) {
         .tickValues(yTicks)
         .tickSizeOuter(0)
     )
-    .attr("transform", "translate(200, 0)");
+    .attr("transform", `translate(${xScale(0)}, 0)`);
 
   // Add labels for the x and y axes
   svg
@@ -129,7 +128,7 @@ function createCustomBubbleChart(data1, data2) {
     .attr("class", "x-axis-label")
     .attr("x", widthCustom / 2)
     .attr("y", heightCustom + margin.top + 20)
-    .style("font-size", '20px')
+    .style("font-size", "20px")
     .style("text-anchor", "middle")
     .text("Inflation");
 
@@ -139,7 +138,7 @@ function createCustomBubbleChart(data1, data2) {
     .attr("x", -heightCustom / 2)
     .attr("y", -margin.left + 30)
     .style("text-anchor", "middle")
-    .style("font-size", '20px')
+    .style("font-size", "20px")
     .attr("transform", "rotate(-90)")
     .text("Suicide ratio");
 }

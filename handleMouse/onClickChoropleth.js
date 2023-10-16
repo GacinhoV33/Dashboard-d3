@@ -1,5 +1,9 @@
 function onClickChoropleth(event) {
-  if (highlightedItems.includes(event.target.__data__.properties.name)) {
+  console.log(highlightedItems.length);
+  if(highlightedItems.length === 71){
+    highlightedItems = [event.target.__data__.properties.name];
+  }
+  else if (highlightedItems.includes(event.target.__data__.properties.name)) {
     const index = highlightedItems.indexOf(
       event.target.__data__.properties.name
     );
@@ -11,4 +15,5 @@ function onClickChoropleth(event) {
   }
   // updating line-chart based on highlighted items
   updateLineChart(filterSuicideData(), globalDataForestIncomeInflation); 
+  updateCustomBubbleChart(filterSuicideData(), filterGlobalDataForestIncomeInflation());
 }

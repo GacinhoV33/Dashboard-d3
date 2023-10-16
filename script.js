@@ -40,7 +40,6 @@ function startDashboard() {
 
   importFiles(file1, file2).then(function (results) {
     // Store the JSON data into globalDataCountries using topojson.feature
-    console.log(results[1]);
     globalDataCountries = topojson.feature(
       results[0],
       results[0].objects.countries

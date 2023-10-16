@@ -13,7 +13,7 @@ function handleMouseOverChoropleth(event, item) {
         return item.country == d.country;
       }
     })
-    .attr("stroke", "lime")
+    .attr("stroke", "red")
     .attr("cursor", "pointer");
 }
 
@@ -34,14 +34,20 @@ function handleMouseOutChoropleth(event, item) {
     .filter((item) => !highlightedItems.includes(item.properties.name))
     .attr("stroke", "#DDD");
 
-  // Set the fill color of each country based on its suicide ratio value
-  Object.entries(currentData).forEach((element) => {
-    d3.selectAll(".country.data")
-      .filter(function (d) {
-        return d.properties.name == element[0];
-      })
-      .attr("fill", colorScale(element[1]));
-  });
+  d3.selectAll(".data")
+    .filter(function (d) {
+      // Check if "properties" exist in both item and d objects
+      if ("properties" in item) {
+        if ("properties" in d) return item.properties.name == d.properties.name;
+        else return item.properties.name == d.country;
+      } else if ("properties" in d) {
+        return item.country == d.properties.name;
+      } else {
+        return item.country == d.country;
+      }
+    })
+    .attr("stroke", (d) => highlightedItems.includes(d.properties.name) ? "lime" : '#DDD')
+    .attr("cursor", "pointer");
   document.getElementById("d3_tooltip").style.opacity = 0;
 }
 

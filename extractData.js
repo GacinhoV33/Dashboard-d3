@@ -117,15 +117,21 @@ function calcForestNNIInflationRatio(data1, data2) {
       });
 
       countriesData[key] = {
-        forest_area: Number(Number(
-          countriesData[key].forest_area / countries[key].length
-        ).toPrecision(4)),
-        inflation: Number(Number(
-          countriesData[key].inflation / countries[key].length
-        ).toPrecision(4)),
-        adjusted_nni: Number(Number(
-          countriesData[key].adjusted_nni / countries[key].length
-        ).toPrecision(4)),
+        forest_area: Number(
+          Number(
+            countriesData[key].forest_area / countries[key].length
+          ).toPrecision(4)
+        ),
+        inflation: Number(
+          Number(
+            countriesData[key].inflation / countries[key].length
+          ).toPrecision(4)
+        ),
+        adjusted_nni: Number(
+          Number(
+            countriesData[key].adjusted_nni / countries[key].length
+          ).toPrecision(4)
+        ),
       };
     }
   }
@@ -140,13 +146,22 @@ function filterSuicideData() {
   return newData;
 }
 
+function filterGlobalDataForestIncomeInflation() {
+  var newData = globalDataForestIncomeInflation.filter((item) =>
+    highlightedItems.includes(item.country)
+  );
+  newData = newData.filter((item) => yearsArray.includes(item.year));
+  return newData;
+}
+
 function mergeTwoRatios(data1, data2) {
   for (const key in data1) {
     data2[key] = {
       inflation: data2[key].inflation,
       forest_area: data2[key].forest_area,
       adjusted_nni: data2[key].adjusted_nni,
-      suicide_ratio: data1[key]};
+      suicide_ratio: data1[key],
+    };
   }
   return data2;
 }
