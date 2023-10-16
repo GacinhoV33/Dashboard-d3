@@ -1,9 +1,9 @@
-const widthChoroplethChart = 400;
-const heightChoroplethChart = 800; // #TODO
+const widthChoroplethChart = 900;
+const heightChoroplethChart = 400; // #TODO
 
 function createChoroplethMap(data1, data2) {
   var choroplethData = extractData(data1, data2, "choroplethChart");
-  var dataSuicide = calcRatioForCountries(data1, data2);
+  var dataSuicide = calcSuicideRatioForCountries(data1, data2);
   const svg = d3
     .select("#ChoroplethChart")
     .append("svg")
@@ -93,6 +93,7 @@ function createChoroplethLegend(dataSuicide) {
     .attr("y1", "0%")
     .attr("x2", "100%")
     .attr("y2", "0%");
+
   gradient
     .append("stop")
     .attr("offset", "0%")
@@ -101,7 +102,7 @@ function createChoroplethLegend(dataSuicide) {
     .append("stop")
     .attr("offset", "100%")
     .attr("stop-color", d3.interpolateBlues(1));
-
+  console.log(d3.interpolateBlues(0));
   // Create the legend rectangle filled with the color scale gradient
   const legend = svgTitle.append("g").attr("transform", `translate(0, 40)`);
   const legendHeight = 50;

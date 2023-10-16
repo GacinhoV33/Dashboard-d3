@@ -85,15 +85,6 @@ text.copyright {
   font-size: 8px;
   fill: #999999;
 }
-.tooltip {
-  background-color: #ffffff;
-  font-family: lato;
-  font-size: 11px;
-  padding: 4px;
-  color: #666666;
-  border: none;
-  box-shadow: 0px 0px 3px 0px #E6E6E6;
-}
 .legend{
   font-size: 20px;
 }
@@ -111,8 +102,9 @@ text.copyright {
   display: flex;
   flex-direction: column;
   opacity: 0;
-  width: 160px;
-  height: 120px;
+  width: auto;
+  min-width: 190px;
+  height: 80px;
   position:absolute;
   color: black;
   background: #fafafa;
@@ -134,5 +126,18 @@ text.copyright {
 }
 
 #d3_suicide_ratio{
-  
+  margin: 5px;
+}
+
+#d3_income{
+  margin: 5px;
+}
+
+
+#d3_inflation{
+  margin: 5px;
+}
+
+#d3_forest_area{
+  margin: 5px;
 }

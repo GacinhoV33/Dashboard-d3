@@ -2,7 +2,6 @@ function updateLineChart(suicideData, inflationData) {
   // Select the SVG element of the line chart
   const data = extractData(suicideData, inflationData, "lineChart");
   const svg = d3.select("#lineChart").select("svg").select("g");
-    console.log(data);
   // Create x and y scales for the chart
   const xScale = d3
     .scaleBand()

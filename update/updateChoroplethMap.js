@@ -1,6 +1,6 @@
 function updateChoroplethChart(suicideData, inflationData) {
   // get data
-  var currentData = calcRatioForCountries(suicideData, inflationData);
+  var currentData = calcSuicideRatioForCountries(suicideData, inflationData);
 
   const colorScale = d3
     .scaleLog()
@@ -24,20 +24,9 @@ function updateChoroplethChart(suicideData, inflationData) {
   });
   // change scale based on new suicide_ratio
   d3.select("#choroplethTitle").select("svg").remove();
-  // d3.append("#choroplethTitle");
 
   createChoroplethLegend(currentData);
   // add the animation?
 
   // adding lines to keep highlighted items red even though data years were changed
-
-  d3.selectAll(".data")
-    .filter(function (d) {
-      // Check if "properties" exist in both item and d objects
-      if ("properties" in d)
-        return highlightedItems.includes(d.properties.name);
-      else return highlightedItems.includes(d.country);
-    })
-    .attr("fill", "red") // Change the fill color of the matching element
-    .attr("cursor", "pointer");
 }

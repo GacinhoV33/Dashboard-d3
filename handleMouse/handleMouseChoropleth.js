@@ -13,22 +13,20 @@ function handleMouseOverChoropleth(event, item) {
         return item.country == d.country;
       }
     })
-    .attr("fill", "red")// Change the fill color of the matching element
-    .attr("cursor", "pointer")
+    .attr("stroke", 'lime')
+    .attr("cursor", "pointer");
 }
 
 function handleMouseOutChoropleth(event, item) {
-  const data = calcRatioForCountries(
+  const data = calcSuicideRatioForCountries(
     globalDataSuicide,
     globalDataForestIncomeInflation
   );
-  
+
   // we are not affecting items that are currently highlighted
   if (highlightedItems.length > 0) {
     var currentData = Object.fromEntries(
-      Object.entries(data).filter((key) =>
-        !highlightedItems.includes(key[0])
-      )
+      Object.entries(data).filter((key) => !highlightedItems.includes(key[0]))
     );
   } else {
     var currentData = data;
@@ -44,7 +42,10 @@ function handleMouseOutChoropleth(event, item) {
     .range([0, 1]);
 
   // Reset the fill color of all elements with class "country data" to black, except highlighted one
-  d3.selectAll(".country.data").filter((item) => !highlightedItems.includes(item.properties.name)).attr("fill", "black");
+  d3.selectAll(".country.data")
+    .filter((item) => !highlightedItems.includes(item.properties.name))
+    // .attr("fill", "black");
+    .attr('stroke', '#DDD')
 
   // Set the fill color of each country based on its suicide ratio value
   Object.entries(currentData).forEach((element) => {
@@ -55,21 +56,33 @@ function handleMouseOutChoropleth(event, item) {
       .attr("fill", d3.interpolateBlues(colorScale(element[1])));
   });
   document.getElementById("d3_tooltip").style.opacity = 0;
-
-
 }
 
-
-function showChoroplethTooltip(event, item){
+function showChoroplethTooltip(event, item) {
   document.getElementById("d3_tooltip").style.opacity = 1;
-  document.getElementById("d3_header").textContent = `${
-    item.properties.name}`;
-  document.getElementById("d3_suicide_ratio").textContent = 'suicide_ratio';
-  document.getElementById("d3_inflation").textContent = 'inflation';
-  document.getElementById("d3_forest_area").textContent = 'forest area';
-  document.getElementById("d3_income").textContent = 'income';
-
   document.getElementById("d3_tooltip").style.left = `${event.clientX + 20}px`;
   document.getElementById("d3_tooltip").style.top = `${event.clientY}px`;
 
+  // show data if it is, otherwise show not available text
+  if (Object.keys(filteredYearDataSuicide).includes(item.properties.name)) {
+    document.getElementById(
+      "d3_header"
+    ).textContent = `${item.properties.name}`;
+    document.getElementById("d3_suicide_ratio").textContent = `suicide_ratio ${
+      filteredYearDataSuicide[item.properties.name]
+    }\u2030`;
+    document.getElementById("d3_inflation").textContent = "inflation";
+    document.getElementById("d3_forest_area").textContent = "forest area";
+    document.getElementById("d3_income").textContent = "income";
+  } else {
+    document.getElementById(
+      "d3_header"
+    ).textContent = `${item.properties.name}`;
+    document.getElementById(
+      "d3_suicide_ratio"
+    ).textContent = `Data not available`;
+    document.getElementById("d3_inflation").textContent = "";
+    document.getElementById("d3_forest_area").textContent = "";
+    document.getElementById("d3_income").textContent = "";
+  }
 }

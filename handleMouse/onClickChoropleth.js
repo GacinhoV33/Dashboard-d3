@@ -9,4 +9,6 @@ function onClickChoropleth(event) {
       highlightedItems.push(event.target.__data__.properties.name);
     }
   }
+  // updating line-chart based on highlighted items
+  updateLineChart(globalDataSuicide.filter((item) => highlightedItems.includes(item.country)), globalDataForestIncomeInflation); 
 }

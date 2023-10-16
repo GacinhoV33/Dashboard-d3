@@ -1,11 +1,12 @@
 // Declare a variable to hold the loaded JSON data.
 var globalDataSuicide;
 var globalDataForestIncomeInflation;
-var filteredGlobalDataSuicide;
+var filteredYearGlobalDataSuicide;
 var filteredGlobalDataForestIncomeInflation;
 var globalDataCountries;
 var highlightedItems = [];
 var availableCountries;
+var filteredYearDataSuicide;
 var yearsArray = [
   "2006",
   "2007",
@@ -62,11 +63,13 @@ function startDashboard() {
         // );
         createLineChart(globalDataSuicide, globalDataForestIncomeInflation);
         //utils
-        const suicideData = calcRatioForCountries(
+        const suicideData = calcSuicideRatioForCountries(
           globalDataSuicide,
           globalDataForestIncomeInflation
         );
-
+        const forestData = calcForestRatio(globalDataSuicide, globalDataForestIncomeInflation);
+        console.log(forestData);
+        filteredYearDataSuicide = suicideData;
         availableCountries = Object.keys(suicideData);
       });
     })
@@ -109,13 +112,16 @@ function filterYears(year) {
     }
   }
 
+  const filteredDataSuicide = globalDataSuicide.filter((item) => yearsArray.includes(item.year));
+  filteredYearDataSuicide = calcSuicideRatioForCountries(filteredDataSuicide, globalDataForestIncomeInflation);
   updateLineChart(
-    globalDataSuicide.filter((item) => yearsArray.includes(item.year)),
+    filteredDataSuicide,
     globalDataForestIncomeInflation
   );
 
   updateChoroplethChart(
-    globalDataSuicide.filter((item) => yearsArray.includes(item.year)),
+    filteredDataSuicide,
     globalDataForestIncomeInflation
   );
+
 }
