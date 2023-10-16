@@ -58,7 +58,7 @@ text {
   font-size: 10px;
   fill: #333333;
 }
-.grid path {
+/* .grid path {
   stroke-width: 0;
   stroke: #333333;
 }
@@ -87,7 +87,7 @@ text.copyright {
 }
 .legend{
   font-size: 20px;
-}
+} */
 
 .button-year{
   background-color: #fff;

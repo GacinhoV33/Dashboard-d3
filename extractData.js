@@ -92,13 +92,13 @@ function calcSuicideRatioForCountries(data1, data2) {
 }
 
 function calcForestNNIInflationRatio(data1, data2) {
-  const countries = data2.reduce((countries, object) => {
+  const countries = data2.reduce((countriesX, object) => {
     const key = object.country;
-    if (!countries[key]) {
-      countries[key] = [];
+    if (!countriesX[key]) {
+      countriesX[key] = [];
     }
-    countries[key].push(object);
-    return countries;
+    countriesX[key].push(object);
+    return countriesX;
   }, {});
   const countriesData = [];
   for (const key in countries) {
@@ -107,10 +107,6 @@ function calcForestNNIInflationRatio(data1, data2) {
         countriesData[key] = { forest_area: 0, inflation: 0, adjusted_nni: 0 };
       }
       countries[key].forEach((country) => {
-        countriesData[key].forest_area += Number(country.forest_area);
-        countriesData[key].inlation += Number(country.inflation);
-        countriesData[key].adjusted_nni += Number(country.adjusted_nni);
-
         countriesData[key] = {
           forest_area:
             countriesData[key].forest_area + Number(country.forest_area),

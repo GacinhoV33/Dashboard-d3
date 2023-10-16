@@ -1,15 +1,19 @@
-var widthCustom = 800;
-var heightCustom = 600;
+var widthCustom = 1000;
+var heightCustom = 350;
 
 function createCustomBubbleChart(data1, data2) {
   // Filter the data to remove entries with missing incomeperperson or alcconsumption values
-  var currentData = calcForestNNIInflationRatio(data1, data2);
+  var currentData = calcForestNNIInflationRatio(
+    data1,
+    data2.filter((d) => d.year == 2009)
+  );
   var suicideData = calcSuicideRatioForCountries(data1, data2);
   var suicideExtractedData = Object.entries(suicideData);
   var forestExtractedData = Object.entries(currentData);
   var mergedData = mergeTwoRatios(suicideData, currentData);
   var mergedDataExtracted = Object.entries(mergedData);
   console.log("IM THERE", mergedData);
+
   // Create an SVG element to hold the scatter plot
   const svg = d3
     .select("#customChart")
@@ -20,14 +24,14 @@ function createCustomBubbleChart(data1, data2) {
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Create x and y scales for the scatter plot
+  console.log(d3.min(mergedDataExtracted, (d) => d[1].inflation));
   const xScale = d3
-    .scaleLog()
+    .scaleLinear()
     .domain([
       d3.min(mergedDataExtracted, (d) => d[1].inflation),
       d3.max(mergedDataExtracted, (d) => d[1].inflation),
     ])
     .range([0, widthCustom]);
-  // console.log(forestExtractedData);
 
   const yScale = d3
     .scaleLinear()
@@ -35,7 +39,27 @@ function createCustomBubbleChart(data1, data2) {
       d3.min(mergedDataExtracted, (d) => d[1].suicide_ratio),
       d3.max(mergedDataExtracted, (d) => d[1].suicide_ratio),
     ])
-    .range([height, 0]);
+    .range([heightCustom, 0]);
+
+  const rScale = d3
+    .scaleLinear()
+    .domain([
+      d3.min(mergedDataExtracted, (d) => d[1].adjusted_nni),
+      d3.max(mergedDataExtracted, (d) => d[1].adjusted_nni),
+    ])
+    .range([3, 15]);
+
+  console.log(
+    "forest",
+    d3.min(mergedDataExtracted, (d) => d[1].inflation)
+  );
+  const colorScale = d3
+    .scaleLinear()
+    .domain([
+      d3.min(mergedDataExtracted, (d) => d[1].forest_area),
+      d3.max(mergedDataExtracted, (d) => d[1].forest_area),
+    ])
+    .range([0, 1]);
 
   // Add circles to the scatter plot representing each country
   svg
@@ -46,24 +70,35 @@ function createCustomBubbleChart(data1, data2) {
     .attr("class", "circle data")
     .attr("cx", (d) => xScale(d[1].inflation))
     .attr("cy", (d) => yScale(d[1].suicide_ratio))
-    .attr("r", 5)
-    .attr("fill", "steelblue")
+    .attr("r", (d) => rScale(d[1].adjusted_nni))
     .attr("data-original-fill", "steelblue")
     .attr("stroke", "black")
-    // .on("mouseover", handleMouseOver) // Function to handle mouseover event
-    // .on("mouseout", handleMouseOut) // Function to handle mouseout event
-    // .on("click", handleClick)
-    .append("title")
-    // .text((d) => d.country + tooltipSupport(d.country, currentData));
+    .attr("fill", (d) =>
+      d3.interpolateGreens(Number(colorScale(d[1].forest_area)))
+    );
+
+  // .on("mouseover", handleMouseOver) // Function to handle mouseover event
+  // .on("mouseout", handleMouseOut) // Function to handle mouseout event
+  // .on("click", handleClick)
+  // .append("title");
+  // .text((d) => d.country + tooltipSupport(d.country, currentData));
 
   // Create tick marks and labels for the x and y axes
   var xTicks = [];
-  var yTicks = [];
-  for (let index = 0; index <= 1; index += 0.25) {
-    xTicks.push(Math.round(xScale.invert(index * widthCustom)));
-    yTicks.push(Math.round(yScale.invert(index * heightCustom)));
+  var yTicks = [0];
+
+  let minVal = Math.round(d3.min(mergedDataExtracted, (d) => d[1].inflation));
+  let maxVal = Math.round(d3.max(mergedDataExtracted, (d) => d[1].inflation));
+  let range = Math.abs(maxVal - minVal);
+  for (let index = minVal; index <= range; index += 1) {
+    xTicks.push(index);
   }
 
+  let yMinVal = d3.min(mergedDataExtracted, (d) => d[1].suicide_ratio);
+  let yMaxVal = d3.max(mergedDataExtracted, (d) => d[1].suicide_ratio);
+  for (let index = 0; index <= 8; index += 1) {
+    yTicks.push((index * (Math.abs(yMaxVal - yMinVal) / 8)).toPrecision(2));
+  }
   svg
     .append("g")
     .attr("class", "x-axis")
@@ -85,7 +120,8 @@ function createCustomBubbleChart(data1, data2) {
         .tickFormat((d) => d)
         .tickValues(yTicks)
         .tickSizeOuter(0)
-    );
+    )
+    .attr("transform", "translate(200, 0)");
 
   // Add labels for the x and y axes
   svg
@@ -93,8 +129,9 @@ function createCustomBubbleChart(data1, data2) {
     .attr("class", "x-axis-label")
     .attr("x", widthCustom / 2)
     .attr("y", heightCustom + margin.top + 20)
+    .style("font-size", '20px')
     .style("text-anchor", "middle")
-    .text("Income per person");
+    .text("Inflation");
 
   svg
     .append("text")
@@ -102,6 +139,7 @@ function createCustomBubbleChart(data1, data2) {
     .attr("x", -heightCustom / 2)
     .attr("y", -margin.left + 30)
     .style("text-anchor", "middle")
+    .style("font-size", '20px')
     .attr("transform", "rotate(-90)")
-    .text("Alcohol Consumption");
+    .text("Suicide ratio");
 }
