@@ -22,15 +22,20 @@ function extractLineChart(data1, data2) {
       yearData[item.year] = { population: 0, suicides_no: 0 };
     }
     yearData[item.year] = {
-      population: Number(yearData[item.year].population) + Number(item.population),
-      suicides_no: Number(yearData[item.year].suicides_no) + Number(item.suicides_no),
+      population:
+        Number(yearData[item.year].population) + Number(item.population),
+      suicides_no:
+        Number(yearData[item.year].suicides_no) + Number(item.suicides_no),
     };
-  });   
-  
+  });
+
   const finalData = [];
   Object.entries(yearData).forEach((item) => {
-    finalData.push([Number(item[0]), Number(item[1].suicides_no)/Number(item[1].population)*1000]);
-  })
+    finalData.push([
+      Number(item[0]),
+      (Number(item[1].suicides_no) / Number(item[1].population)) * 1000,
+    ]);
+  });
   return finalData.sort((item1, item2) => item2[0] - item1[0]);
 }
 
@@ -60,7 +65,7 @@ function extractPyramidChart(data1, data2) {
   return null; //
 }
 
-function calcSuicideRatioForCountries(data1, data2){
+function calcSuicideRatioForCountries(data1, data2) {
   const countries = data1.reduce((countries, object) => {
     const key = object.country;
     if (!countries[key]) {
@@ -86,7 +91,7 @@ function calcSuicideRatioForCountries(data1, data2){
   return countriesData;
 }
 
-function calcForestRatio(data1, data2){
+function calcForestNNIInflationRatio(data1, data2) {
   const countries = data2.reduce((countries, object) => {
     const key = object.country;
     if (!countries[key]) {
@@ -99,22 +104,53 @@ function calcForestRatio(data1, data2){
   for (const key in countries) {
     if (countries.hasOwnProperty(key)) {
       if (!countriesData[key]) {
-        countriesData[key] = 0;
+        countriesData[key] = { forest_area: 0, inflation: 0, adjusted_nni: 0 };
       }
       countries[key].forEach((country) => {
-        countriesData[key] += Number(country.forest_area);
+        countriesData[key].forest_area += Number(country.forest_area);
+        countriesData[key].inlation += Number(country.inflation);
+        countriesData[key].adjusted_nni += Number(country.adjusted_nni);
+
+        countriesData[key] = {
+          forest_area:
+            countriesData[key].forest_area + Number(country.forest_area),
+          inflation: countriesData[key].inflation + Number(country.inflation),
+          adjusted_nni:
+            countriesData[key].adjusted_nni + Number(country.adjusted_nni),
+        };
       });
-      countriesData[key] = Number(
-        Number(countriesData[key] / countries[key].length).toPrecision(4)
-      );
+
+      countriesData[key] = {
+        forest_area: Number(Number(
+          countriesData[key].forest_area / countries[key].length
+        ).toPrecision(4)),
+        inflation: Number(Number(
+          countriesData[key].inflation / countries[key].length
+        ).toPrecision(4)),
+        adjusted_nni: Number(Number(
+          countriesData[key].adjusted_nni / countries[key].length
+        ).toPrecision(4)),
+      };
     }
   }
   return countriesData;
 }
 
-
-function filterSuicideData(){
-  var newData = globalDataSuicide.filter((item) => highlightedItems.includes(item.country));
+function filterSuicideData() {
+  var newData = globalDataSuicide.filter((item) =>
+    highlightedItems.includes(item.country)
+  );
   newData = newData.filter((item) => yearsArray.includes(item.year));
   return newData;
+}
+
+function mergeTwoRatios(data1, data2) {
+  for (const key in data1) {
+    data2[key] = {
+      inflation: data2[key].inflation,
+      forest_area: data2[key].forest_area,
+      adjusted_nni: data2[key].adjusted_nni,
+      suicide_ratio: data1[key]};
+  }
+  return data2;
 }

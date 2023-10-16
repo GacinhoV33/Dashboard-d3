@@ -125,12 +125,18 @@
       <div class="visualization" id="lineChart"></div>
       <div class="dashboard-row" id="second-row">
         <div class="choroplethContainer">
-          <div id="choroplethTitle"></div>
+          <svg width="495px" height="50px" id="scaleChoroplethCustom">
+            <g transform="translate(2.5, 10)" id="scaleCont">
+              <!-- Create the quantize scale -->
+              <g id="choroplethTitle" />
+        
+            </g>
+          </svg>
           <div class="visualization" id="ChoroplethChart"></div>
         </div>
         <div class="visualization" id="PyramidChart"></div>
       </div>
-      <div class="visualization" id="CustomBubbleChart">CustomPlot</div>
+      <div class="visualization" id="customChart">CustomPlot</div>
     </div>
   </body>
 </html>

@@ -3,6 +3,8 @@
 2. Data filtration affecting all charts 
 3. Change scale on ChoroplethChart to batches
 4. On click choropleth map highlight only the border
+5. Text on quantize scale doesn't change 
+
 #DONE 
 
 

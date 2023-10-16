@@ -59,7 +59,7 @@ function startDashboard() {
           globalDataSuicide,
           globalDataForestIncomeInflation
         );
-        const forestData = calcForestRatio(
+        const forestData = calcForestNNIInflationRatio(
           globalDataSuicide,
           globalDataForestIncomeInflation
         );
@@ -68,10 +68,10 @@ function startDashboard() {
         highlightedItems = JSON.parse(JSON.stringify(availableCountries)); //deep copy
         createChoroplethMap(globalDataSuicide, globalDataForestIncomeInflation);
         // createPyramidChart(globalDataSuicide, globalDataForestIncomeInflation);
-        // createCustomBubbleChart(
-        //   globalDataSuicide,
-        //   globalDataForestIncomeInflation
-        // );
+        createCustomBubbleChart(
+          globalDataSuicide,
+          globalDataForestIncomeInflation
+        );
         createLineChart(globalDataSuicide, globalDataForestIncomeInflation);
        
       });
@@ -115,10 +115,6 @@ function filterYears(year) {
   const filteredDataSuicide = globalDataSuicide.filter((item) =>
     yearsArray.includes(item.year)
   );
-  // filteredYearDataSuicide = calcSuicideRatioForCountries(
-  //   filteredDataSuicide,
-  //   globalDataForestIncomeInflation
-  // );
   updateLineChart(filteredDataSuicide, globalDataForestIncomeInflation);
 
   updateChoroplethChart(filteredDataSuicide, globalDataForestIncomeInflation);

@@ -13,7 +13,7 @@ function handleMouseOverChoropleth(event, item) {
         return item.country == d.country;
       }
     })
-    .attr("stroke", 'lime')
+    .attr("stroke", "lime")
     .attr("cursor", "pointer");
 }
 
@@ -24,18 +24,15 @@ function handleMouseOutChoropleth(event, item) {
   );
 
   // Create a color scale for the suicide ratio values
-  const colorScale = d3
-    .scaleLinear()
-    .domain([
-      d3.min(Object.values(currentData)),
-      d3.max(Object.values(currentData)),
-    ])
-    .range([0, 1]);
+  const colorScale = d3.scaleQuantize(
+    [d3.min(Object.values(currentData)), d3.max(Object.values(currentData))],
+    d3.schemeBlues[9]
+  );
 
   // Reset the fill color of all elements with class "country data" to black, except highlighted one
   d3.selectAll(".country.data")
     .filter((item) => !highlightedItems.includes(item.properties.name))
-    .attr('stroke', '#DDD')
+    .attr("stroke", "#DDD");
 
   // Set the fill color of each country based on its suicide ratio value
   Object.entries(currentData).forEach((element) => {
@@ -43,7 +40,7 @@ function handleMouseOutChoropleth(event, item) {
       .filter(function (d) {
         return d.properties.name == element[0];
       })
-      .attr("fill", d3.interpolateBlues(colorScale(element[1])));
+      .attr("fill", colorScale(element[1]));
   });
   document.getElementById("d3_tooltip").style.opacity = 0;
 }

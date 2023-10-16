@@ -2,13 +2,10 @@ function updateChoroplethChart(suicideData, inflationData) {
   // get data
   var currentData = calcSuicideRatioForCountries(suicideData, inflationData);
 
-  const colorScale = d3
-    .scaleLinear()
-    .domain([
-      d3.min(Object.values(currentData)),
-      d3.max(Object.values(currentData)),
-    ])
-    .range([0, 1]);
+  const colorScale = d3.scaleQuantize(
+    [d3.min(Object.values(currentData)), d3.max(Object.values(currentData))],
+    d3.schemeBlues[9]
+  );
   // make all countries black
 
   // print countries based on new suicide_ratio
@@ -17,11 +14,10 @@ function updateChoroplethChart(suicideData, inflationData) {
       .filter(function (d) {
         return d.properties.name == element[0];
       })
-      .attr("fill", d3.interpolateBlues(colorScale(element[1])));
+      .attr("fill", colorScale(element[1]));
   });
   // change scale based on new suicide_ratio
-  d3.select("#choroplethTitle").select("svg").remove();
-
+  d3.select("#choroplethTitle").empty();
   createChoroplethLegend(currentData);
   // add the animation?
 

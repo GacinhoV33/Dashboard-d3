@@ -11,13 +11,10 @@ function createChoroplethMap(data1, data2) {
 
   const mapGroup = svg.append("g");
 
-  const colorScale = d3
-    .scaleLinear()
-    .domain([
-      d3.min(Object.values(dataSuicide)),
-      d3.max(Object.values(dataSuicide)),
-    ])
-    .range([0, 1]);
+  const colorScale = d3.scaleQuantize(
+    [d3.min(Object.values(dataSuicide)), d3.max(Object.values(dataSuicide))],
+    d3.schemeBlues[9]
+  );
 
   const projection = d3
     .geoMercator()
@@ -49,7 +46,7 @@ function createChoroplethMap(data1, data2) {
       .filter(function (d) {
         return d.properties.name == element[0];
       })
-      .attr("fill", d3.interpolateBlues(colorScale(element[1])));
+      .attr("fill", colorScale(element[1]));
   });
 
   const zoom = d3
@@ -83,45 +80,44 @@ function createTooltipChoropleth(d, dataSuicide) {
 
 function createChoroplethLegend(dataSuicide) {
   // Create a legend for the choropleth map
+  const colorScale = d3.scaleQuantize(
+    [d3.min(Object.values(dataSuicide)), d3.max(Object.values(dataSuicide))],
+    d3.schemeBlues[9]
+  );
+
   const svgTitle = d3
     .select("#choroplethTitle")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height / 3);
+    .selectAll("rect")
+    .data(colorScale.range())
+    .enter()
+    .append("g")
+    .attr("transform", function (d, i) {
+      console.log(i);
+      let numb = i * 55;
+      numb = numb === 'Nan' ? 0 : numb;
+      return "translate(" + numb + ", 0)";
+    });
 
-  const defs = svgTitle.append("defs");
-  const gradient = defs
-    .append("linearGradient")
-    .attr("id", "colorScaleGradient")
-    .attr("x1", "0%")
-    .attr("y1", "0%")
-    .attr("x2", "100%")
-    .attr("y2", "0%");
-
-  gradient
-    .append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", d3.interpolateBlues(0));
-  gradient
-    .append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", d3.interpolateBlues(1));
-  // Create the legend rectangle filled with the color scale gradient
-  const legend = svgTitle.append("g").attr("transform", `translate(0, 40)`);
-  const legendHeight = 50;
-  const legendWidth = width - 50;
-  legend
+  svgTitle
     .append("rect")
-    .attr("width", legendWidth)
-    .attr("height", legendHeight)
-    .style("fill", "url(#colorScaleGradient)");
+    .attr("width", 50)
+    .attr("height", 20)
+    .style("fill", function (d) {
+      return d;
+    });
 
-  // Add tick marks and labels to the legend
-  for (let index = 0; index < 5; index += 1) {
-    legend
-      .append("text")
-      .attr("x", (legendWidth * index) / 4 - (index % 5) * 7)
-      .attr("y", legendHeight + 20)
-      .text(((d3.max(Object.values(dataSuicide)) / 4) * index).toPrecision(4));
-  }
+  let maxVal = d3.max(Object.values(dataSuicide));
+
+  svgTitle
+    .append("text")
+    .attr("x", 25)
+    .attr("y", 35)
+    .style("text-anchor", "middle")
+    .style("font-size", "9px")
+    .text(function (d, i) {
+      return `${((maxVal / 9) * i).toPrecision(
+        2
+      )} - ${((maxVal / 9) * (i + 1)).toPrecision(2)}`;
+    });
+
 }
