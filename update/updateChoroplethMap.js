@@ -3,16 +3,13 @@ function updateChoroplethChart(suicideData, inflationData) {
   var currentData = calcSuicideRatioForCountries(suicideData, inflationData);
 
   const colorScale = d3
-    .scaleLog()
+    .scaleLinear()
     .domain([
       d3.min(Object.values(currentData)),
       d3.max(Object.values(currentData)),
     ])
     .range([0, 1]);
   // make all countries black
-  d3.selectAll(".country.data")
-    .filter((item) => !highlightedItems.includes(item.properties.name))
-    .attr("fill", "black");
 
   // print countries based on new suicide_ratio
   Object.entries(currentData).forEach((element) => {

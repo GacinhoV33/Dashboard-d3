@@ -10,5 +10,5 @@ function onClickChoropleth(event) {
     }
   }
   // updating line-chart based on highlighted items
-  updateLineChart(globalDataSuicide.filter((item) => highlightedItems.includes(item.country)), globalDataForestIncomeInflation); 
+  updateLineChart(filterSuicideData(), globalDataForestIncomeInflation); 
 }

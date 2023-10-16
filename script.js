@@ -55,6 +55,17 @@ function startDashboard() {
     .then(() => {
       d3.csv("forest_area_adjusted_nni_inflation_ready_df.csv").then((data) => {
         globalDataForestIncomeInflation = data;
+        const suicideData = calcSuicideRatioForCountries(
+          globalDataSuicide,
+          globalDataForestIncomeInflation
+        );
+        const forestData = calcForestRatio(
+          globalDataSuicide,
+          globalDataForestIncomeInflation
+        );
+        filteredYearDataSuicide = suicideData;
+        availableCountries = Object.keys(suicideData);
+        highlightedItems = JSON.parse(JSON.stringify(availableCountries)); //deep copy
         createChoroplethMap(globalDataSuicide, globalDataForestIncomeInflation);
         // createPyramidChart(globalDataSuicide, globalDataForestIncomeInflation);
         // createCustomBubbleChart(
@@ -62,15 +73,7 @@ function startDashboard() {
         //   globalDataForestIncomeInflation
         // );
         createLineChart(globalDataSuicide, globalDataForestIncomeInflation);
-        //utils
-        const suicideData = calcSuicideRatioForCountries(
-          globalDataSuicide,
-          globalDataForestIncomeInflation
-        );
-        const forestData = calcForestRatio(globalDataSuicide, globalDataForestIncomeInflation);
-        console.log(forestData);
-        filteredYearDataSuicide = suicideData;
-        availableCountries = Object.keys(suicideData);
+       
       });
     })
     .catch((error) => {
@@ -80,7 +83,6 @@ function startDashboard() {
 }
 
 // // This function updates the visualizations based on the selected data type.
-
 
 function filterYears(year) {
   if (year === "all") {
@@ -98,30 +100,26 @@ function filterYears(year) {
       "2016",
     ];
     yearsArray.forEach((year) => {
-      document.getElementById(`button-${year}`).style.border = '1px red solid';
+      document.getElementById(`button-${year}`).style.border = "1px red solid";
     });
   } else {
     if (yearsArray.includes(year)) {
       yearsArray = yearsArray.filter((item) => item !== year);
-      document.getElementById(`button-${year}`).style.border = '1px solid #ccc';
-
+      document.getElementById(`button-${year}`).style.border = "1px solid #ccc";
     } else {
       yearsArray.push(year);
-      document.getElementById(`button-${year}`).style.border = '1px red solid';
-
+      document.getElementById(`button-${year}`).style.border = "1px red solid";
     }
   }
 
-  const filteredDataSuicide = globalDataSuicide.filter((item) => yearsArray.includes(item.year));
-  filteredYearDataSuicide = calcSuicideRatioForCountries(filteredDataSuicide, globalDataForestIncomeInflation);
-  updateLineChart(
-    filteredDataSuicide,
-    globalDataForestIncomeInflation
+  const filteredDataSuicide = globalDataSuicide.filter((item) =>
+    yearsArray.includes(item.year)
   );
+  // filteredYearDataSuicide = calcSuicideRatioForCountries(
+  //   filteredDataSuicide,
+  //   globalDataForestIncomeInflation
+  // );
+  updateLineChart(filteredDataSuicide, globalDataForestIncomeInflation);
 
-  updateChoroplethChart(
-    filteredDataSuicide,
-    globalDataForestIncomeInflation
-  );
-
+  updateChoroplethChart(filteredDataSuicide, globalDataForestIncomeInflation);
 }

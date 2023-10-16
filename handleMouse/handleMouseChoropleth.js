@@ -18,23 +18,14 @@ function handleMouseOverChoropleth(event, item) {
 }
 
 function handleMouseOutChoropleth(event, item) {
-  const data = calcSuicideRatioForCountries(
-    globalDataSuicide,
+  const currentData = calcSuicideRatioForCountries(
+    filterSuicideData(),
     globalDataForestIncomeInflation
   );
 
-  // we are not affecting items that are currently highlighted
-  if (highlightedItems.length > 0) {
-    var currentData = Object.fromEntries(
-      Object.entries(data).filter((key) => !highlightedItems.includes(key[0]))
-    );
-  } else {
-    var currentData = data;
-  }
-
   // Create a color scale for the suicide ratio values
   const colorScale = d3
-    .scaleLog()
+    .scaleLinear()
     .domain([
       d3.min(Object.values(currentData)),
       d3.max(Object.values(currentData)),
@@ -44,7 +35,6 @@ function handleMouseOutChoropleth(event, item) {
   // Reset the fill color of all elements with class "country data" to black, except highlighted one
   d3.selectAll(".country.data")
     .filter((item) => !highlightedItems.includes(item.properties.name))
-    // .attr("fill", "black");
     .attr('stroke', '#DDD')
 
   // Set the fill color of each country based on its suicide ratio value

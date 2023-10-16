@@ -111,3 +111,10 @@ function calcForestRatio(data1, data2){
   }
   return countriesData;
 }
+
+
+function filterSuicideData(){
+  var newData = globalDataSuicide.filter((item) => highlightedItems.includes(item.country));
+  newData = newData.filter((item) => yearsArray.includes(item.year));
+  return newData;
+}

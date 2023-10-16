@@ -2,7 +2,6 @@ const widthChoroplethChart = 900;
 const heightChoroplethChart = 400; // #TODO
 
 function createChoroplethMap(data1, data2) {
-  var choroplethData = extractData(data1, data2, "choroplethChart");
   var dataSuicide = calcSuicideRatioForCountries(data1, data2);
   const svg = d3
     .select("#ChoroplethChart")
@@ -13,7 +12,7 @@ function createChoroplethMap(data1, data2) {
   const mapGroup = svg.append("g");
 
   const colorScale = d3
-    .scaleLog()
+    .scaleLinear()
     .domain([
       d3.min(Object.values(dataSuicide)),
       d3.max(Object.values(dataSuicide)),
@@ -38,6 +37,11 @@ function createChoroplethMap(data1, data2) {
     .on("mouseout", handleMouseOutChoropleth) // Function to handle mouseout event
     .on("click", (item) => onClickChoropleth(item))
     .append("title");
+
+  // color border of countries
+  d3.selectAll(".country.data")
+    .filter((item) => highlightedItems.includes(item.properties.name))
+    .attr("stroke", "lime");
 
   Object.entries(dataSuicide).forEach((element) => {
     mapGroup
@@ -102,7 +106,6 @@ function createChoroplethLegend(dataSuicide) {
     .append("stop")
     .attr("offset", "100%")
     .attr("stop-color", d3.interpolateBlues(1));
-  console.log(d3.interpolateBlues(0));
   // Create the legend rectangle filled with the color scale gradient
   const legend = svgTitle.append("g").attr("transform", `translate(0, 40)`);
   const legendHeight = 50;
