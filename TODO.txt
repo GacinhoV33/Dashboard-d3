@@ -4,7 +4,8 @@
 3. Change scale on ChoroplethChart to batches
 4. On click choropleth map highlight only the border
 5. Text on quantize scale doesn't change 
-
+6. Crossing x/y on Custom plot don't look good
+7. When click All
 #DONE 
 
 

@@ -3,13 +3,8 @@ var heightCustom = 350;
 
 function createCustomBubbleChart(data1, data2) {
   // Filter the data to remove entries with missing incomeperperson or alcconsumption values
-  var currentData = calcForestNNIInflationRatio(
-    data1,
-    data2.filter((d) => d.year == 2009)
-  );
+  var currentData = calcForestNNIInflationRatio(data1, data2);
   var suicideData = calcSuicideRatioForCountries(data1, data2);
-  var suicideExtractedData = Object.entries(suicideData);
-  var forestExtractedData = Object.entries(currentData);
   var mergedData = mergeTwoRatios(suicideData, currentData);
   var mergedDataExtracted = Object.entries(mergedData);
 
@@ -86,8 +81,8 @@ function createCustomBubbleChart(data1, data2) {
   var xTicks = [];
   var yTicks = [0];
 
-  let minVal = Math.round(d3.min(mergedDataExtracted, (d) => d[1].inflation));
-  let maxVal = Math.round(d3.max(mergedDataExtracted, (d) => d[1].inflation));
+  let minVal = Math.round(d3.min(mergedDataExtracted, (d) => d[1].inflation)) - 1;
+  let maxVal = Math.round(d3.max(mergedDataExtracted, (d) => d[1].inflation)) + 1;
   let range = Math.abs(maxVal - minVal);
   for (let index = minVal; index <= range; index += 1) {
     xTicks.push(index);

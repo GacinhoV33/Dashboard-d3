@@ -1,7 +1,7 @@
 function extractData(data1, data2, chartType) {
   switch (chartType) {
     case "lineChart":
-      return extractLineChart(data1, data2);
+      return extractLineChart(data1);
     case "customChart":
       return extractCustomChart(data1, data2);
     case "choroplethChart":
@@ -13,7 +13,7 @@ function extractData(data1, data2, chartType) {
   }
 }
 
-function extractLineChart(data1, data2) {
+function extractLineChart(data1) {
   // 1. Year x-axis
   // 2. Average Suicide ratio for chosen data y-axis
   const yearData = [];

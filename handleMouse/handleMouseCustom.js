@@ -6,19 +6,27 @@ function handleMouseOverCustom(event, item) {
 }
 
 function handleMouseOutCustom(event, item) {
-  d3.selectAll(".circle")
-    .attr("stroke", (d) => highlightedItems.includes(d[0]) ? "lime" : "black");
+  d3.selectAll(".circle").attr("stroke", (d) =>
+    highlightedItems.includes(d[0]) ? "lime" : "black"
+  );
 }
 
 function onClickBubble(event, item) {
+  if(highlightedItems.length === 71){
+    highlightedItems = [item[0]];
+  }
   if (highlightedItems.includes(item[0])) {
-    const index = highlightedItems.indexOf(
-      item[0]
-    );
+    const index = highlightedItems.indexOf(item[0]);
     highlightedItems.splice(index, 1);
   } else {
     if (availableCountries.includes(item[0])) {
       highlightedItems.push(item[0]);
     }
   }
+  updateLineChart(filterSuicideData());
+  updateChoroplethChart(filterSuicideData());
+  updateCustomBubbleChart(
+    filterSuicideData(),
+    filterGlobalDataForestIncomeInflation()
+  );
 }

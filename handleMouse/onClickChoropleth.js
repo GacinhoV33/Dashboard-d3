@@ -14,6 +14,6 @@ function onClickChoropleth(event) {
     }
   }
   // updating line-chart based on highlighted items
-  updateLineChart(filterSuicideData(), globalDataForestIncomeInflation); 
+  updateLineChart(filterSuicideData()); 
   updateCustomBubbleChart(filterSuicideData(), filterGlobalDataForestIncomeInflation());
 }

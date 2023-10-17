@@ -72,7 +72,6 @@ function startDashboard() {
           globalDataForestIncomeInflation
         );
         createLineChart(globalDataSuicide, globalDataForestIncomeInflation);
-       
       });
     })
     .catch((error) => {
@@ -111,10 +110,20 @@ function filterYears(year) {
     }
   }
 
-  const filteredDataSuicide = globalDataSuicide.filter((item) =>
-    yearsArray.includes(item.year)
-  );
-  updateLineChart(filteredDataSuicide, globalDataForestIncomeInflation);
+  const filteredDataSuicide = globalDataSuicide
+    .filter((item) => yearsArray.includes(item.year))
+    .filter((d) => highlightedItems.includes(d.country));
 
-  updateChoroplethChart(filteredDataSuicide, globalDataForestIncomeInflation);
+  const filteredDataForestIncomeInflation = globalDataForestIncomeInflation
+    .filter((d) => yearsArray.includes(d.year))
+    .filter((d) => highlightedItems.includes(d.country));
+
+  updateLineChart(filteredDataSuicide);
+
+  updateChoroplethChart(filteredDataSuicide, filteredDataForestIncomeInflation);
+
+  updateCustomBubbleChart(
+    filteredDataSuicide,
+    filteredDataForestIncomeInflation
+  );
 }
