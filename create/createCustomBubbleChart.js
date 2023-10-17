@@ -1,5 +1,5 @@
-var widthCustom = 1000;
-var heightCustom = 300;
+var widthCustom = 1500;
+var heightCustom = 290;
 
 function createCustomBubbleChart(data1, data2) {
   // Filter the data to remove entries with missing incomeperperson or alcconsumption values
@@ -18,29 +18,28 @@ function createCustomBubbleChart(data1, data2) {
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Create x and y scales for the scatter plot
-  const xScale = d3.scaleLinear().domain([-7, 32]).range([0, widthCustom]);
+  const xScale = d3.scaleLinear().domain([-5, 19]).range([0, widthCustom]);
 
   const yScale = d3
     .scaleLinear()
     .domain([
-      d3.min(mergedDataExtracted, (d) => d[1].suicide_ratio),
-      d3.max(mergedDataExtracted, (d) => d[1].suicide_ratio),
+      0, 0.45
     ])
     .range([heightCustom, 0]);
 
   const rScale = d3
     .scaleLinear()
     .domain([
-      d3.min(mergedDataExtracted, (d) => d[1].adjusted_nni),
-      d3.max(mergedDataExtracted, (d) => d[1].adjusted_nni),
+      d3.min(mergedDataExtractedBase, (d) => d[1].adjusted_nni),
+      d3.max(mergedDataExtractedBase, (d) => d[1].adjusted_nni),
     ])
-    .range([3, 15]);
+    .range([8, 20]);
 
   const colorScale = d3
     .scaleLinear()
     .domain([
-      d3.min(mergedDataExtracted, (d) => d[1].forest_area),
-      d3.max(mergedDataExtracted, (d) => d[1].forest_area),
+      d3.min(mergedDataExtractedBase, (d) => d[1].forest_area),
+      d3.max(mergedDataExtractedBase  , (d) => d[1].forest_area),
     ])
     .range([0, 1]);
 
@@ -71,10 +70,8 @@ function createCustomBubbleChart(data1, data2) {
 
   // Create tick marks and labels for the x and y axes
   var xTicks = [];
-  var yTicks = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4];
+  var yTicks = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45];
 
-  // let minVal = Math.round(d3.min(mergedDataExtracted, (d) => d[1].inflation)) - 1;
-  // let maxVal = Math.round(d3.max(mergedDataExtracted, (d) => d[1].inflation)) + 1;
   let minVal = -7;
   let maxVal = 32;
   let range = Math.abs(maxVal - minVal);
