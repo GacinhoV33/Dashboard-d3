@@ -1,13 +1,13 @@
 const widthChoroplethChart = 900;
-const heightChoroplethChart = 400; // #TODO
+const heightChoroplethChart = 280; // #TODO
 
 function createChoroplethMap(data1, data2) {
   var dataSuicide = calcSuicideRatioForCountries(data1, data2);
   const svg = d3
     .select("#ChoroplethChart")
     .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("width", widthChoroplethChart)
+    .attr("height", heightChoroplethChart);
 
   const mapGroup = svg.append("g");
 
@@ -18,8 +18,10 @@ function createChoroplethMap(data1, data2) {
 
   const projection = d3
     .geoMercator()
-    .fitSize([width, height], globalDataCountries);
-
+    .fitSize(
+      [widthChoroplethChart, heightChoroplethChart],
+      globalDataCountries
+    );
   const path = d3.geoPath().projection(projection);
 
   mapGroup
@@ -54,7 +56,7 @@ function createChoroplethMap(data1, data2) {
     .scaleExtent([1, 8])
     .translateExtent([
       [0, 0],
-      [width, height],
+      [widthChoroplethChart, heightChoroplethChart],
     ])
     .on("zoom", zoomed);
 
@@ -92,14 +94,14 @@ function createChoroplethLegend(dataSuicide) {
     .enter()
     .append("g")
     .attr("transform", function (d, i) {
-      let numb = i * 55;
-      numb = numb === 'Nan' ? 0 : numb;
+      let numb = i * 77 + 2;
+      numb = numb === "Nan" ? 0 : numb;
       return "translate(" + numb + ", 0)";
     });
 
   svgTitle
     .append("rect")
-    .attr("width", 50)
+    .attr("width", 76)
     .attr("height", 20)
     .style("fill", function (d) {
       return d;
@@ -109,7 +111,7 @@ function createChoroplethLegend(dataSuicide) {
 
   svgTitle
     .append("text")
-    .attr("x", 25)
+    .attr("x", 40)
     .attr("y", 35)
     .style("text-anchor", "middle")
     .style("font-size", "9px")
@@ -118,5 +120,4 @@ function createChoroplethLegend(dataSuicide) {
         2
       )} - ${((maxVal / 9) * (i + 1)).toPrecision(2)}`;
     });
-
 }

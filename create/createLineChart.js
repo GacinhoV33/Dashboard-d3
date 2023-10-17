@@ -1,5 +1,5 @@
 const widthLineChart = 1200 - margin.left - margin.right;
-const heightLineChart = 120 - margin.top - margin.bottom;
+const heightLineChart = 175 - margin.top - margin.bottom;
 
 function createLineChart(data1, data2) {
   var lineChartData = extractData(data1, data2, "lineChart");

@@ -1,5 +1,5 @@
 var widthCustom = 1000;
-var heightCustom = 350;
+var heightCustom = 300;
 
 function createCustomBubbleChart(data1, data2) {
   // Filter the data to remove entries with missing incomeperperson or alcconsumption values
@@ -117,7 +117,7 @@ function createCustomBubbleChart(data1, data2) {
     .attr("class", "x-axis-label")
     .attr("x", widthCustom / 2)
     .attr("y", heightCustom + margin.top + 20)
-    .style("font-size", "16px")
+    .style("font-size", "18px")
     .style("text-anchor", "middle")
     .text("Inflation %");
 
@@ -127,7 +127,7 @@ function createCustomBubbleChart(data1, data2) {
     .attr("x", -heightCustom / 2)
     .attr("y", -margin.left + 30)
     .style("text-anchor", "middle")
-    .style("font-size", "20px")
+    .style("font-size", "18px")
     .attr("transform", "rotate(-90)")
     .text("Suicide ratio \u2030");
 }

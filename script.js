@@ -7,6 +7,7 @@ var globalDataCountries;
 var highlightedItems = [];
 var availableCountries;
 var filteredYearDataSuicide;
+var filteredYearForestIncomeNNIData;
 var yearsArray = [
   "2006",
   "2007",
@@ -63,6 +64,7 @@ function startDashboard() {
           globalDataForestIncomeInflation
         );
         filteredYearDataSuicide = suicideData;
+        filteredYearForestIncomeNNIData = forestData;
         availableCountries = Object.keys(suicideData);
         highlightedItems = JSON.parse(JSON.stringify(availableCountries)); //deep copy
         createChoroplethMap(globalDataSuicide, globalDataForestIncomeInflation);

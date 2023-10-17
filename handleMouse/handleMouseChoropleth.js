@@ -15,7 +15,6 @@ function handleMouseOverChoropleth(event, item) {
     })
     .attr("stroke", "red")
     .attr("cursor", "pointer");
-  console.log(item);
 
   // Custom chart stuff
   d3.selectAll(".circle")
@@ -62,7 +61,10 @@ function handleMouseOutChoropleth(event, item) {
   // Custom chart stuff
   d3.selectAll(".circle")
     .filter((d) => item.properties.name === d[0])
-    .attr("stroke", highlightedItems.includes(item.properties.name) ? "lime" : "black");
+    .attr(
+      "stroke",
+      highlightedItems.includes(item.properties.name) ? "lime" : "black"
+    );
 }
 
 function showTooltip(event, item) {
@@ -78,9 +80,15 @@ function showTooltip(event, item) {
     document.getElementById("d3_suicide_ratio").textContent = `suicide_ratio ${
       filteredYearDataSuicide[item.properties.name]
     }\u2030`;
-    document.getElementById("d3_inflation").textContent = "inflation";
-    document.getElementById("d3_forest_area").textContent = "forest area";
-    document.getElementById("d3_income").textContent = "income";
+    document.getElementById("d3_inflation").textContent = `Inflation - ${
+      filteredYearForestIncomeNNIData[item.properties.name].inflation
+    }%`;
+    document.getElementById("d3_forest_area").textContent = `Forest area - ${
+      filteredYearForestIncomeNNIData[item.properties.name].forest_area
+    }%`;
+    document.getElementById("d3_income").textContent = `Adjusted NNI - ${
+      filteredYearForestIncomeNNIData[item.properties.name].adjusted_nni
+    }$`;
   } else {
     document.getElementById(
       "d3_header"
