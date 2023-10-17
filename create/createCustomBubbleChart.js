@@ -18,13 +18,7 @@ function createCustomBubbleChart(data1, data2) {
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Create x and y scales for the scatter plot
-  const xScale = d3
-    .scaleLinear()
-    .domain([
-      d3.min(mergedDataExtracted, (d) => d[1].inflation),
-      d3.max(mergedDataExtracted, (d) => d[1].inflation),
-    ])
-    .range([0, widthCustom]);
+  const xScale = d3.scaleLinear().domain([-7, 32]).range([0, widthCustom]);
 
   const yScale = d3
     .scaleLinear()
@@ -68,8 +62,6 @@ function createCustomBubbleChart(data1, data2) {
     .on("mouseover", handleMouseOverCustom) // Function to handle mouseover event
     .on("mouseout", handleMouseOutCustom) // Function to handle mouseout event
     .on("click", onClickBubble);
-  // .append("title");
-  // .text((d) => d.country + tooltipSupport(d.country, currentData));
 
   //highlighted items
   svg
@@ -79,10 +71,12 @@ function createCustomBubbleChart(data1, data2) {
 
   // Create tick marks and labels for the x and y axes
   var xTicks = [];
-  var yTicks = [0];
+  var yTicks = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4];
 
-  let minVal = Math.round(d3.min(mergedDataExtracted, (d) => d[1].inflation)) - 1;
-  let maxVal = Math.round(d3.max(mergedDataExtracted, (d) => d[1].inflation)) + 1;
+  // let minVal = Math.round(d3.min(mergedDataExtracted, (d) => d[1].inflation)) - 1;
+  // let maxVal = Math.round(d3.max(mergedDataExtracted, (d) => d[1].inflation)) + 1;
+  let minVal = -7;
+  let maxVal = 32;
   let range = Math.abs(maxVal - minVal);
   for (let index = minVal; index <= range; index += 1) {
     xTicks.push(index);
@@ -90,9 +84,9 @@ function createCustomBubbleChart(data1, data2) {
 
   let yMinVal = d3.min(mergedDataExtracted, (d) => d[1].suicide_ratio);
   let yMaxVal = d3.max(mergedDataExtracted, (d) => d[1].suicide_ratio);
-  for (let index = 0; index <= 8; index += 1) {
-    yTicks.push((index * (Math.abs(yMaxVal - yMinVal) / 8)).toPrecision(2));
-  }
+  // for (let index = 0; index <= 8; index += 1) {
+  //   yTicks.push((index * (Math.abs(yMaxVal - yMinVal) / 8)).toPrecision(2));
+  // }
   svg
     .append("g")
     .attr("class", "x-axis")
@@ -123,9 +117,9 @@ function createCustomBubbleChart(data1, data2) {
     .attr("class", "x-axis-label")
     .attr("x", widthCustom / 2)
     .attr("y", heightCustom + margin.top + 20)
-    .style("font-size", "20px")
+    .style("font-size", "16px")
     .style("text-anchor", "middle")
-    .text("Inflation");
+    .text("Inflation %");
 
   svg
     .append("text")
@@ -135,5 +129,5 @@ function createCustomBubbleChart(data1, data2) {
     .style("text-anchor", "middle")
     .style("font-size", "20px")
     .attr("transform", "rotate(-90)")
-    .text("Suicide ratio");
+    .text("Suicide ratio \u2030");
 }

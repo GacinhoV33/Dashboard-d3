@@ -1,5 +1,5 @@
 const widthLineChart = 1200 - margin.left - margin.right;
-const heightLineChart = 200 - margin.top - margin.bottom;
+const heightLineChart = 120 - margin.top - margin.bottom;
 
 function createLineChart(data1, data2) {
   var lineChartData = extractData(data1, data2, "lineChart");
@@ -46,8 +46,6 @@ function createLineChart(data1, data2) {
     .attr("r", 5)
     .attr("fill", "steelblue")
     .attr("stroke", "black")
-    // .on("mouseover", handleMouseOverChoropleth)
-    // .on("mouseout", handleMouseOutChoropleth)
     .append("title")
     .text((d) => d[1]);
 

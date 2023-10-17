@@ -1,6 +1,6 @@
 function handleMouseOverChoropleth(event, item) {
   // Select all elements with class "data" and filter based on the item's properties
-  showChoroplethTooltip(event, item);
+  showTooltip(event, item);
   d3.selectAll(".data")
     .filter(function (d) {
       // Check if "properties" exist in both item and d objects
@@ -15,6 +15,12 @@ function handleMouseOverChoropleth(event, item) {
     })
     .attr("stroke", "red")
     .attr("cursor", "pointer");
+  console.log(item);
+
+  // Custom chart stuff
+  d3.selectAll(".circle")
+    .filter((d) => item.properties.name === d[0])
+    .attr("stroke", "red");
 }
 
 function handleMouseOutChoropleth(event, item) {
@@ -46,12 +52,20 @@ function handleMouseOutChoropleth(event, item) {
         return item.country == d.country;
       }
     })
-    .attr("stroke", (d) => highlightedItems.includes(d.properties.name) ? "lime" : '#DDD')
+    .attr("stroke", (d) =>
+      highlightedItems.includes(d.properties.name) ? "lime" : "#DDD"
+    )
     .attr("cursor", "pointer");
+
   document.getElementById("d3_tooltip").style.opacity = 0;
+
+  // Custom chart stuff
+  d3.selectAll(".circle")
+    .filter((d) => item.properties.name === d[0])
+    .attr("stroke", highlightedItems.includes(item.properties.name) ? "lime" : "black");
 }
 
-function showChoroplethTooltip(event, item) {
+function showTooltip(event, item) {
   document.getElementById("d3_tooltip").style.opacity = 1;
   document.getElementById("d3_tooltip").style.left = `${event.clientX + 20}px`;
   document.getElementById("d3_tooltip").style.top = `${event.clientY}px`;

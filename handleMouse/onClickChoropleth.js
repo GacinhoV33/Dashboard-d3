@@ -1,5 +1,4 @@
 function onClickChoropleth(event) {
-  console.log(highlightedItems.length);
   if(highlightedItems.length === 71){
     highlightedItems = [event.target.__data__.properties.name];
   }

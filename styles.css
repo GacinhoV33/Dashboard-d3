@@ -1,9 +1,9 @@
 .dashboard {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 2.5fr 2.5fr;
-  gap: 20px;
-  padding: 20px;
+  grid-template-rows: 1fr 2fr 2fr;
+  gap: 10px;
+  padding: 10px;
 }
 
 .dashboard-row{
@@ -28,13 +28,11 @@
 
 .button-container {
   text-align: center;
-  margin-bottom: 5px;
 }
 
 .button-container button {
-  margin: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 10px 10px;
+  font-size: 14px;
 }
 
 body{
@@ -58,36 +56,6 @@ text {
   font-size: 10px;
   fill: #333333;
 }
-/* .grid path {
-  stroke-width: 0;
-  stroke: #333333;
-}
-.grid .tick line {
-  stroke: #333333;
-  stroke-width: 0.3px;
-  stroke-opacity: 0.3;
-}
-text.chart-title {
-  font-size: 24px;
-  font-weight: bold;
-  fill:#222222
-}
-text.chart-label {
-  font-size: 20px;
-  font-weight: 400;
-  fill: #999999;
-}
-text.chart-source {
-  font-size: 22px;
-  fill: #999999;
-}
-text.copyright {
-  font-size: 8px;
-  fill: #999999;
-}
-.legend{
-  font-size: 20px;
-} */
 
 .button-year{
   background-color: #fff;
