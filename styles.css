@@ -119,3 +119,15 @@ text {
   background-color: #CBDECB;
   border-radius: 5px;
 }
+
+#scaleBubbleChart{
+  border: 1px solid black;
+  background-color: #CBDECB;
+  border-radius: 5px;
+}
+
+#scaleCircleBubbleChart{
+  border: 1px solid black;
+  background-color: #CBDECB;
+  border-radius: 5px;
+}

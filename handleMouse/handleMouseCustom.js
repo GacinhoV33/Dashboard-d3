@@ -41,6 +41,9 @@ function onClickBubble(event, item) {
     if (highlightedItems.includes(item[0])) {
       const index = highlightedItems.indexOf(item[0]);
       highlightedItems.splice(index, 1);
+      if (highlightedItems.length === 0) {
+        highlightedItems = availableCountries;
+      }
     } else {
       if (availableCountries.includes(item[0])) {
         highlightedItems.push(item[0]);
@@ -57,7 +60,7 @@ function onClickBubble(event, item) {
   updateCustomBubbleChart(
     globalDataSuicide.filter((item) => yearsArray.includes(item.year)),
     globalDataForestIncomeInflation.filter((item) =>
-      highlightedItems.includes(item.country)
+      yearsArray.includes(item.year)
     )
   );
 }

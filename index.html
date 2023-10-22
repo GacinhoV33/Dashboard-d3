@@ -3,7 +3,7 @@
   <head>
     <title>Dashboard</title>
     <!-- Styling for the dashboard -->
-    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="styles.css" />
     <!-- Load the D3.js library for data visualization -->
     <script src="d3.v7.js"></script>
     <script src="topojson.js"></script>
@@ -38,88 +38,88 @@
       </div>
     </div>
     <!-- Buttons to update the data visualization -->
-      <div class="button-container">
-        <button
-          onClick="filterYears('2006')"
-          class="button-year"
-          id="button-2006"
-        >
-          2006
-        </button>
-        <button
-          onClick="filterYears('2007')"
-          class="button-year"
-          id="button-2007"
-        >
-          2007
-        </button>
-        <button
-          onClick="filterYears('2008')"
-          class="button-year"
-          id="button-2008"
-        >
-          2008
-        </button>
-        <button
-          onClick="filterYears('2009')"
-          class="button-year"
-          id="button-2009"
-        >
-          2009
-        </button>
-        <button
-          onClick="filterYears('2010')"
-          class="button-year"
-          id="button-2010"
-        >
-          2010
-        </button>
-        <button
-          onClick="filterYears('2011')"
-          class="button-year"
-          id="button-2011"
-        >
-          2011
-        </button>
-        <button
-          onClick="filterYears('2012')"
-          class="button-year"
-          id="button-2012"
-        >
-          2012
-        </button>
-        <button
-          onClick="filterYears('2013')"
-          class="button-year"
-          id="button-2013"
-        >
-          2013
-        </button>
-        <button
-          onClick="filterYears('2014')"
-          class="button-year"
-          id="button-2014"
-        >
-          2014
-        </button>
-        <button
-          onClick="filterYears('2015')"
-          class="button-year"
-          id="button-2015"
-        >
-          2015
-        </button>
-        <button
-          onClick="filterYears('2016')"
-          class="button-year"
-          id="button-2016"
-        >
-          2016
-        </button>
-        <button onClick="filterYears('all')" class="button-yera" id="button-all">
-          All
-        </button>
-      </div>
+    <div class="button-container">
+      <button
+        onClick="filterYears('2006')"
+        class="button-year"
+        id="button-2006"
+      >
+        2006
+      </button>
+      <button
+        onClick="filterYears('2007')"
+        class="button-year"
+        id="button-2007"
+      >
+        2007
+      </button>
+      <button
+        onClick="filterYears('2008')"
+        class="button-year"
+        id="button-2008"
+      >
+        2008
+      </button>
+      <button
+        onClick="filterYears('2009')"
+        class="button-year"
+        id="button-2009"
+      >
+        2009
+      </button>
+      <button
+        onClick="filterYears('2010')"
+        class="button-year"
+        id="button-2010"
+      >
+        2010
+      </button>
+      <button
+        onClick="filterYears('2011')"
+        class="button-year"
+        id="button-2011"
+      >
+        2011
+      </button>
+      <button
+        onClick="filterYears('2012')"
+        class="button-year"
+        id="button-2012"
+      >
+        2012
+      </button>
+      <button
+        onClick="filterYears('2013')"
+        class="button-year"
+        id="button-2013"
+      >
+        2013
+      </button>
+      <button
+        onClick="filterYears('2014')"
+        class="button-year"
+        id="button-2014"
+      >
+        2014
+      </button>
+      <button
+        onClick="filterYears('2015')"
+        class="button-year"
+        id="button-2015"
+      >
+        2015
+      </button>
+      <button
+        onClick="filterYears('2016')"
+        class="button-year"
+        id="button-2016"
+      >
+        2016
+      </button>
+      <button onClick="filterYears('all')" class="button-yera" id="button-all">
+        All
+      </button>
+    </div>
     <!-- The main grid layout of the dashboard -->
     <div class="dashboard">
       <div class="visualization" id="lineChart"></div>
@@ -129,14 +129,26 @@
             <g transform="translate(2.5, 10)" id="scaleCont">
               <!-- Create the quantize scale -->
               <g id="choroplethTitle" />
-        
             </g>
           </svg>
           <div class="visualization" id="ChoroplethChart"></div>
         </div>
         <div class="visualization" id="PyramidChart"></div>
       </div>
-      <div class="visualization" id="customChart"></div>
+      <div class="choroplethContainer">
+        <svg width="700px" height="50px" id="scaleBubbleChart">
+          <g transform="translate(2.5, 10)" id="scaleBubbleCont">
+            <g id="customChartTitle" />
+          </g>
+        </svg>
+
+        <div class="visualization" id="customChart"></div>
+      </div>
+      <svg width="700px" height="60px" id="scaleCircleBubbleChart">
+        <g transform="translate(2.5, 10)" id="scaleCircleBubbleCont">
+          <g id="customChartCircleTitle" />
+        </g>
+      </svg>
     </div>
   </body>
 </html>

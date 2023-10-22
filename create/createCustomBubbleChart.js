@@ -1,5 +1,5 @@
 var widthCustom = 1500;
-var heightCustom = 290;
+var heightCustom = 240;
 
 function createCustomBubbleChart(data1, data2) {
   // Filter the data to remove entries with missing incomeperperson or alcconsumption values
@@ -24,8 +24,8 @@ function createCustomBubbleChart(data1, data2) {
 
   const rScale = d3.scaleLinear().domain([925.5, 4032000]).range([8, 20]);
 
-  const colorScale = d3.scaleLinear().domain([0, 97.98]).range([0, 1]);
-
+  // const colorScale = d3.scaleLinear().domain([0, 97.98]).range([0, 1]);
+  const colorScale = d3.scaleQuantize([0, 100], d3.schemeGreens[9]);
   // Add circles to the scatter plot representing each country
   svg
     .selectAll(".circle")
@@ -38,8 +38,9 @@ function createCustomBubbleChart(data1, data2) {
     .attr("r", (d) => rScale(d[1].adjusted_nni))
     .attr("data-original-fill", "steelblue")
     .attr("stroke", "black")
-    .attr("fill", (d) =>
-      d3.interpolateGreens(Number(colorScale(d[1].forest_area)))
+    .attr(
+      "fill",
+      (d) => colorScale(d[1].forest_area)
     )
     .on("mouseover", handleMouseOverCustom) // Function to handle mouseover event
     .on("mouseout", handleMouseOutCustom) // Function to handle mouseout event
@@ -99,4 +100,84 @@ function createCustomBubbleChart(data1, data2) {
     .style("font-size", "18px")
     .attr("transform", "rotate(-90)")
     .text("Suicide ratio \u2030");
+
+  createForestScale();
+  createCircleScale();
+}
+
+function createForestScale() {
+  const colorScale = d3.scaleQuantize([0, 100], d3.schemeGreens[9]);
+
+  const svgTitle = d3
+    .select("#customChartTitle")
+    .selectAll("rect")
+    .data(colorScale.range())
+    .enter()
+    .append("g")
+    .attr("transform", function (d, i) {
+      let numb = i * 77 + 2;
+      numb = numb === "Nan" ? 0 : numb;
+      return "translate(" + numb + ", -5)";
+    });
+
+  const svgContainer = d3
+    .select("#scaleBubbleChart")
+    .attr("transform", "translate(440, 50)");
+
+  svgTitle
+    .append("rect")
+    .attr("width", 76)
+    .attr("height", 20)
+    .style("fill", function (d) {
+      return d;
+    });
+
+  svgTitle
+    .append("text")
+    .attr("x", 40)
+    .attr("y", 35)
+    .style("text-anchor", "middle")
+    .style("font-size", "9px")
+    .text(function (d, i) {
+      return `${((100 / 9) * i).toPrecision(
+        2
+      )}% - ${((100 / 9) * (i + 1)).toPrecision(2)}%`;
+    });
+}
+
+function createCircleScale() {
+  const colorScale = d3.scaleQuantize([0, 100], d3.schemeGreens[9]);
+
+  const svgTitle = d3
+    .select("#customChartCircleTitle")
+    .selectAll("circle")
+    .data([8, 12, 16, 20])
+    .enter()
+    .append("g")
+    .attr("transform", function (d, i) {
+      let numb = i * 77 + 2;
+      numb = numb === "Nan" ? 0 : numb;
+      return "translate(" + numb + ", 10)";
+    });
+
+  // const svgContainer = d3.select("#scaleCircleBubbleChart");
+
+  svgTitle
+    .append("circle")
+    .attr("r", (d) =>  d)
+    .style("fill", function (d) {
+      return d;
+    });
+
+  svgTitle
+    .append("text")
+    .attr("x", 40)
+    .attr("y", 35)
+    .style("text-anchor", "middle")
+    .style("font-size", "9px")
+    .text(function (d, i) {
+      return `${((100 / 9) * i).toPrecision(
+        2
+      )}% - ${((100 / 9) * (i + 1)).toPrecision(2)}%`;
+    });
 }

@@ -6,12 +6,15 @@ function onClickChoropleth(event) {
       event.target.__data__.properties.name
     );
     highlightedItems.splice(index, 1);
+    if (highlightedItems.length === 0) {
+      highlightedItems = availableCountries;
+    }
   } else {
     if (availableCountries.includes(event.target.__data__.properties.name)) {
       highlightedItems.push(event.target.__data__.properties.name);
     }
   }
-    // updating line-chart based on highlighted items
+  // updating line-chart based on highlighted items
   // filter by year and country
   updateLineChart(filterSuicideData());
   // filter by year only

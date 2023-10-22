@@ -11,10 +11,7 @@ function createChoroplethMap(data1) {
 
   const mapGroup = svg.append("g");
 
-  const colorScale = d3.scaleQuantize(
-    [0, 0.34],
-    d3.schemeBlues[9]
-  );
+  const colorScale = d3.scaleQuantize([0, 0.34], d3.schemeBlues[9]);
   
   const projection = d3
     .geoMercator()
@@ -77,10 +74,7 @@ function createTooltipChoropleth(d, dataSuicide) {
 
 function createChoroplethLegend(dataSuicide) {
   // Create a legend for the choropleth map
-  const colorScale = d3.scaleQuantize(
-    [d3.min(Object.values(dataSuicide)), d3.max(Object.values(dataSuicide))],
-    d3.schemeBlues[9]
-  );
+  const colorScale = d3.scaleQuantize([0, 0.34], d3.schemeBlues[9]);
 
   const svgTitle = d3
     .select("#choroplethTitle")
@@ -92,17 +86,16 @@ function createChoroplethLegend(dataSuicide) {
       let numb = i * 77 + 2;
       numb = numb === "Nan" ? 0 : numb;
       return "translate(" + numb + ", 0)";
-    });
-
+    })
+    
   svgTitle
     .append("rect")
     .attr("width", 76)
     .attr("height", 20)
     .style("fill", function (d) {
       return d;
-    });
-
-  let maxVal = d3.max(Object.values(dataSuicide));
+    })
+    ;
 
   svgTitle
     .append("text")
@@ -111,8 +104,8 @@ function createChoroplethLegend(dataSuicide) {
     .style("text-anchor", "middle")
     .style("font-size", "9px")
     .text(function (d, i) {
-      return `${((maxVal / 9) * i).toPrecision(
+      return `${((0.34 / 9) * i).toPrecision(
         2
-      )} - ${((maxVal / 9) * (i + 1)).toPrecision(2)}`;
+      )} - ${((0.34 / 9) * (i + 1)).toPrecision(2)}`;
     });
 }
