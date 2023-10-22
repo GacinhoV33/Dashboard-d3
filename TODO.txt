@@ -1,14 +1,15 @@
 #TODO 
-1. Think about scale on Choropleth chart
-2. Data filtration affecting all charts 
-3. Change scale on ChoroplethChart to batches
-4. On click choropleth map highlight only the border
-5. Text on quantize scale doesn't change 
 6. Crossing x/y on Custom plot don't look good
 7. When click All
 #DONE 
 
-
 #Questions
-Ask which colorscale better for choropleth - log or linear? 
-Ask whether all highlighted on beginning or nothing highlighted 
+
+feedback:
+change opacity when highlight - Done
+at beginning nothing is highlighted - Done
+space in bottom with drawer TASK IV to show data regarding selected countries 
+legend in geo-chart missing name
+dragging in the line chart and custom
+don't use serif font 
+x-axis linechart shouldn't change dynamically - change opacity instead 

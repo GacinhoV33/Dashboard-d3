@@ -56,12 +56,8 @@ function startDashboard() {
     .then(() => {
       d3.csv("forest_area_adjusted_nni_inflation_ready_df.csv").then((data) => {
         globalDataForestIncomeInflation = data;
-        const suicideData = calcSuicideRatioForCountries(
-          globalDataSuicide,
-          globalDataForestIncomeInflation
-        );
+        const suicideData = calcSuicideRatioForCountries(globalDataSuicide);
         const forestData = calcForestNNIInflationRatio(
-          globalDataSuicide,
           globalDataForestIncomeInflation
         );
         filteredYearDataSuicide = suicideData;
@@ -119,13 +115,12 @@ function filterYears(year) {
     }
   }
 
-  const filteredDataSuicide = globalDataSuicide
-    .filter((item) => yearsArray.includes(item.year))
-    .filter((d) => highlightedItems.includes(d.country));
+  const filteredDataSuicide = globalDataSuicide.filter((item) =>
+    yearsArray.includes(item.year)
+  );
 
-  const filteredDataForestIncomeInflation = globalDataForestIncomeInflation
-    .filter((d) => yearsArray.includes(d.year))
-    .filter((d) => highlightedItems.includes(d.country));
+  const filteredDataForestIncomeInflation =
+    globalDataForestIncomeInflation.filter((d) => yearsArray.includes(d.year));
 
   updateLineChart(filteredDataSuicide);
 

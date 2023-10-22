@@ -1,58 +1,23 @@
 function updateCustomBubbleChart(suicideData, inflationData) {
   var currentDataFiltered = calcForestNNIInflationRatio(
-    suicideData,
     inflationData
   );
-  var suicideDataFiltered = calcSuicideRatioForCountries(
-    suicideData,
-    inflationData
-  );
-
-  var scaleDataInflation = calcForestNNIInflationRatio(
-    globalDataSuicide,
-    globalDataForestIncomeInflation
-  );
-  var scaleDataSuicide = calcSuicideRatioForCountries(
-    globalDataSuicide,
-    globalDataForestIncomeInflation
-  );
+  var suicideDataFiltered = calcSuicideRatioForCountries(suicideData);
   var mergedData = mergeTwoRatios(suicideDataFiltered, currentDataFiltered);
   var mergedDataExtracted = Object.entries(mergedData);
-
-  var scaleMergedData = mergeTwoRatios(scaleDataSuicide, scaleDataInflation);
-  var scaleDataExtracted = Object.entries(scaleMergedData);
-
   const svg = d3.select("#customChart").select("svg").select("g");
 
   const circles = svg.selectAll(".circle").data(mergedDataExtracted);
 
   // Update existing circles with transitions for position
 
-  const xScale = d3.scaleLinear().domain([-7, 32]).range([0, widthCustom]);
+  const xScale = d3.scaleLinear().domain([-5, 19]).range([0, widthCustom]);
 
-  const yScale = d3
-    .scaleLinear()
-    .domain([
-      d3.min(scaleDataExtracted, (d) => d[1].suicide_ratio),
-      d3.max(scaleDataExtracted, (d) => d[1].suicide_ratio),
-    ])
-    .range([heightCustom, 0]);
+  const yScale = d3.scaleLinear().domain([0, 0.45]).range([heightCustom, 0]);
 
-  const rScale = d3
-    .scaleLinear()
-    .domain([
-      d3.min(scaleDataExtracted, (d) => d[1].adjusted_nni),
-      d3.max(scaleDataExtracted, (d) => d[1].adjusted_nni),
-    ])
-    .range([3, 15]);
+  const rScale = d3.scaleLinear().domain([925.5, 4032000]).range([8, 20]);
 
-  const colorScale = d3
-    .scaleLinear()
-    .domain([
-      d3.min(scaleDataExtracted, (d) => d[1].forest_area),
-      d3.max(scaleDataExtracted, (d) => d[1].forest_area),
-    ])
-    .range([0, 1]);
+  const colorScale = d3.scaleLinear().domain([0, 97.98]).range([0, 1]);
 
   circles
     .transition()
@@ -77,6 +42,14 @@ function updateCustomBubbleChart(suicideData, inflationData) {
     .transition()
     .duration(500);
 
+  svg
+    .selectAll(".circle")
+    .filter((d) => !highlightedItems.includes(d[0]))
+    .style("opacity", 0.15);
+  svg
+    .selectAll(".circle")
+    .filter((d) => highlightedItems.includes(d[0]))
+    .style("opacity", 1);
   // Remove any circles that are no longer in the updated data
   circles.exit().transition().duration(500).attr("r", 0).remove();
   svg

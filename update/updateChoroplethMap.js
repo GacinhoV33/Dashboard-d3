@@ -1,25 +1,21 @@
-function updateChoroplethChart(suicideData, inflationData) {
+function updateChoroplethChart(suicideData) {
   // get data
-  var currentData = calcSuicideRatioForCountries(suicideData, inflationData);
+  var currentData = calcSuicideRatioForCountries(suicideData);
 
   const colorScale = d3.scaleQuantize(
-    [d3.min(Object.values(currentData)), d3.max(Object.values(currentData))],
+    [0, 0.34],
     d3.schemeBlues[9]
   );
-  // make all countries black
-
   // print countries based on new suicide_ratio
   Object.entries(currentData).forEach((element) => {
     d3.selectAll(".country.data")
       .filter(function (d) {
         return d.properties.name == element[0];
       })
-      .attr("fill", colorScale(element[1]));
+      .attr("fill", colorScale(element[1]))
   });
-  // change scale based on new suicide_ratio
-  d3.select("#choroplethTitle").empty();
-  createChoroplethLegend(currentData);
+  
+  d3.selectAll(".country.data").filter((d) => !highlightedItems.includes(d.properties.name) && availableCountries.includes(d.properties.name)).style("opacity", 0.15);
+  d3.selectAll(".country.data").filter((d) => highlightedItems.includes(d.properties.name)).style("opacity", 1);
   // add the animation?
-
-  // adding lines to keep highlighted items red even though data years were changed
 }

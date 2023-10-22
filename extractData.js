@@ -65,7 +65,7 @@ function extractPyramidChart(data1, data2) {
   return null; //
 }
 
-function calcSuicideRatioForCountries(data1, data2) {
+function calcSuicideRatioForCountries(data1) {
   const countries = data1.reduce((countries, object) => {
     const key = object.country;
     if (!countries[key]) {
@@ -91,7 +91,7 @@ function calcSuicideRatioForCountries(data1, data2) {
   return countriesData;
 }
 
-function calcForestNNIInflationRatio(data1, data2) {
+function calcForestNNIInflationRatio(data2) {
   const countries = data2.reduce((countriesX, object) => {
     const key = object.country;
     if (!countriesX[key]) {

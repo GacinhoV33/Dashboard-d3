@@ -1,8 +1,8 @@
 const widthChoroplethChart = 900;
 const heightChoroplethChart = 280; // #TODO
 
-function createChoroplethMap(data1, data2) {
-  var dataSuicide = calcSuicideRatioForCountries(data1, data2);
+function createChoroplethMap(data1) {
+  var dataSuicide = calcSuicideRatioForCountries(data1);
   const svg = d3
     .select("#ChoroplethChart")
     .append("svg")
@@ -12,10 +12,10 @@ function createChoroplethMap(data1, data2) {
   const mapGroup = svg.append("g");
 
   const colorScale = d3.scaleQuantize(
-    [d3.min(Object.values(dataSuicide)), d3.max(Object.values(dataSuicide))],
+    [0, 0.34],
     d3.schemeBlues[9]
   );
-
+  
   const projection = d3
     .geoMercator()
     .fitSize(
@@ -36,11 +36,6 @@ function createChoroplethMap(data1, data2) {
     .on("mouseout", handleMouseOutChoropleth) // Function to handle mouseout event
     .on("click", (item) => onClickChoropleth(item))
     .append("title");
-
-  // color border of countries
-  d3.selectAll(".country.data")
-    .filter((item) => highlightedItems.includes(item.properties.name))
-    .attr("stroke", "lime");
 
   Object.entries(dataSuicide).forEach((element) => {
     mapGroup

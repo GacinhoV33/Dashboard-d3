@@ -2,24 +2,35 @@ function handleMouseOverCustom(event, item) {
   d3.selectAll(".circle")
     .style("cursor", "pointer")
     .filter((d) => item[0] === d[0])
-    .attr("stroke", "red");
+    .attr("stroke", "red")
+    .style("opacity", 1);
 
   d3.selectAll(".country.data")
     .filter((d) => item[0] === d.properties.name)
-    .attr("stroke", "red");
+    .attr("stroke", "red")
+    .style("opacity", 1);
 
   showTooltipCustom(event, item);
 }
 
 function handleMouseOutCustom(event, item) {
-  d3.selectAll(".circle").attr("stroke", (d) =>
-    highlightedItems.includes(d[0]) ? "lime" : "black"
-  );
+  d3.selectAll(".circle")
+    .filter((d) => d[0] === item[0])
+    .attr("stroke", "black")
+    .filter((d) => !highlightedItems.includes(d[0]))
+    .style("opacity", 0.15);
 
+  // Choropleth Stuff
   d3.selectAll(".country.data")
     .filter((d) => item[0] === d.properties.name)
-    .attr("stroke", highlightedItems.includes(item[0]) ? "lime" : "#DDD");
+    .attr("stroke", "#DDD");
 
+  d3.selectAll(".country.data")
+    .filter(
+      (d) =>
+        !highlightedItems.includes(d[0]) && availableCountries.includes(d[0])
+    )
+    .style("opacity", 0.15);
   document.getElementById("d3_tooltip").style.opacity = 0;
 }
 
@@ -39,14 +50,15 @@ function onClickBubble(event, item) {
 
   updateLineChart(filterSuicideData());
 
-  updateChoroplethChart(filterSuicideData());
-  d3.selectAll(".country.data")
-    .filter((item) => !highlightedItems.includes(item.properties.name))
-    .attr("stroke", "#DDD");
+  updateChoroplethChart(
+    globalDataSuicide.filter((item) => yearsArray.includes(item.year))
+  );
 
   updateCustomBubbleChart(
-    filterSuicideData(),
-    filterGlobalDataForestIncomeInflation()
+    globalDataSuicide.filter((item) => yearsArray.includes(item.year)),
+    globalDataForestIncomeInflation.filter((item) =>
+      highlightedItems.includes(item.country)
+    )
   );
 }
 
@@ -61,9 +73,15 @@ function showTooltipCustom(event, item) {
     document.getElementById("d3_suicide_ratio").textContent = `Suicide ratio ${
       filteredYearDataSuicide[item[0]]
     }\u2030`;
-    document.getElementById("d3_inflation").textContent = `Inflation - ${filteredYearForestIncomeNNIData[item[0]].inflation}%`
-    document.getElementById("d3_forest_area").textContent = `Forest area - ${filteredYearForestIncomeNNIData[item[0]].forest_area}%`;
-    document.getElementById("d3_income").textContent = `Adjusted NNI - ${filteredYearForestIncomeNNIData[item[0]].adjusted_nni}$`;
+    document.getElementById("d3_inflation").textContent = `Inflation - ${
+      filteredYearForestIncomeNNIData[item[0]].inflation
+    }%`;
+    document.getElementById("d3_forest_area").textContent = `Forest area - ${
+      filteredYearForestIncomeNNIData[item[0]].forest_area
+    }%`;
+    document.getElementById("d3_income").textContent = `Adjusted NNI - ${
+      filteredYearForestIncomeNNIData[item[0]].adjusted_nni
+    }$`;
   } else {
     document.getElementById("d3_header").textContent = `${item[0]}`;
     document.getElementById(

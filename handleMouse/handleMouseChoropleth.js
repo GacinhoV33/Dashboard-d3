@@ -13,58 +13,40 @@ function handleMouseOverChoropleth(event, item) {
         return item.country == d.country;
       }
     })
+    .style("opacity", 1)
     .attr("stroke", "red")
     .attr("cursor", "pointer");
 
   // Custom chart stuff
   d3.selectAll(".circle")
     .filter((d) => item.properties.name === d[0])
-    .attr("stroke", "red");
+    .attr("stroke", "red")
+    .style("opacity", 1);
 }
 
 function handleMouseOutChoropleth(event, item) {
-  const currentData = calcSuicideRatioForCountries(
-    filterSuicideData(),
-    globalDataForestIncomeInflation
-  );
-
-  // Create a color scale for the suicide ratio values
-  const colorScale = d3.scaleQuantize(
-    [d3.min(Object.values(currentData)), d3.max(Object.values(currentData))],
-    d3.schemeBlues[9]
-  );
-
   // Reset the fill color of all elements with class "country data" to black, except highlighted one
   d3.selectAll(".country.data")
-    .filter((item) => !highlightedItems.includes(item.properties.name))
-    .attr("stroke", "#DDD");
-
-  d3.selectAll(".data")
-    .filter(function (d) {
-      // Check if "properties" exist in both item and d objects
-      if ("properties" in item) {
-        if ("properties" in d) return item.properties.name == d.properties.name;
-        else return item.properties.name == d.country;
-      } else if ("properties" in d) {
-        return item.country == d.properties.name;
-      } else {
-        return item.country == d.country;
-      }
-    })
-    .attr("stroke", (d) =>
-      highlightedItems.includes(d.properties.name) ? "lime" : "#DDD"
+    .filter(
+      (d) =>
+        !highlightedItems.includes(d.properties.name) &&
+        availableCountries.includes(d.properties.name)
     )
-    .attr("cursor", "pointer");
+    .style("opacity", 0.15);
+
+  d3.selectAll(".country.data")
+    .filter((d) => item.properties.name === d.properties.name)
+    .attr("stroke", "#DDD");
 
   document.getElementById("d3_tooltip").style.opacity = 0;
 
   // Custom chart stuff
   d3.selectAll(".circle")
-    .filter((d) => item.properties.name === d[0])
-    .attr(
-      "stroke",
-      highlightedItems.includes(item.properties.name) ? "lime" : "black"
-    );
+    .filter((d) => d[0] === item.properties.name)
+    .attr("stroke", "black")
+    .filter((d) => !highlightedItems.includes(d[0]))
+    .style("opacity", 0.15);
+
 }
 
 function showTooltip(event, item) {

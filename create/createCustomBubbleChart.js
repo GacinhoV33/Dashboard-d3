@@ -3,8 +3,8 @@ var heightCustom = 290;
 
 function createCustomBubbleChart(data1, data2) {
   // Filter the data to remove entries with missing incomeperperson or alcconsumption values
-  var currentData = calcForestNNIInflationRatio(data1, data2);
-  var suicideData = calcSuicideRatioForCountries(data1, data2);
+  var currentData = calcForestNNIInflationRatio(data2);
+  var suicideData = calcSuicideRatioForCountries(data1);
   var mergedData = mergeTwoRatios(suicideData, currentData);
   var mergedDataExtracted = Object.entries(mergedData);
 
@@ -20,28 +20,11 @@ function createCustomBubbleChart(data1, data2) {
   // Create x and y scales for the scatter plot
   const xScale = d3.scaleLinear().domain([-5, 19]).range([0, widthCustom]);
 
-  const yScale = d3
-    .scaleLinear()
-    .domain([
-      0, 0.45
-    ])
-    .range([heightCustom, 0]);
+  const yScale = d3.scaleLinear().domain([0, 0.45]).range([heightCustom, 0]);
 
-  const rScale = d3
-    .scaleLinear()
-    .domain([
-      d3.min(mergedDataExtractedBase, (d) => d[1].adjusted_nni),
-      d3.max(mergedDataExtractedBase, (d) => d[1].adjusted_nni),
-    ])
-    .range([8, 20]);
+  const rScale = d3.scaleLinear().domain([925.5, 4032000]).range([8, 20]);
 
-  const colorScale = d3
-    .scaleLinear()
-    .domain([
-      d3.min(mergedDataExtractedBase, (d) => d[1].forest_area),
-      d3.max(mergedDataExtractedBase  , (d) => d[1].forest_area),
-    ])
-    .range([0, 1]);
+  const colorScale = d3.scaleLinear().domain([0, 97.98]).range([0, 1]);
 
   // Add circles to the scatter plot representing each country
   svg
@@ -62,12 +45,6 @@ function createCustomBubbleChart(data1, data2) {
     .on("mouseout", handleMouseOutCustom) // Function to handle mouseout event
     .on("click", onClickBubble);
 
-  //highlighted items
-  svg
-    .selectAll(".circle")
-    .filter((d) => highlightedItems.includes(d[0]))
-    .attr("stroke", "lime");
-
   // Create tick marks and labels for the x and y axes
   var xTicks = [];
   var yTicks = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45];
@@ -79,11 +56,6 @@ function createCustomBubbleChart(data1, data2) {
     xTicks.push(index);
   }
 
-  let yMinVal = d3.min(mergedDataExtracted, (d) => d[1].suicide_ratio);
-  let yMaxVal = d3.max(mergedDataExtracted, (d) => d[1].suicide_ratio);
-  // for (let index = 0; index <= 8; index += 1) {
-  //   yTicks.push((index * (Math.abs(yMaxVal - yMinVal) / 8)).toPrecision(2));
-  // }
   svg
     .append("g")
     .attr("class", "x-axis")
