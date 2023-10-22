@@ -38,10 +38,7 @@ function createCustomBubbleChart(data1, data2) {
     .attr("r", (d) => rScale(d[1].adjusted_nni))
     .attr("data-original-fill", "steelblue")
     .attr("stroke", "black")
-    .attr(
-      "fill",
-      (d) => colorScale(d[1].forest_area)
-    )
+    .attr("fill", (d) => colorScale(d[1].forest_area))
     .on("mouseover", handleMouseOverCustom) // Function to handle mouseover event
     .on("mouseout", handleMouseOutCustom) // Function to handle mouseout event
     .on("click", onClickBubble);
@@ -50,7 +47,7 @@ function createCustomBubbleChart(data1, data2) {
   var xTicks = [];
   var yTicks = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45];
 
-  let minVal = -7;
+  let minVal = -5;
   let maxVal = 32;
   let range = Math.abs(maxVal - minVal);
   for (let index = minVal; index <= range; index += 1) {
@@ -122,7 +119,7 @@ function createForestScale() {
 
   const svgContainer = d3
     .select("#scaleBubbleChart")
-    .attr("transform", "translate(440, 50)");
+    .attr("transform", "translate(440, 10)");
 
   svgTitle
     .append("rect")
@@ -148,36 +145,41 @@ function createForestScale() {
 function createCircleScale() {
   const colorScale = d3.scaleQuantize([0, 100], d3.schemeGreens[9]);
 
+  var linearScale = d3.scaleLinear().domain([0, 100]).range([0, 500]);
+
+  var sqrtScale = d3.scaleSqrt().domain([0, 100]).range([8, 20]);
+
   const svgTitle = d3
     .select("#customChartCircleTitle")
     .selectAll("circle")
-    .data([8, 12, 16, 20])
+    .data([8, 11, 14, 17, 20])
     .enter()
     .append("g")
     .attr("transform", function (d, i) {
-      let numb = i * 77 + 2;
+      let numb = d * 4 * (5 - i / 10) - 120;
       numb = numb === "Nan" ? 0 : numb;
-      return "translate(" + numb + ", 10)";
+      return "translate(" + numb + ", 15)";
     });
 
-  // const svgContainer = d3.select("#scaleCircleBubbleChart");
 
   svgTitle
     .append("circle")
-    .attr("r", (d) =>  d)
+    .attr("r", (d) => d)
     .style("fill", function (d) {
       return d;
     });
 
+  const textScale = ["1k", "1M", "2M", "3M", "4M"];
   svgTitle
     .append("text")
-    .attr("x", 40)
-    .attr("y", 35)
+    .attr("x", 0)
+    .attr("y", 30)
     .style("text-anchor", "middle")
     .style("font-size", "9px")
     .text(function (d, i) {
-      return `${((100 / 9) * i).toPrecision(
-        2
-      )}% - ${((100 / 9) * (i + 1)).toPrecision(2)}%`;
+      return textScale[i];
     });
+  const svgContainer = d3
+    .select("#scaleCircleBubbleChart")
+    .attr("transform", "translate(1440, -295)");
 }
