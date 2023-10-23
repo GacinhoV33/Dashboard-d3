@@ -3,9 +3,7 @@ const heightPyramidChart = 300; // #TODO
 
 
 function createPopulationPyramid(data1, data2) {
-    var dataSuicide = calcSuicideRatioForCountries(data1, data2);
     var sexAgeData = calcSuicideRatioForAgeAndSex(data1);
-    // var data = calcSuicideRatioForAgeAndSex(data1);
 
     const svg = d3
     .select("#PyramidChart")
@@ -19,22 +17,26 @@ function createPopulationPyramid(data1, data2) {
     console.log(sexAgeData)
 
     const xScaleMale = d3.scaleLinear()
-        .domain([0, d3.max(sexAgeData, d => +d.male )])
-        .range([width/2, 0]);
+        .domain([0, 0.40])
+        .range([widthPyramidChart/2, 0]);
     svg
         .append("g")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${heightPyramidChart})`)
         .call(d3.axisBottom(xScaleMale).tickSize(0).tickPadding(3).ticks(7, "%"))
         .call(function(d) { return d.select(".domain").remove()});
 
     const xScaleFemale = d3.scaleLinear()
-        .domain([0, d3.max(sexAgeData, d => +d.female)])
-        .range([width/2, width]);
+        .domain([0, 0.40])
+        .range([widthPyramidChart/2, widthPyramidChart]);
     svg
         .append("g")
-        .attr("transform", `translate(0, ${height})`)
-        .call(d3.axisBottom(xScaleFemale).tickSize(0).tickPadding(3).ticks(7, "%"))
+        .attr("transform", `translate(0, ${heightPyramidChart})`)
+        .call(d3.axisBottom(xScaleFemale).tickSize(0).tickPadding(3).ticks(7))
         .call(function(d) { return d.select(".domain").remove()});
+
+    xScaleFemale.tickFormat(function(d) {
+        return d + "\u2030";
+        });
 
  // --
     const GridLineF = function() { return d3.axisBottom().scale(xScaleFemale)};
@@ -42,16 +44,18 @@ function createPopulationPyramid(data1, data2) {
         .append("g")
         .attr("class", "grid")
         .call(GridLineF()
-        .tickSize(height, 0, 0)
+        .tickSize(heightPyramidChart, 0, 0)
         .tickFormat("")
         .ticks(7)
     );
+
     const GridLineM = function() { return d3.axisBottom().scale(xScaleMale)};
+
     svg
         .append("g")
         .attr("class", "grid")
         .call(GridLineM()
-        .tickSize(height,0,0)
+        .tickSize(heightPyramidChart,0,0)
         .tickFormat("")
         .ticks(7)
     );
@@ -59,7 +63,7 @@ function createPopulationPyramid(data1, data2) {
     // Y scale and Axis
     const yScale = d3.scaleBand()
         .domain(sexAgeData.map(d => d.ages))
-        .range([height, 0])
+        .range([heightPyramidChart, 0])
         .padding(.25);
     svg
         .append("g")
@@ -103,7 +107,7 @@ svg
       .attr("class", "barMale")
       .attr("x", d => xScaleMale(d.male))
       .attr("y", d => yScale(d.ages))
-      .attr("width", d => width/2 - xScaleMale(d.male))
+      .attr("width", d => widthPyramidChart/2 - xScaleMale(d.male))
       .attr("height", yScale.bandwidth())
       .style("fill", "#18375F")
     // .on("mouseover", mouseover)
@@ -125,14 +129,6 @@ svg
     //   .on("mouseleave", mouseleave)
 
     // set title
-  svg
-  .append("text")
-    .attr("class", "chart-title")
-    .attr("x", -(margin.left)*0.7)
-    .attr("y", -(margin.top)/1.5)
-    .attr("text-anchor", "start")
-  .text("Demographics of forcibly displaced people | 2020")
-
 
 
 //set legend
@@ -148,7 +144,7 @@ svg
         .attr("class", "legend")
         .attr("x", -(margin.left)*0.6+15)
         .attr("y", -(margin.top/5.5))
-    .text("Female")
+    .text("Male")
 svg
     .append("rect")
         .attr("x", 40)
@@ -161,5 +157,5 @@ svg
         .attr("class", "legend")
         .attr("x", 60)
         .attr("y", -(margin.top/5.5))
-    .text("Male")
+    .text("Female")
 }
