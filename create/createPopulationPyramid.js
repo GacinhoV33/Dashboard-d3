@@ -22,7 +22,9 @@ function createPopulationPyramid(data1, data2) {
     svg
         .append("g")
         .attr("transform", `translate(0, ${heightPyramidChart})`)
-        .call(d3.axisBottom(xScaleMale).tickSize(0).tickPadding(3).ticks(7, "%"))
+        .call(d3.axisBottom(xScaleMale).tickSize(0).tickPadding(3).tickFormat(function(d) {
+            return d + "\u2030";
+           }))
         .call(function(d) { return d.select(".domain").remove()});
 
     const xScaleFemale = d3.scaleLinear()
@@ -31,12 +33,11 @@ function createPopulationPyramid(data1, data2) {
     svg
         .append("g")
         .attr("transform", `translate(0, ${heightPyramidChart})`)
-        .call(d3.axisBottom(xScaleFemale).tickSize(0).tickPadding(3).ticks(7))
+        .call(d3.axisBottom(xScaleFemale).tickSize(0).tickPadding(3).ticks(7, "%").tickFormat(function(d) {
+           return d + "\u2030";
+          }))
         .call(function(d) { return d.select(".domain").remove()});
 
-    xScaleFemale.tickFormat(function(d) {
-        return d + "\u2030";
-        });
 
  // --
     const GridLineF = function() { return d3.axisBottom().scale(xScaleFemale)};
@@ -70,36 +71,8 @@ function createPopulationPyramid(data1, data2) {
         .call(d3.axisLeft(yScale).tickSize(0).tickPadding(15))
         .call(d => d.select(".domain").remove());
 
-//--
-    // const mouseover = function(d) {
-    //     tooltip
-    //     .style("opacity", 1)
-    //     d3.select(this)
-    //     .style("stroke", "#EF4A60")
-    //     .style("opacity", .5)
-    // };
-    // const mousemove1 = function(event,d) {
-
-    //     tooltip
-    //     .html( `${d.male*100}%`)
-    //     .style("top", event.pageY - 10 + "px")
-    //     .style("left", event.pageX + 10 + "px");
-    // };
-    // const mousemove2 = function(event,d) {
-    // tooltip
-    // .html( `${d.female*100}%`)
-    //     .style("top", event.pageY - 10 + "px")
-    //     .style("left", event.pageX + 10 + "px")
-    // };
-    // const mouseleave = function(d) {
-    //     tooltip
-    //     .style("opacity", 0)
-    //     d3.select(this)
-    //     .style("stroke", "none")
-    //     .style("opacity", 1)
-    // };
-
 // --
+
 svg
     .selectAll(".maleBar")
       .data(sexAgeData)
