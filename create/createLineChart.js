@@ -9,7 +9,10 @@ function createLineChart(data1, data2) {
     .attr("width", widthLineChart + margin.left + margin.right)
     .attr("height", heightLineChart + margin.top + margin.bottom)
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+    .attr("transform", `translate(${margin.left},${margin.top})`)
+    .on("mouseup", handleMouseLineChartUp)
+    .on("mousedown", handleMouseLineChartDown);
+
   const xScale = d3
     .scaleBand()
     .domain(lineChartData.map((d) => d[0]))
@@ -46,6 +49,8 @@ function createLineChart(data1, data2) {
     .attr("r", 5)
     .attr("fill", "steelblue")
     .attr("stroke", "black")
+    .on("click", handleClickCircle)
+    .attr("cursor", "pointer")
     .append("title")
     .text((d) => d[1]);
 

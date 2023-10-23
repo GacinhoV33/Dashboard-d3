@@ -15,8 +15,10 @@ function onClickChoropleth(event) {
     }
   }
   // updating line-chart based on highlighted items
-  // filter by year and country
-  updateLineChart(filterSuicideData());
+  // filter by country
+  updateLineChart(
+    globalDataSuicide.filter((item) => highlightedItems.includes(item.country))
+  );
   // filter by year only
   updateCustomBubbleChart(
     globalDataSuicide.filter((item) => yearsArray.includes(item.year)),

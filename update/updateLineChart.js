@@ -18,9 +18,13 @@ function updateLineChart(suicideData) {
     .line()
     .x((d) => xScale(d[0]))
     .y((d) => yScale(d[1]));
-
   // Update the line with the new data points
-  svg.select(".line").datum(data).transition().duration(500).attr("d", line);
+  svg
+    .select(".line")
+    .datum(data.filter((item) => yearsArray.includes(String(item[0]))))
+    .transition()
+    .duration(500)
+    .attr("d", line);
 
   // Select all existing circles and bind the data to them
   const circles = svg.selectAll(".circle").data(data);
@@ -30,7 +34,8 @@ function updateLineChart(suicideData) {
     .transition()
     .duration(500)
     .attr("cx", (d) => xScale(d[0]))
-    .attr("cy", (d) => yScale(d[1]));
+    .attr("cy", (d) => yScale(d[1]))
+    .style("opacity", (d) => (yearsArray.includes(String(d[0])) ? 1 : 0.15));
 
   // Add new circles for any new data points and transition them to their correct position
   circles
@@ -44,6 +49,7 @@ function updateLineChart(suicideData) {
     .attr("stroke", "black")
     .transition()
     .duration(500)
+    .style("opacity", (d) => (yearsArray.includes(String(d[0])) ? 1 : 0.15))
     .attr("r", 5);
 
   // Remove any circles that are no longer in the updated data
@@ -62,18 +68,15 @@ function updateLineChart(suicideData) {
     .attr("dy", "0.15em");
 
   // Update the y-axis with the new data points, formatting the labels for budget in millions
-  svg.select(".y-axis").transition().duration(500).call(
-    d3
-      .axisLeft(yScale)
-      .tickSizeOuter(0)
-      .ticks(5)
-  );
+  svg
+    .select(".y-axis")
+    .transition()
+    .duration(500)
+    .call(d3.axisLeft(yScale).tickSizeOuter(0).ticks(5));
 
   // Add tooltips to all circles with the movie title as the content
   svg
     .selectAll(".circle")
-    // .on("mouseover", handleMouseOverChoropleth) 
-    // .on("mouseout", handleMouseOutChoropleth) 
     .append("title")
     .text((d) => "text TODO");
 }

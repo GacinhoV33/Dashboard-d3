@@ -124,7 +124,7 @@ function filterYears(year) {
   const filteredDataForestIncomeInflation =
     globalDataForestIncomeInflation.filter((d) => yearsArray.includes(d.year));
 
-  updateLineChart(filteredDataSuicide);
+  updateLineChart(globalDataSuicide.filter((item) => highlightedItems.includes(item.country)));
 
   updateChoroplethChart(filteredDataSuicide, filteredDataForestIncomeInflation);
 

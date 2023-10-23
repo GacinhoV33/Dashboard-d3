@@ -51,7 +51,9 @@ function onClickBubble(event, item) {
     }
   }
 
-  updateLineChart(filterSuicideData());
+  updateLineChart(
+    globalDataSuicide.filter((item) => highlightedItems.includes(item.country))
+  );
 
   updateChoroplethChart(
     globalDataSuicide.filter((item) => yearsArray.includes(item.year))
