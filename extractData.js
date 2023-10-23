@@ -165,3 +165,86 @@ function mergeTwoRatios(data1, data2) {
   }
   return data2;
 }
+
+
+function calcSuicideRatioForAgeAndSex(data1) {
+  // Group by sex
+  const sexes = data1.reduce((sexes, object) => {
+    const key = object.sex;
+    if (!sexes[key]) {
+      sexes[key] = [];
+    }
+    sexes[key].push(object);
+    return sexes;
+  }, {});
+
+  // console.log(sexes);
+
+  const sexData = [];
+  const output = [];
+
+  for (const sex in sexes) {
+    if (sexes.hasOwnProperty(sex)) {
+      if (!sexData[sex]) {
+        sexData[sex] = {
+          "5-14 years": 0,
+          "15-24 years": 0,
+          "25-34 years": 0,
+          "35-54 years": 0,
+          "55-74 years": 0,
+          "75+ years": 0,
+        };
+      }
+
+      // Group by age
+      const ageGroup = sexes[sex].reduce((age, object) => {
+        const key = object.age_group;
+        if (!age[key]) {
+          age[key] = [];
+        }
+        age[key].push(object);
+        return age;
+      }, {});
+      
+      
+      //calculate average suisides_ratio
+      for(const age in ageGroup){
+        ageGroup[age].forEach((item) =>{
+          sexData[sex][age] += Number(item.suicides_ratio);
+          // console.log(item.suicide_ratio)
+        })
+        sexData[sex][age] = Number(sexData[sex][age] / ageGroup[age].length).toPrecision(4);
+      } 
+
+    }
+  }
+
+  // reformat data to array
+
+    for(const age in sexData["male"]){
+      output.push({"ages": age, "male": sexData["male"][age], "female": sexData["female"][age]})
+    }
+  
+
+  // console.log(output)
+  return output;
+}
+
+// OUTCOME 
+
+// "MALE" : {
+//   "5-14 years": avg,
+//   "15-24 years": avg,
+//   "25-34 years": avg,
+//   "35-54 years": avg,
+//   "55-74 years": avg,
+//   "75+ years": avg
+// }
+// "FEMALE" : {
+//   "5-14 years": avg,
+//   "15-24 years": avg,
+//   "25-34 years": avg,
+//   "35-54 years": avg,
+//   "55-74 years": avg,
+//   "75+ years": avg
+// }

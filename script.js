@@ -72,11 +72,13 @@ function startDashboard() {
         highlightedItems = JSON.parse(JSON.stringify(availableCountries)); //deep copy
         createChoroplethMap(globalDataSuicide, globalDataForestIncomeInflation);
         // createPyramidChart(globalDataSuicide, globalDataForestIncomeInflation);
+        
         createCustomBubbleChart(
           globalDataSuicide,
           globalDataForestIncomeInflation
         );
         createLineChart(globalDataSuicide, globalDataForestIncomeInflation);
+        createPopulationPyramid(globalDataSuicide, globalDataForestIncomeInflation);
       });
     })
     .catch((error) => {
