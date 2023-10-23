@@ -48,7 +48,7 @@ function createCustomBubbleChart(data1, data2) {
   var yTicks = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45];
 
   let minVal = -5;
-  let maxVal = 32;
+  let maxVal = 19;
   let range = Math.abs(maxVal - minVal);
   for (let index = minVal; index <= range; index += 1) {
     xTicks.push(index);
