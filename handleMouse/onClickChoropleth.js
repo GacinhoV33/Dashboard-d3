@@ -53,4 +53,6 @@ function onClickChoropleth(event) {
       .filter((item) => yearsArray.includes(item.year))
       .filter((item) => highlightedItems.includes(item.country))
   );
+
+  calcTooltipData();
 }

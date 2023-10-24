@@ -15,7 +15,6 @@
     <script src="./create/createPopulationPyramid.js"></script>
     <script src="./update/updateChoroplethMap.js"></script>
     <script src="./update/updateCustomBubbleChart.js"></script>
-    <script src="./clearAllFilters.js"></script>
     <script src="./update/updateLineChart.js"></script>
     <script src="./update/updatePyramidChart.js"></script>
     <script src="./handleMouse/handleMouseChoropleth.js"></script>
@@ -24,12 +23,7 @@
     <script src="./handleMouse/handleMousePyramid.js"></script>
     <script src="./handleMouse/handleMouseCustom.js"></script>
     <script src="extractData.js"></script>
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,400&family=Roboto:ital,wght@1,100&display=swap"
-      rel="stylesheet"
-    /> -->
+    <script src="./clearAllFilters.js"></script>
   </head>
   <!-- Start the dashboard upon page load -->
   <body onload="startDashboard()">
@@ -61,7 +55,6 @@
         </div>
         <div class="visualization" id="PyramidChart"></div>
       </div>
-      <!-- <div style="height: 5px;"></div> -->
       <div class="customContainer">
         <svg width="760px" height="70px" id="scaleBubbleChart">
           <g transform="translate(2.5, 10)" id="scaleBubbleCont">

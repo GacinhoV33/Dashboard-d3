@@ -91,6 +91,8 @@ function onClickBubble(event, item) {
       .filter((item) => yearsArray.includes(item.year))
       .filter((item) => highlightedItems.includes(item.country))
   );
+
+  calcTooltipData();
 }
 
 function showTooltipCustom(event, item) {
@@ -99,19 +101,19 @@ function showTooltipCustom(event, item) {
   document.getElementById("d3_tooltip").style.top = `${event.clientY}px`;
 
   // show data if it is, otherwise show not available text
-  if (Object.keys(filteredYearDataSuicide).includes(item[0])) {
+  if (Object.keys(tooltipSuicideData).includes(item[0])) {
     document.getElementById("d3_header").textContent = `${item[0]}`;
     document.getElementById("d3_suicide_ratio").textContent = `Suicide ratio ${
-      filteredYearDataSuicide[item[0]]
+      tooltipSuicideData[item[0]]
     }\u2030`;
     document.getElementById("d3_inflation").textContent = `Inflation - ${
-      filteredYearForestIncomeNNIData[item[0]].inflation
+      tooltipForestIncomeInflationData[item[0]].inflation
     }%`;
     document.getElementById("d3_forest_area").textContent = `Forest area - ${
-      filteredYearForestIncomeNNIData[item[0]].forest_area
+      tooltipForestIncomeInflationData[item[0]].forest_area
     }%`;
     document.getElementById("d3_income").textContent = `Adjusted NNI - ${
-      filteredYearForestIncomeNNIData[item[0]].adjusted_nni
+      tooltipForestIncomeInflationData[item[0]].adjusted_nni
     }$`;
   } else {
     document.getElementById("d3_header").textContent = `${item[0]}`;

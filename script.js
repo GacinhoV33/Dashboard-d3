@@ -1,4 +1,3 @@
-// Declare a variable to hold the loaded JSON data.
 var globalDataSuicide;
 var globalDataForestIncomeInflation;
 var filteredYearGlobalDataSuicide;
@@ -9,6 +8,9 @@ var availableCountries;
 var filteredYearDataSuicide;
 var filteredYearForestIncomeNNIData;
 var mergedDataExtractedBase;
+var tooltipSuicideData;
+var tooltipForestIncomeInflationData;
+
 var ageGroupsMale = [
   "5-14 years",
   "15-24 years",
@@ -72,23 +74,15 @@ function startDashboard() {
     .then(() => {
       d3.csv("forest_area_adjusted_nni_inflation_ready_df.csv").then((data) => {
         globalDataForestIncomeInflation = data;
-        const suicideData = calcSuicideRatioForCountries(globalDataSuicide);
-        const forestData = calcForestNNIInflationRatio(
+        tooltipSuicideData = calcSuicideRatioForCountries(globalDataSuicide);
+
+        tooltipForestIncomeInflationData = calcForestNNIInflationRatio(
           globalDataForestIncomeInflation
         );
-        filteredYearDataSuicide = suicideData;
-        filteredYearForestIncomeNNIData = forestData;
 
-        // for custom bubble scale reason
-        
-        var mergedData = mergeTwoRatios(suicideData, forestData);
-        mergedDataExtractedBase = Object.entries(mergedData);
-
-        availableCountries = Object.keys(suicideData);
+        availableCountries = Object.keys(tooltipSuicideData);
         highlightedItems = JSON.parse(JSON.stringify(availableCountries)); //deep copy
         createChoroplethMap(globalDataSuicide, globalDataForestIncomeInflation);
-        // createPyramidChart(globalDataSuicide, globalDataForestIncomeInflation);
-
         createCustomBubbleChart(
           globalDataSuicide,
           globalDataForestIncomeInflation

@@ -21,3 +21,22 @@ function clearAllFilters() {
   updateChoroplethChart(globalDataSuicide);
   updatePyramidChart(globalDataSuicide);
 }
+
+function calcTooltipData() {
+  tooltipSuicideData = calcSuicideRatioForCountries(
+    globalDataSuicide
+      .filter((item) => yearsArray.includes(item.year))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      )
+      .filter((item) => highlightedItems.includes(item.country))
+  );
+
+  tooltipForestIncomeInflationData = calcForestNNIInflationRatio(
+    globalDataForestIncomeInflation.filter((item) =>
+      yearsArray.includes(item.year)
+    )
+  );
+}

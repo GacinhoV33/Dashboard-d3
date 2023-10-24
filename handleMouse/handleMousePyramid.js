@@ -127,4 +127,7 @@ function updateCharts() {
       .filter((d) => highlightedItems.includes(d.country))
       .filter((d) => yearsArray.includes(d.year))
   );
+
+  calcTooltipData();
+
 }
