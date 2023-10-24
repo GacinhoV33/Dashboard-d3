@@ -177,9 +177,6 @@ function calcSuicideRatioForAgeAndSex(data1) {
     sexes[key].push(object);
     return sexes;
   }, {});
-
-  // console.log(sexes);
-
   const sexData = [];
   const output = [];
 
@@ -211,7 +208,6 @@ function calcSuicideRatioForAgeAndSex(data1) {
       for(const age in ageGroup){
         ageGroup[age].forEach((item) =>{
           sexData[sex][age] += Number(item.suicides_ratio);
-          // console.log(item.suicide_ratio)
         })
         sexData[sex][age] = Number(sexData[sex][age] / ageGroup[age].length).toPrecision(4);
       } 
@@ -226,25 +222,5 @@ function calcSuicideRatioForAgeAndSex(data1) {
     }
   
 
-  // console.log(output)
   return output;
 }
-
-// OUTCOME 
-
-// "MALE" : {
-//   "5-14 years": avg,
-//   "15-24 years": avg,
-//   "25-34 years": avg,
-//   "35-54 years": avg,
-//   "55-74 years": avg,
-//   "75+ years": avg
-// }
-// "FEMALE" : {
-//   "5-14 years": avg,
-//   "15-24 years": avg,
-//   "25-34 years": avg,
-//   "35-54 years": avg,
-//   "55-74 years": avg,
-//   "75+ years": avg
-// }

@@ -37,8 +37,12 @@ function handlePyramidMouseOut(event, item) {
 }
 
 function handleClickMale(event, item) {
-  if (ageGroupsMale.includes(item.ages)) {
+  if (ageGroupsMale.length === 6) {
+    ageGroupsMale = [item.ages];
+  } else if (ageGroupsMale.includes(item.ages)) {
     ageGroupsMale = ageGroupsMale.filter((d) => d === item.ages);
+    const index = ageGroupsMale.indexOf(item.ages);
+    ageGroupsMale = ageGroupsMale.splice(index, 1);
   } else {
     ageGroupsMale.push(item.ages);
   }
@@ -47,8 +51,12 @@ function handleClickMale(event, item) {
 }
 
 function handleClickFemale(event, item) {
-  if (ageGroupsFemale.includes(item.ages)) {
+  if (ageGroupsFemale.length === 6) {
+    ageGroupsFemale = [item.ages];
+  } else if (ageGroupsFemale.includes(item.ages)) {
     ageGroupsFemale = ageGroupsFemale.filter((d) => d === item.ages);
+    const index = ageGroupsFemale.indexOf(item.ages);
+    ageGroupsFemale = ageGroupsFemale.splice(index, 1);
   } else {
     ageGroupsFemale.push(item.ages);
   }
@@ -112,5 +120,11 @@ function updateCharts() {
           (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
       ),
     globalDataForestIncomeInflation.filter((d) => yearsArray.includes(d.year))
+  );
+
+  updatePyramidChart(
+    globalDataSuicide
+      .filter((d) => highlightedItems.includes(d.country))
+      .filter((d) => yearsArray.includes(d.year))
   );
 }

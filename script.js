@@ -108,49 +108,49 @@ function startDashboard() {
 
 // // This function updates the visualizations based on the selected data type.
 
-function filterYears(year) {
-  if (year === "all") {
-    yearsArray = [
-      "2006",
-      "2007",
-      "2008",
-      "2009",
-      "2010",
-      "2011",
-      "2012",
-      "2013",
-      "2014",
-      "2015",
-      "2016",
-    ];
-    yearsArray.forEach((year) => {
-      document.getElementById(`button-${year}`).style.border = "1px red solid";
-    });
-  } else {
-    if (yearsArray.includes(year)) {
-      yearsArray = yearsArray.filter((item) => item !== year);
-      document.getElementById(`button-${year}`).style.border = "1px solid #ccc";
-    } else {
-      yearsArray.push(year);
-      document.getElementById(`button-${year}`).style.border = "1px red solid";
-    }
-  }
+// function filterYears(year) {
+//   if (year === "all") {
+//     yearsArray = [
+//       "2006",
+//       "2007",
+//       "2008",
+//       "2009",
+//       "2010",
+//       "2011",
+//       "2012",
+//       "2013",
+//       "2014",
+//       "2015",
+//       "2016",
+//     ];
+//     yearsArray.forEach((year) => {
+//       document.getElementById(`button-${year}`).style.border = "1px red solid";
+//     });
+//   } else {
+//     if (yearsArray.includes(year)) {
+//       yearsArray = yearsArray.filter((item) => item !== year);
+//       document.getElementById(`button-${year}`).style.border = "1px solid #ccc";
+//     } else {
+//       yearsArray.push(year);
+//       document.getElementById(`button-${year}`).style.border = "1px red solid";
+//     }
+//   }
 
-  const filteredDataSuicide = globalDataSuicide.filter((item) =>
-    yearsArray.includes(item.year)
-  );
+//   const filteredDataSuicide = globalDataSuicide.filter((item) =>
+//     yearsArray.includes(item.year)
+//   );
 
-  const filteredDataForestIncomeInflation =
-    globalDataForestIncomeInflation.filter((d) => yearsArray.includes(d.year));
+//   const filteredDataForestIncomeInflation =
+//     globalDataForestIncomeInflation.filter((d) => yearsArray.includes(d.year));
 
-  updateLineChart(
-    globalDataSuicide.filter((item) => highlightedItems.includes(item.country))
-  );
+//   updateLineChart(
+//     globalDataSuicide.filter((item) => highlightedItems.includes(item.country))
+//   );
 
-  updateChoroplethChart(filteredDataSuicide, filteredDataForestIncomeInflation);
+//   updateChoroplethChart(filteredDataSuicide, filteredDataForestIncomeInflation);
 
-  updateCustomBubbleChart(
-    filteredDataSuicide,
-    filteredDataForestIncomeInflation
-  );
-}
+//   updateCustomBubbleChart(
+//     filteredDataSuicide,
+//     filteredDataForestIncomeInflation
+//   );
+// }

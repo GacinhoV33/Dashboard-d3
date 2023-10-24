@@ -2,14 +2,20 @@ var startClickPosition = 0;
 var endClickPosition = 0;
 
 function handleMouseLineChartUp(event, item) {
-  if (event.x > 450 && event.x < 1450 && event.y > 160 && event.y < 220) {
+  if (event.x > 450 && event.x < 1450 && event.y > 100 && event.y < 250) {
     endClickPosition = event.x;
+    if(endClickPosition < startClickPosition) {
+      let helpVar = startClickPosition;
+
+    startClickPosition = endClickPosition;
+    endClickPosition = helpVar;
+    }
     changeHighlightedYears();
   }
 }
 
 function handleMouseLineChartDown(event, item) {
-  if (event.x > 450 && event.x < 1450 && event.y > 160 && event.y < 220) {
+  if (event.x > 450 && event.x < 1450 && event.y > 100 && event.y < 250) {
     startClickPosition = event.x;
   }
 }
@@ -26,7 +32,6 @@ function changeHighlightedYears() {
 }
 
 function handleClickCircle(event, item) {
-  console.log(item);
   if (yearsArray.includes(String(item[0]))) {
     const index = yearsArray.indexOf(String(item[0]));
     yearsArray.splice(index, 1);

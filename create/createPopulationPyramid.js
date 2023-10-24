@@ -13,8 +13,6 @@ function createPopulationPyramid(data1) {
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top +10})`);
 
-  console.log(sexAgeData);
-
   const xScaleMale = d3
     .scaleLinear()
     .domain([0, 0.8])
