@@ -38,7 +38,7 @@ function updateCustomBubbleChart(suicideData, inflationData) {
     .attr("fill", (d) =>
       colorScale(d[1].forest_area)
     )
-    .attr("stroke", "black")
+    // .attr("stroke", "black")
     .transition()
     .duration(500);
 

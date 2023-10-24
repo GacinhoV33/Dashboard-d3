@@ -1,4 +1,4 @@
-const widthPyramidChart = 720;
+const widthPyramidChart = 800;
 const heightPyramidChart = 300; // #TODO
 
 function createPopulationPyramid(data1) {
@@ -134,8 +134,8 @@ function createPopulationPyramid(data1) {
   //set legend
   svg
     .append("rect")
-    .attr("x", 360 - margin.left * 0.7)
-    .attr("y", -(margin.top / 1.25))
+    .attr("x", 360 - margin.left * 0.7 + 45)
+    .attr("y", -(margin.top / 1.25)+1)
     .attr("width", 13)
     .attr("height", 13)
     .style("fill", "#18375F")
@@ -145,14 +145,14 @@ function createPopulationPyramid(data1) {
     .append("text")
     .attr("class", "legend")
     .style("font-size", "12px")
-    .attr("x", 360 - margin.left * 0.6 + 15)
-    .attr("y", -(margin.top / 3.5))
+    .attr("x", 360 - margin.left * 0.6 + 55)
+    .attr("y", -(margin.top / 3.5)+2)
     .text("Male")
     .style("cursor", "pointer")
     .on("click", handleClickSexMale);
   svg
     .append("rect")
-    .attr("x", 425 - margin.left * 0.7)
+    .attr("x", 425 - margin.left * 0.7 + 45)
     .attr("y", -15)
     .attr("width", 13)
     .attr("height", 13)
@@ -163,7 +163,7 @@ function createPopulationPyramid(data1) {
     .append("text")
     .attr("class", "legend")
     .style("font-size", "12px")
-    .attr("x", 425 - margin.left * 0.6 + 15)
+    .attr("x", 425 - margin.left * 0.6 + 55)
     .attr("y", -(margin.top / 5.5))
     .on("click", handleClickSexFemale)
     .style("cursor", "pointer")

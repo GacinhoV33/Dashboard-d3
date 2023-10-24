@@ -16,7 +16,7 @@ function handleMouseOverCustom(event, item) {
 function handleMouseOutCustom(event, item) {
   d3.selectAll(".circle")
     .filter((d) => d[0] === item[0])
-    .attr("stroke", "black")
+    .attr("stroke", "none")
     .filter((d) => !highlightedItems.includes(d[0]))
     .style("opacity", 0.15);
 

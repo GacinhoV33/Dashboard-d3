@@ -36,7 +36,7 @@ function createCustomBubbleChart(data1, data2) {
     .attr("cy", (d) => yScale(d[1].suicide_ratio))
     .attr("r", (d) => rScale(d[1].adjusted_nni))
     .attr("data-original-fill", "steelblue")
-    .attr("stroke", "black")
+    // .attr("stroke", "black")
     .attr("fill", (d) => colorScale(d[1].forest_area))
     .on("mouseover", handleMouseOverCustom) // Function to handle mouseover event
     .on("mouseout", handleMouseOutCustom) // Function to handle mouseout event
@@ -125,7 +125,7 @@ function createForestScale() {
 
   const svgContainer = d3
     .select("#scaleBubbleChart")
-    .attr("transform", "translate(440, 5)");
+    .attr("transform", "translate(495, 10)");
 
   svgTitle
     .append("rect")
@@ -182,7 +182,7 @@ function createCircleScale() {
     });
   const svgContainer = d3
     .select("#scaleCircleBubbleChart")
-    .attr("transform", "translate(1545, -295)");
+    .attr("transform", "translate(1600, -295)");
 
   svgContainer
     .append("text")
