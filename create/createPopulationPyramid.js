@@ -11,7 +11,7 @@ function createPopulationPyramid(data1) {
     .attr("height", heightPyramidChart + margin.top + margin.bottom)
     .attr("preserveAspectRatio", "xMinYMin")
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top +10})`);
+    .attr("transform", `translate(${margin.left},${margin.top + 5})`);
 
   const xScaleMale = d3
     .scaleLinear()
@@ -53,6 +53,16 @@ function createPopulationPyramid(data1) {
     .call(function (d) {
       return d.select(".domain").remove();
     });
+
+    svg
+    .append("text")
+    .attr("class", "x-axis-label")
+    .attr("x", widthPyramidChart / 2)
+    .attr("y", heightPyramidChart + margin.top + 8 )
+    .style("font-size", "15px")
+    .style("text-anchor", "middle")
+    .text("Suicides_ratio \u2030");
+
 
   // --
   const GridLineF = function () {
