@@ -85,7 +85,7 @@ function createChoroplethLegend(dataSuicide) {
     .attr("transform", function (d, i) {
       let numb = i * 77 + 2;
       numb = numb === "Nan" ? 0 : numb;
-      return "translate(" + numb + ", 0)";
+      return "translate(" + numb + ", 10)";
     })
     
   svgTitle
@@ -108,4 +108,15 @@ function createChoroplethLegend(dataSuicide) {
         2
       )} - ${((0.34 / 9) * (i + 1)).toPrecision(2)}`;
     });
+
+    d3
+    .select("#choroplethTitle")
+    .append("text")
+    .attr("x", widthChoroplethChart / 3 + 50)
+    .attr("y", 1)
+    .style("text-anchor", "middle")
+    .style("font-size", "15px")
+    .text("Suicides_ratio \u2030")
+    .attr("transform", `translate(0, 5)`);
+
 }
