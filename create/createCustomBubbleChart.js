@@ -91,7 +91,7 @@ function createCustomBubbleChart(data1, data2) {
     .append("text")
     .attr("class", "y-axis-label")
     .attr("x", -heightCustom / 2)
-    .attr("y", -margin.left + 30)
+    .attr("y", -margin.left + 60)
     .style("text-anchor", "middle")
     .style("font-size", "18px")
     .attr("transform", "rotate(-90)")
@@ -116,14 +116,22 @@ function createForestScale() {
       return "translate(" + numb + ", -5)";
     });
 
+  d3.select("#customChartTitle")
+    .append("text")
+    .style("font-size", '11px')
+    .attr("x", 5)
+    .attr("y", 7.5)
+    .text("Forest area");
+
   const svgContainer = d3
     .select("#scaleBubbleChart")
-    .attr("transform", "translate(440, 10)");
+    .attr("transform", "translate(440, 5)");
 
   svgTitle
     .append("rect")
     .attr("width", 76)
     .attr("height", 20)
+    .attr("transform", "translate(60, 0)")
     .style("fill", function (d) {
       return d;
     });
@@ -132,6 +140,7 @@ function createForestScale() {
     .append("text")
     .attr("x", 40)
     .attr("y", 35)
+    .attr("transform", "translate(60, 0)")
     .style("text-anchor", "middle")
     .style("font-size", "9px")
     .text(function (d, i) {
@@ -149,7 +158,7 @@ function createCircleScale() {
     .enter()
     .append("g")
     .attr("transform", function (d, i) {
-      let numb = d*2*(i/10+5)
+      let numb = d * 2 * (i / 10 + 5);
       numb = numb === "Nan" ? 0 : numb;
       return "translate(" + numb + ", 20)";
     });
@@ -173,7 +182,12 @@ function createCircleScale() {
     });
   const svgContainer = d3
     .select("#scaleCircleBubbleChart")
-    .attr("transform", "translate(1515, -295)");
+    .attr("transform", "translate(1545, -295)");
 
-  svgContainer.append("text").attr("x", 80).attr("y", 13).style("font-size", '12px').text("Adjusted NNI");
+  svgContainer
+    .append("text")
+    .attr("x", 80)
+    .attr("y", 13)
+    .style("font-size", "12px")
+    .text("Adjusted NNI $");
 }
