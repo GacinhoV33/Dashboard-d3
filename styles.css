@@ -4,10 +4,10 @@
   grid-template-rows: 180px 360px 360px;
 }
 
-.dashboard-row{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 10px;
+.dashboard-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 10px;
 }
 
 .visualization {
@@ -15,7 +15,7 @@
   padding: 0;
 }
 
-.row-item{
+.row-item {
   margin: 10px 0px;
 }
 
@@ -37,22 +37,22 @@
   font-size: 14px;
 }
 
-body{
-    background-color: #f5f5f5;
-    margin: 0;
+body {
+  background-color: #f5f5f5;
+  margin: 0;
 }
 
-#lineChart{
-    background-color: #fafafa; 
-    margin: 10px 10px 0px 20px;
-    border: 1px #8a8a89 solid;
-    border-radius: 10px;
-    box-shadow: 1px 1px 1px 1px #BaBaB9;
+#lineChart {
+  background-color: #fafafa;
+  margin: 10px 10px 0px 20px;
+  border: 1px #8a8a89 solid;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px #babab9;
 
-    /* Color setted only to show total chart area -> Probably we were remove it or set it better */
+  /* Color setted only to show total chart area -> Probably we were remove it or set it better */
 }
 
-.choroplethContainer{
+.choroplethContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,10 +60,10 @@ body{
   margin: 0px 10px;
   border: 1px #8a8a89 solid;
   border-radius: 10px;
-  box-shadow: 1px 1px 1px 1px #BaBaB9;
+  box-shadow: 1px 1px 1px 1px #babab9;
 }
 
-.customContainer{
+.customContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,18 +71,17 @@ body{
   margin: 0px 10px 0px 20px;
   border: 1px #8a8a89 solid;
   border-radius: 10px;
-  box-shadow: 1px 1px 1px 1px #BaBaB9;
-
+  box-shadow: 1px 1px 1px 1px #babab9;
 }
 
 /* Pyramid stuff */
-#PyramidChart{
+#PyramidChart {
   width: 100%;
   height: 346px;
   background-color: #fafafa;
   border: 1px #8a8a89 solid;
   border-radius: 10px;
-  box-shadow: 1px 1px 1px 1px #BaBaB9;
+  box-shadow: 1px 1px 1px 1px #babab9;
 
   /* margin-right: ; */
   /* margin: 10px 10px 0px 0px; */
@@ -96,7 +95,7 @@ text {
   fill: #333333;
 }
 
-.button-year{
+.button-year {
   background-color: #fff;
   border: 1px red solid;
   border-radius: 5px;
@@ -105,69 +104,111 @@ text {
   cursor: pointer;
 }
 
-#d3_tooltip{
+#d3_tooltip {
   display: flex;
   flex-direction: column;
   opacity: 0;
   width: auto;
   min-width: 190px;
   height: 80px;
-  position:absolute;
+  position: absolute;
   color: black;
   background: #fafafa;
   align-items: center;
-  border: 1px solid #6F257F;
+  border: 1px solid #6f257f;
   border-radius: 5px;
   padding: 5px;
 }
 
-.tooltip-row{
+.tooltip-row {
   display: flex;
   gap: 5px;
 }
 
-#d3_header{
+#d3_header {
   text-align: center;
   font-weight: 700;
   font-size: 16px;
 }
 
-#d3_suicide_ratio{
+#d3_suicide_ratio {
   margin: 5px;
 }
 
-#d3_income{
+#d3_income {
   margin: 5px;
 }
 
-
-#d3_inflation{
+#d3_inflation {
   margin: 5px;
 }
 
-#d3_forest_area{
+#d3_forest_area {
   margin: 5px;
 }
 
-#customChart{
+#customChart {
   background-color: #fafafa;
   margin: 0px 20px;
 }
 
-#scaleChoroplethCustom{
+#scaleChoroplethCustom {
   border: 1px #8a8a89 solid;
-  background-color: #EAEADA;
+  background-color: #eaeada;
   border-radius: 5px;
 }
 
-#scaleBubbleChart{
+#scaleBubbleChart {
   border: 1px #8a8a89 solid;
-  background-color: #CACACA;
+  background-color: #cacaca;
   border-radius: 5px;
 }
 
-#scaleCircleBubbleChart{
+#scaleCircleBubbleChart {
   border: 1px #8a8a89 solid;
-  background-color: #CACACA;
+  background-color: #cacaca;
   border-radius: 5px;
 }
+
+.button-9 {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #405cf5;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
+    rgba(50, 50, 93, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
+    Ubuntu, sans-serif;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: fixed;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all 0.2s, box-shadow 0.08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 175px;
+  right: 40px;
+  top: 20px;
+}
+
+.button-9:disabled {
+  cursor: default;
+}
+
+/* .button-9:focus {
+  box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
+    rgba(50, 50, 93, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
+    rgba(50, 151, 211, 0.3) 0 0 0 4px;
+} */

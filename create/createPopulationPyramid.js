@@ -58,7 +58,7 @@ function createPopulationPyramid(data1) {
     .append("text")
     .attr("class", "x-axis-label")
     .attr("x", widthPyramidChart / 2)
-    .attr("y", heightPyramidChart + margin.top + 8)
+    .attr("y", heightPyramidChart + margin.top + 13)
     .style("font-size", "16px")
     .style("font-weight", "550")
     .style("font-family", "Arial")

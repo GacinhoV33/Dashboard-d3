@@ -40,7 +40,7 @@ function handleClickMale(event, item) {
   if (ageGroupsMale.length === 6) {
     ageGroupsMale = [item.ages];
   } else if (ageGroupsMale.includes(item.ages)) {
-    ageGroupsMale = ageGroupsMale.filter((d) => d === item.ages);
+    // ageGroupsMale = ageGroupsMale.filter((d) => d === item.ages);
     const index = ageGroupsMale.indexOf(item.ages);
     ageGroupsMale = ageGroupsMale.splice(index, 1);
   } else {
@@ -54,7 +54,7 @@ function handleClickFemale(event, item) {
   if (ageGroupsFemale.length === 6) {
     ageGroupsFemale = [item.ages];
   } else if (ageGroupsFemale.includes(item.ages)) {
-    ageGroupsFemale = ageGroupsFemale.filter((d) => d === item.ages);
+    // ageGroupsFemale = ageGroupsFemale.filter((d) => d === item.ages);
     const index = ageGroupsFemale.indexOf(item.ages);
     ageGroupsFemale = ageGroupsFemale.splice(index, 1);
   } else {
