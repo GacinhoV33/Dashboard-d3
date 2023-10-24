@@ -15,9 +15,8 @@ function updateCustomBubbleChart(suicideData, inflationData) {
 
   const yScale = d3.scaleLinear().domain([0, 0.60]).range([heightCustom, 0]);
 
-  const rScale = d3.scaleLinear().domain([925.5, 4032000]).range([8, 20]);
+  const rScale = d3.scaleLinear().domain([925.5, 4032000]).range([2, 18]);
 
-  // const colorScale = d3.scaleLinear().domain([0, 97.98]).range([0, 1]);
   const colorScale = d3.scaleQuantize([0, 100], d3.schemeGreens[9]);
   circles
     .transition()
