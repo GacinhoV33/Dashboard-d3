@@ -31,6 +31,9 @@ function handleMouseOutCustom(event, item) {
         !highlightedItems.includes(d[0]) && availableCountries.includes(d[0])
     )
     .style("opacity", 0.15);
+  // Move position of tooltip so that it not hide elements of dashboard
+  document.getElementById("d3_tooltip").style.left = 0;
+  document.getElementById("d3_tooltip").style.top = 0;
   document.getElementById("d3_tooltip").style.opacity = 0;
 }
 
@@ -52,18 +55,41 @@ function onClickBubble(event, item) {
   }
 
   updateLineChart(
-    globalDataSuicide.filter((item) => highlightedItems.includes(item.country))
+    globalDataSuicide
+      .filter((item) => highlightedItems.includes(item.country))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      )
   );
 
   updateChoroplethChart(
-    globalDataSuicide.filter((item) => yearsArray.includes(item.year))
+    globalDataSuicide
+      .filter((item) => yearsArray.includes(item.year))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      )
   );
 
   updateCustomBubbleChart(
-    globalDataSuicide.filter((item) => yearsArray.includes(item.year)),
+    globalDataSuicide
+      .filter((item) => yearsArray.includes(item.year))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      ),
     globalDataForestIncomeInflation.filter((item) =>
       yearsArray.includes(item.year)
     )
+  );
+  updatePyramidChart(
+    globalDataSuicide
+      .filter((item) => yearsArray.includes(item.year))
+      .filter((item) => highlightedItems.includes(item.country))
   );
 }
 

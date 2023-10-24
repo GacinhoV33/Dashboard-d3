@@ -36,10 +36,81 @@ function handlePyramidMouseOut(event, item) {
   }
 }
 
-function handleClickMale(event, item){
-    console.log("click male");
+function handleClickMale(event, item) {
+  if (ageGroupsMale.includes(item.ages)) {
+    ageGroupsMale = ageGroupsMale.filter((d) => d === item.ages);
+  } else {
+    ageGroupsMale.push(item.ages);
+  }
+
+  updateCharts();
 }
 
-function handleClickFemale(event, item){
-    console.log("click female");
+function handleClickFemale(event, item) {
+  if (ageGroupsFemale.includes(item.ages)) {
+    ageGroupsFemale = ageGroupsFemale.filter((d) => d === item.ages);
+  } else {
+    ageGroupsFemale.push(item.ages);
+  }
+  updateCharts();
+}
+
+function handleClickSexFemale() {
+  ageGroupsFemale = [
+    "5-14 years",
+    "15-24 years",
+    "25-34 years",
+    "35-54 years",
+    "55-74 years",
+    "75+ years",
+  ];
+  ageGroupsMale = [];
+
+  updateCharts();
+}
+
+function handleClickSexMale() {
+  ageGroupsMale = [
+    "5-14 years",
+    "15-24 years",
+    "25-34 years",
+    "35-54 years",
+    "55-74 years",
+    "75+ years",
+  ];
+  ageGroupsFemale = [];
+  updateCharts();
+}
+
+function updateCharts() {
+  updateLineChart(
+    globalDataSuicide
+      .filter((d) => highlightedItems.includes(d.country))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      )
+  );
+
+  updateChoroplethChart(
+    globalDataSuicide
+      .filter((d) => yearsArray.includes(d.year))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      )
+  );
+
+  updateCustomBubbleChart(
+    globalDataSuicide
+      .filter((d) => yearsArray.includes(d.year))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      ),
+    globalDataForestIncomeInflation.filter((d) => yearsArray.includes(d.year))
+  );
 }

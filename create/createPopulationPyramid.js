@@ -1,7 +1,7 @@
 const widthPyramidChart = 900;
 const heightPyramidChart = 300; // #TODO
 
-function createPopulationPyramid(data1, data2) {
+function createPopulationPyramid(data1) {
   var sexAgeData = calcSuicideRatioForAgeAndSex(data1);
 
   const svg = d3
@@ -11,13 +11,13 @@ function createPopulationPyramid(data1, data2) {
     .attr("height", heightPyramidChart + margin.top + margin.bottom)
     .attr("preserveAspectRatio", "xMinYMin")
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+    .attr("transform", `translate(${margin.left},${margin.top +10})`);
 
   console.log(sexAgeData);
 
   const xScaleMale = d3
     .scaleLinear()
-    .domain([0, 0.4])
+    .domain([0, 0.8])
     .range([widthPyramidChart / 2, 0]);
   svg
     .append("g")
@@ -37,7 +37,7 @@ function createPopulationPyramid(data1, data2) {
 
   const xScaleFemale = d3
     .scaleLinear()
-    .domain([0, 0.4])
+    .domain([0, 0.8])
     .range([widthPyramidChart / 2, widthPyramidChart]);
   svg
     .append("g")
@@ -126,28 +126,38 @@ function createPopulationPyramid(data1, data2) {
   //set legend
   svg
     .append("rect")
-    .attr("x", -margin.left * 0.7)
-    .attr("y", -(margin.top / 3))
+    .attr("x", 420 - margin.left * 0.7)
+    .attr("y", -(margin.top / 1.25))
     .attr("width", 13)
     .attr("height", 13)
-    .style("fill", "#18375F");
+    .style("fill", "#18375F")
+    .style("cursor", "pointer")
+    .on("click", handleClickSexMale);
   svg
     .append("text")
     .attr("class", "legend")
-    .attr("x", -margin.left * 0.6 + 15)
-    .attr("y", -(margin.top / 5.5))
-    .text("Male");
+    .style("font-size", "12px")
+    .attr("x", 420 - margin.left * 0.6 + 15)
+    .attr("y", -(margin.top / 3.5))
+    .text("Male")
+    .style("cursor", "pointer")
+    .on("click", handleClickSexMale);
   svg
     .append("rect")
-    .attr("x", 40)
-    .attr("y", -(margin.top / 3))
+    .attr("x", 475)
+    .attr("y", -15)
     .attr("width", 13)
     .attr("height", 13)
-    .style("fill", "#0072BC");
+    .style("fill", "#0072BC")
+    .style("cursor", "pointer")
+    .on("click", handleClickSexFemale);
   svg
     .append("text")
     .attr("class", "legend")
-    .attr("x", 60)
+    .style("font-size", "12px")
+    .attr("x", 495)
     .attr("y", -(margin.top / 5.5))
+    .on("click", handleClickSexFemale)
+    .style("cursor", "pointer")
     .text("Female");
 }

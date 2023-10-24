@@ -22,19 +22,7 @@ function changeHighlightedYears() {
   for (var i = start; i <= end; i++) {
     yearsArray.push(`${2005 + i}`);
   }
-  // Update Charts with filtered years
-  updateLineChart(
-    globalDataSuicide.filter((item) => highlightedItems.includes(item.country))
-  );
-  updateChoroplethChart(
-    globalDataSuicide.filter((item) => yearsArray.includes(item.year))
-  );
-  updateCustomBubbleChart(
-    globalDataSuicide.filter((item) => yearsArray.includes(item.year)),
-    globalDataForestIncomeInflation.filter((item) =>
-      yearsArray.includes(item.year)
-    )
-  );
+  updateChartsLine();
 }
 
 function handleClickCircle(event, item) {
@@ -45,16 +33,43 @@ function handleClickCircle(event, item) {
   } else {
     yearsArray.push(String(item[0]));
   }
+  updateChartsLine();
+}
+
+function updateChartsLine() {
   updateLineChart(
-    globalDataSuicide.filter((item) => highlightedItems.includes(item.country))
+    globalDataSuicide
+      .filter((item) => highlightedItems.includes(item.country))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      )
   );
   updateChoroplethChart(
-    globalDataSuicide.filter((item) => yearsArray.includes(item.year))
+    globalDataSuicide
+      .filter((item) => yearsArray.includes(item.year))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      )
   );
   updateCustomBubbleChart(
-    globalDataSuicide.filter((item) => yearsArray.includes(item.year)),
+    globalDataSuicide
+      .filter((item) => yearsArray.includes(item.year))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      ),
     globalDataForestIncomeInflation.filter((item) =>
       yearsArray.includes(item.year)
     )
+  );
+  updatePyramidChart(
+    globalDataSuicide
+      .filter((item) => yearsArray.includes(item.year))
+      .filter((item) => highlightedItems.includes(item.country))
   );
 }

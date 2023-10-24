@@ -13,12 +13,12 @@ function updateCustomBubbleChart(suicideData, inflationData) {
 
   const xScale = d3.scaleLinear().domain([-5, 19]).range([0, widthCustom]);
 
-  const yScale = d3.scaleLinear().domain([0, 0.45]).range([heightCustom, 0]);
+  const yScale = d3.scaleLinear().domain([0, 0.60]).range([heightCustom, 0]);
 
   const rScale = d3.scaleLinear().domain([925.5, 4032000]).range([8, 20]);
 
-  const colorScale = d3.scaleLinear().domain([0, 97.98]).range([0, 1]);
-
+  // const colorScale = d3.scaleLinear().domain([0, 97.98]).range([0, 1]);
+  const colorScale = d3.scaleQuantize([0, 100], d3.schemeGreens[9]);
   circles
     .transition()
     .duration(500)
@@ -26,7 +26,7 @@ function updateCustomBubbleChart(suicideData, inflationData) {
     .attr("cy", (d) => yScale(d[1].suicide_ratio))
     .attr("r", (d) => rScale(d[1].adjusted_nni))
     .attr("fill", (d) =>
-      d3.interpolateGreens(Number(colorScale(d[1].forest_area)))
+      colorScale(d[1].forest_area)
     );
 
   circles
@@ -37,8 +37,9 @@ function updateCustomBubbleChart(suicideData, inflationData) {
     .attr("cy", (d) => yScale(d[1].suicide_ratio))
     .attr("r", (d) => rScale(d[1].adjusted_nni))
     .attr("fill", (d) =>
-      d3.interpolateGreens(Number(colorScale(d[1].forest_area)))
+      colorScale(d[1].forest_area)
     )
+    .attr("stroke", "black")
     .transition()
     .duration(500);
 

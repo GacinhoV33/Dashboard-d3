@@ -9,6 +9,22 @@ var availableCountries;
 var filteredYearDataSuicide;
 var filteredYearForestIncomeNNIData;
 var mergedDataExtractedBase;
+var ageGroupsMale = [
+  "5-14 years",
+  "15-24 years",
+  "25-34 years",
+  "35-54 years",
+  "55-74 years",
+  "75+ years",
+];
+var ageGroupsFemale = [
+  "5-14 years",
+  "15-24 years",
+  "25-34 years",
+  "35-54 years",
+  "55-74 years",
+  "75+ years",
+];
 var yearsArray = [
   "2006",
   "2007",
@@ -72,13 +88,16 @@ function startDashboard() {
         highlightedItems = JSON.parse(JSON.stringify(availableCountries)); //deep copy
         createChoroplethMap(globalDataSuicide, globalDataForestIncomeInflation);
         // createPyramidChart(globalDataSuicide, globalDataForestIncomeInflation);
-        
+
         createCustomBubbleChart(
           globalDataSuicide,
           globalDataForestIncomeInflation
         );
         createLineChart(globalDataSuicide, globalDataForestIncomeInflation);
-        createPopulationPyramid(globalDataSuicide, globalDataForestIncomeInflation);
+        createPopulationPyramid(
+          globalDataSuicide,
+          globalDataForestIncomeInflation
+        );
       });
     })
     .catch((error) => {
@@ -124,7 +143,9 @@ function filterYears(year) {
   const filteredDataForestIncomeInflation =
     globalDataForestIncomeInflation.filter((d) => yearsArray.includes(d.year));
 
-  updateLineChart(globalDataSuicide.filter((item) => highlightedItems.includes(item.country)));
+  updateLineChart(
+    globalDataSuicide.filter((item) => highlightedItems.includes(item.country))
+  );
 
   updateChoroplethChart(filteredDataSuicide, filteredDataForestIncomeInflation);
 

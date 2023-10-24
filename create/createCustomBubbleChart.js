@@ -20,11 +20,10 @@ function createCustomBubbleChart(data1, data2) {
   // Create x and y scales for the scatter plot
   const xScale = d3.scaleLinear().domain([-5, 19]).range([0, widthCustom]);
 
-  const yScale = d3.scaleLinear().domain([0, 0.45]).range([heightCustom, 0]);
+  const yScale = d3.scaleLinear().domain([0, 0.60]).range([heightCustom, 0]);
 
   const rScale = d3.scaleLinear().domain([925.5, 4032000]).range([8, 20]);
 
-  // const colorScale = d3.scaleLinear().domain([0, 97.98]).range([0, 1]);
   const colorScale = d3.scaleQuantize([0, 100], d3.schemeGreens[9]);
   // Add circles to the scatter plot representing each country
   svg
@@ -45,7 +44,7 @@ function createCustomBubbleChart(data1, data2) {
 
   // Create tick marks and labels for the x and y axes
   var xTicks = [];
-  var yTicks = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45];
+  var yTicks = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
 
   let minVal = -5;
   let maxVal = 19;
@@ -143,12 +142,6 @@ function createForestScale() {
 }
 
 function createCircleScale() {
-  const colorScale = d3.scaleQuantize([0, 100], d3.schemeGreens[9]);
-
-  var linearScale = d3.scaleLinear().domain([0, 100]).range([0, 500]);
-
-  var sqrtScale = d3.scaleSqrt().domain([0, 100]).range([8, 20]);
-
   const svgTitle = d3
     .select("#customChartCircleTitle")
     .selectAll("circle")

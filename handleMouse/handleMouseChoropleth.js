@@ -37,7 +37,8 @@ function handleMouseOutChoropleth(event, item) {
   d3.selectAll(".country.data")
     .filter((d) => item.properties.name === d.properties.name)
     .attr("stroke", "#DDD");
-
+  document.getElementById("d3_tooltip").style.left = 0;
+  document.getElementById("d3_tooltip").style.top = 0;
   document.getElementById("d3_tooltip").style.opacity = 0;
 
   // Custom chart stuff
@@ -46,7 +47,6 @@ function handleMouseOutChoropleth(event, item) {
     .attr("stroke", "black")
     .filter((d) => !highlightedItems.includes(d[0]))
     .style("opacity", 0.15);
-
 }
 
 function showTooltip(event, item) {

@@ -17,16 +17,40 @@ function onClickChoropleth(event) {
   // updating line-chart based on highlighted items
   // filter by country
   updateLineChart(
-    globalDataSuicide.filter((item) => highlightedItems.includes(item.country))
+    globalDataSuicide
+      .filter((item) => highlightedItems.includes(item.country))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      )
   );
   // filter by year only
   updateCustomBubbleChart(
-    globalDataSuicide.filter((item) => yearsArray.includes(item.year)),
+    globalDataSuicide
+      .filter((item) => yearsArray.includes(item.year))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      ),
     globalDataForestIncomeInflation.filter((item) =>
       yearsArray.includes(item.year)
     )
   );
   updateChoroplethChart(
-    globalDataSuicide.filter((item) => yearsArray.includes(item.year))
+    globalDataSuicide
+      .filter((item) => yearsArray.includes(item.year))
+      .filter(
+        (d) =>
+          (ageGroupsMale.includes(d.age_group) && d.sex === "male") ||
+          (ageGroupsFemale.includes(d.age_group) && d.sex === "female")
+      )
+  );
+
+  updatePyramidChart(
+    globalDataSuicide
+      .filter((item) => yearsArray.includes(item.year))
+      .filter((item) => highlightedItems.includes(item.country))
   );
 }
