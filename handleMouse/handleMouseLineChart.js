@@ -2,7 +2,7 @@ var startClickPosition = 0;
 var endClickPosition = 0;
 
 function handleMouseLineChartUp(event, item) {
-  if (event.x > 450 && event.x < 1450 && event.y > 100 && event.y < 250) {
+  if (event.x > 450 && event.x < 1450 && event.y > 100 && event.y < 270) {
     endClickPosition = event.x;
     if(endClickPosition < startClickPosition) {
       let helpVar = startClickPosition;
@@ -15,7 +15,7 @@ function handleMouseLineChartUp(event, item) {
 }
 
 function handleMouseLineChartDown(event, item) {
-  if (event.x > 450 && event.x < 1450 && event.y > 100 && event.y < 250) {
+  if (event.x > 450 && event.x < 1450 && event.y > 100 && event.y < 270) {
     startClickPosition = event.x;
   }
 }

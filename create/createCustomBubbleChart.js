@@ -20,9 +20,9 @@ function createCustomBubbleChart(data1, data2) {
   // Create x and y scales for the scatter plot
   const xScale = d3.scaleLinear().domain([-5, 19]).range([0, widthCustom]);
 
-  const yScale = d3.scaleLinear().domain([0, 0.60]).range([heightCustom, 0]);
+  const yScale = d3.scaleLinear().domain([0, 0.6]).range([heightCustom, 0]);
 
-  const rScale = d3.scaleLinear().domain([925.5, 4032000]).range([8, 20]);
+  const rScale = d3.scaleLinear().domain([925.5, 4032000]).range([2, 18]);
 
   const colorScale = d3.scaleQuantize([0, 100], d3.schemeGreens[9]);
   // Add circles to the scatter plot representing each country
@@ -145,15 +145,14 @@ function createCircleScale() {
   const svgTitle = d3
     .select("#customChartCircleTitle")
     .selectAll("circle")
-    .data([8, 11, 14, 17, 20])
+    .data([2, 6, 10, 14, 18])
     .enter()
     .append("g")
     .attr("transform", function (d, i) {
-      let numb = d * 4 * (5 - i / 10) - 120;
+      let numb = d*2*(i/10+5)
       numb = numb === "Nan" ? 0 : numb;
-      return "translate(" + numb + ", 15)";
+      return "translate(" + numb + ", 20)";
     });
-
 
   svgTitle
     .append("circle")
@@ -174,5 +173,7 @@ function createCircleScale() {
     });
   const svgContainer = d3
     .select("#scaleCircleBubbleChart")
-    .attr("transform", "translate(1440, -295)");
+    .attr("transform", "translate(1515, -295)");
+
+  svgContainer.append("text").attr("x", 80).attr("y", 13).style("font-size", '12px').text("Adjusted NNI");
 }
