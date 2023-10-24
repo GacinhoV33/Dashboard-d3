@@ -137,7 +137,7 @@ function createForestScale() {
     .text(function (d, i) {
       return `${((100 / 9) * i).toPrecision(
         2
-      )}% - ${((100 / 9) * (i + 1)).toPrecision(2)}%`;
+      )}% - ${(100 / 9) * (i + 1) !== 100 ? ((100 / 9) * (i + 1)).toPrecision(2) : 100}%`;
     });
 }
 
