@@ -82,8 +82,10 @@ function createLineChart(data1, data2) {
     .attr("x", widthLineChart / 2)
     .attr("y", heightLineChart + margin.top + 30)
     .style("text-anchor", "middle")
-    .style("font-size", "18px")
-    .attr("transform", "translate(-45, -10)")
+    .style("font-size", "16px")
+    .style("font-family", "Arial")
+    .attr("transform", "translate(-48, -12)")
+    .style("font-weight", "550")
     .text("Year");
 
   svg
@@ -92,8 +94,11 @@ function createLineChart(data1, data2) {
     .attr("x", -heightLineChart / 2)
     .attr("y", -margin.left + 30)
     .style("text-anchor", "middle")
-    .attr("transform", "rotate(-90)")
-    .style("font-size", "18px")
+    .style("font-family", "Arial")
+    .attr("transform", "rotate(-90) translate(-15, 0)")
+    .style("font-size", "16px")
+    .style("font-weight", "550")
+    // .attr("transform", "translate(5, 5)")
     .text("Suicide Ratio \u2030");
 
   svg.attr("class", "y-axis text").attr("font-size", "20px");

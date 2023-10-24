@@ -54,15 +54,16 @@ function createPopulationPyramid(data1) {
       return d.select(".domain").remove();
     });
 
-    svg
+  svg
     .append("text")
     .attr("class", "x-axis-label")
     .attr("x", widthPyramidChart / 2)
-    .attr("y", heightPyramidChart + margin.top + 8 )
-    .style("font-size", "15px")
+    .attr("y", heightPyramidChart + margin.top + 8)
+    .style("font-size", "16px")
+    .style("font-weight", "550")
+    .style("font-family", "Arial")
     .style("text-anchor", "middle")
     .text("Suicides ratio \u2030");
-
 
   // --
   const GridLineF = function () {
@@ -135,7 +136,7 @@ function createPopulationPyramid(data1) {
   svg
     .append("rect")
     .attr("x", 360 - margin.left * 0.7 + 45)
-    .attr("y", -(margin.top / 1.25)+1)
+    .attr("y", -(margin.top / 1.25) + 1)
     .attr("width", 13)
     .attr("height", 13)
     .style("fill", "#18375F")
@@ -146,8 +147,9 @@ function createPopulationPyramid(data1) {
     .attr("class", "legend")
     .style("font-size", "12px")
     .attr("x", 360 - margin.left * 0.6 + 55)
-    .attr("y", -(margin.top / 3.5)+2)
+    .attr("y", -(margin.top / 3.5) + 2)
     .text("Male")
+    .style("font-family", "Arial")
     .style("cursor", "pointer")
     .on("click", handleClickSexMale);
   svg
@@ -163,19 +165,22 @@ function createPopulationPyramid(data1) {
     .append("text")
     .attr("class", "legend")
     .style("font-size", "12px")
+    .style("font-family", "Arial")
     .attr("x", 425 - margin.left * 0.6 + 55)
     .attr("y", -(margin.top / 5.5))
     .on("click", handleClickSexFemale)
     .style("cursor", "pointer")
     .text("Female");
 
-    svg
+  svg
     .append("text")
     .attr("class", "y-axis-label")
     .attr("x", -heightPyramidChart / 2)
     .attr("y", -90)
     .style("text-anchor", "middle")
-    .style("font-size", "15px")
+    .style("font-size", "16px")
+    .style("font-family", "Arial")
+    .style("font-weight", "550")
     .attr("transform", "rotate(-90)")
     .text("Age Group");
 }

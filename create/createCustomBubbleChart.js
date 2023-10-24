@@ -84,6 +84,8 @@ function createCustomBubbleChart(data1, data2) {
     .attr("y", heightCustom + margin.top + 20)
     .style("font-size", "18px")
     .style("text-anchor", "middle")
+    .style("font-family", "Arial")
+    .style("font-weight", "550")
     .text("Inflation %");
 
   svg
@@ -92,6 +94,8 @@ function createCustomBubbleChart(data1, data2) {
     .attr("x", -heightCustom / 2)
     .attr("y", -margin.left + 60)
     .style("text-anchor", "middle")
+    .style("font-family", "Arial")
+    .style("font-weight", "550")
     .style("font-size", "18px")
     .attr("transform", "rotate(-90)")
     .text("Suicide ratio \u2030");
@@ -117,9 +121,10 @@ function createForestScale() {
 
   d3.select("#customChartTitle")
     .append("text")
-    .style("font-size", '11px')
+    .style("font-size", "10px")
     .attr("x", 5)
     .attr("y", 7.5)
+    .style("font-family", "Arial")
     .text("Forest area");
 
   const svgContainer = d3
@@ -139,6 +144,7 @@ function createForestScale() {
     .append("text")
     .attr("x", 40)
     .attr("y", 35)
+    .style("font-family", "Arial")
     .attr("transform", "translate(60, 0)")
     .style("text-anchor", "middle")
     .style("font-size", "9px")
@@ -174,8 +180,9 @@ function createCircleScale() {
     .append("text")
     .attr("x", 0)
     .attr("y", 30)
+    .style("font-family", "Arial")
     .style("text-anchor", "middle")
-    .style("font-size", "9px")
+    .style("font-size", "10px")
     .text(function (d, i) {
       return textScale[i];
     });
@@ -187,6 +194,7 @@ function createCircleScale() {
     .append("text")
     .attr("x", 80)
     .attr("y", 13)
-    .style("font-size", "12px")
+    .style("font-family", "Arial")
+    .style("font-size", "11px")
     .text("Adjusted NNI $");
 }

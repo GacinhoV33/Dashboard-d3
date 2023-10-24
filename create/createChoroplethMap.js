@@ -105,6 +105,7 @@ function createChoroplethLegend() {
     .attr("y", 35)
     .style("text-anchor", "middle")
     .style("font-size", "9px")
+    .style("font-family", "Arial")
     .text(function (d, i) {
       return `${((0.34 / 9) * i).toPrecision(
         2
@@ -117,6 +118,8 @@ function createChoroplethLegend() {
     .attr("y", 1)
     .style("text-anchor", "middle")
     .style("font-size", "15px")
+    .style("font-weight", "550")
+    .style("font-family", "Arial")
     .text("Suicides ratio \u2030")
     .attr("transform", `translate(0, 5)`);
 }
