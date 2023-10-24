@@ -1,4 +1,4 @@
-const widthPyramidChart = 900;
+const widthPyramidChart = 720;
 const heightPyramidChart = 300; // #TODO
 
 function createPopulationPyramid(data1) {
@@ -7,11 +7,11 @@ function createPopulationPyramid(data1) {
   const svg = d3
     .select("#PyramidChart")
     .append("svg")
-    .attr("width", widthPyramidChart + margin.left + margin.right)
+    .attr("width", widthPyramidChart + margin.left + margin.right + 60)
     .attr("height", heightPyramidChart + margin.top + margin.bottom)
     .attr("preserveAspectRatio", "xMinYMin")
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top + 5})`);
+    .attr("transform", `translate(${margin.left + 40},${margin.top + 5})`);
 
   const xScaleMale = d3
     .scaleLinear()
@@ -61,7 +61,7 @@ function createPopulationPyramid(data1) {
     .attr("y", heightPyramidChart + margin.top + 8 )
     .style("font-size", "15px")
     .style("text-anchor", "middle")
-    .text("Suicides_ratio \u2030");
+    .text("Suicides ratio \u2030");
 
 
   // --
@@ -134,7 +134,7 @@ function createPopulationPyramid(data1) {
   //set legend
   svg
     .append("rect")
-    .attr("x", 420 - margin.left * 0.7)
+    .attr("x", 360 - margin.left * 0.7)
     .attr("y", -(margin.top / 1.25))
     .attr("width", 13)
     .attr("height", 13)
@@ -145,14 +145,14 @@ function createPopulationPyramid(data1) {
     .append("text")
     .attr("class", "legend")
     .style("font-size", "12px")
-    .attr("x", 420 - margin.left * 0.6 + 15)
+    .attr("x", 360 - margin.left * 0.6 + 15)
     .attr("y", -(margin.top / 3.5))
     .text("Male")
     .style("cursor", "pointer")
     .on("click", handleClickSexMale);
   svg
     .append("rect")
-    .attr("x", 475)
+    .attr("x", 425 - margin.left * 0.7)
     .attr("y", -15)
     .attr("width", 13)
     .attr("height", 13)
@@ -163,9 +163,19 @@ function createPopulationPyramid(data1) {
     .append("text")
     .attr("class", "legend")
     .style("font-size", "12px")
-    .attr("x", 495)
+    .attr("x", 425 - margin.left * 0.6 + 15)
     .attr("y", -(margin.top / 5.5))
     .on("click", handleClickSexFemale)
     .style("cursor", "pointer")
     .text("Female");
+
+    svg
+    .append("text")
+    .attr("class", "y-axis-label")
+    .attr("x", -heightPyramidChart / 2)
+    .attr("y", -90)
+    .style("text-anchor", "middle")
+    .style("font-size", "15px")
+    .attr("transform", "rotate(-90)")
+    .text("Age Group");
 }

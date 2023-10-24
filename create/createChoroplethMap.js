@@ -116,7 +116,7 @@ function createChoroplethLegend(dataSuicide) {
     .attr("y", 1)
     .style("text-anchor", "middle")
     .style("font-size", "15px")
-    .text("Suicides_ratio \u2030")
+    .text("Suicides ratio \u2030")
     .attr("transform", `translate(0, 5)`);
 
 }
