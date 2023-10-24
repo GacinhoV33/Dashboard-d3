@@ -48,7 +48,7 @@ function createLineChart(data1, data2) {
     .attr("cy", (d) => yScale(d[1]))
     .attr("r", 5)
     .attr("fill", "steelblue")
-    .attr("stroke", "black")
+    // .attr("stroke", "black")
     .on("click", handleClickCircle)
     .attr("cursor", "pointer")
     .append("title")
@@ -83,6 +83,7 @@ function createLineChart(data1, data2) {
     .attr("y", heightLineChart + margin.top + 30)
     .style("text-anchor", "middle")
     .style("font-size", "18px")
+    .attr("transform", "translate(-45, -10)")
     .text("Year");
 
   svg

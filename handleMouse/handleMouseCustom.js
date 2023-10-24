@@ -23,7 +23,7 @@ function handleMouseOutCustom(event, item) {
   // Choropleth Stuff
   d3.selectAll(".country.data")
     .filter((d) => item[0] === d.properties.name)
-    .attr("stroke", "#DDD");
+    .attr("stroke", "#888");
 
   d3.selectAll(".country.data")
     .filter(

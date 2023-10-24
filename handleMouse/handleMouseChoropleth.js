@@ -36,7 +36,7 @@ function handleMouseOutChoropleth(event, item) {
 
   d3.selectAll(".country.data")
     .filter((d) => item.properties.name === d.properties.name)
-    .attr("stroke", "#DDD");
+    .attr("stroke", "#888");
   document.getElementById("d3_tooltip").style.left = 0;
   document.getElementById("d3_tooltip").style.top = 0;
   document.getElementById("d3_tooltip").style.opacity = 0;
@@ -44,7 +44,7 @@ function handleMouseOutChoropleth(event, item) {
   // Custom chart stuff
   d3.selectAll(".circle")
     .filter((d) => d[0] === item.properties.name)
-    .attr("stroke", "black")
+    .attr("stroke", "none")
     .filter((d) => !highlightedItems.includes(d[0]))
     .style("opacity", 0.15);
 }

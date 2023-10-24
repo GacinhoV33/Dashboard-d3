@@ -7,11 +7,16 @@
 .dashboard-row{
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin: 10px;
 }
 
 .visualization {
   margin: 0;
   padding: 0;
+}
+
+.row-item{
+  margin: 10px 0px;
 }
 
 .dashboard > :nth-child(1),
@@ -38,7 +43,12 @@ body{
 }
 
 #lineChart{
-    background-color: #fff; 
+    background-color: #fafafa; 
+    margin: 10px 10px 0px 20px;
+    border: 1px #8a8a89 solid;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px #BaBaB9;
+
     /* Color setted only to show total chart area -> Probably we were remove it or set it better */
 }
 
@@ -46,13 +56,38 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #fafafa;
+  margin: 0px 10px;
+  border: 1px #8a8a89 solid;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px #BaBaB9;
+}
+
+.customContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fafafa;
+  margin: 0px 10px 0px 20px;
+  border: 1px #8a8a89 solid;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px #BaBaB9;
+
 }
 
 /* Pyramid stuff */
 #PyramidChart{
   width: 100%;
-  height: 100%;
-  background-color: #ffffb8;
+  height: 346px;
+  background-color: #fafafa;
+  border: 1px #8a8a89 solid;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px #BaBaB9;
+
+  /* margin-right: ; */
+  /* margin: 10px 10px 0px 0px; */
+  /* transform : translate(2.5, 10); */
+  /* overflow: none; */
 }
 
 text {
@@ -114,20 +149,25 @@ text {
   margin: 5px;
 }
 
+#customChart{
+  background-color: #fafafa;
+  margin: 0px 20px;
+}
+
 #scaleChoroplethCustom{
-  border: 1px solid black;
-  background-color: #CBDECB;
+  border: 1px #8a8a89 solid;
+  background-color: #EAEADA;
   border-radius: 5px;
 }
 
 #scaleBubbleChart{
-  border: 1px solid black;
-  background-color: #CBDECB;
+  border: 1px #8a8a89 solid;
+  background-color: #CACACA;
   border-radius: 5px;
 }
 
 #scaleCircleBubbleChart{
-  border: 1px solid black;
-  background-color: #CBDECB;
+  border: 1px #8a8a89 solid;
+  background-color: #CACACA;
   border-radius: 5px;
 }

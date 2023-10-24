@@ -1,5 +1,5 @@
 var widthCustom = 1500;
-var heightCustom = 240;
+var heightCustom = 235;
 
 function createCustomBubbleChart(data1, data2) {
   // Filter the data to remove entries with missing incomeperperson or alcconsumption values
@@ -36,7 +36,6 @@ function createCustomBubbleChart(data1, data2) {
     .attr("cy", (d) => yScale(d[1].suicide_ratio))
     .attr("r", (d) => rScale(d[1].adjusted_nni))
     .attr("data-original-fill", "steelblue")
-    // .attr("stroke", "black")
     .attr("fill", (d) => colorScale(d[1].forest_area))
     .on("mouseover", handleMouseOverCustom) // Function to handle mouseover event
     .on("mouseout", handleMouseOutCustom) // Function to handle mouseout event
@@ -125,7 +124,7 @@ function createForestScale() {
 
   const svgContainer = d3
     .select("#scaleBubbleChart")
-    .attr("transform", "translate(495, 10)");
+    .attr("transform", "translate(490, 10)");
 
   svgTitle
     .append("rect")

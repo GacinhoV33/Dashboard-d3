@@ -1,5 +1,5 @@
 const widthPyramidChart = 800;
-const heightPyramidChart = 300; // #TODO
+const heightPyramidChart = 280; // #TODO
 
 function createPopulationPyramid(data1) {
   var sexAgeData = calcSuicideRatioForAgeAndSex(data1);

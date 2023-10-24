@@ -12,7 +12,7 @@ function createChoroplethMap(data1) {
   const mapGroup = svg.append("g");
 
   const colorScale = d3.scaleQuantize([0, 0.34], d3.schemeBlues[9]);
-  
+
   const projection = d3
     .geoMercator()
     .fitSize(
@@ -28,7 +28,7 @@ function createChoroplethMap(data1) {
     .append("path")
     .attr("class", "country data")
     .attr("d", path)
-    .attr("stroke", "#DDD")
+    .attr("stroke", "#888")
     .on("mouseover", handleMouseOverChoropleth) // Function to handle mouseover event
     .on("mouseout", handleMouseOutChoropleth) // Function to handle mouseout event
     .on("click", (item) => onClickChoropleth(item))
@@ -58,7 +58,7 @@ function createChoroplethMap(data1) {
     mapGroup.attr("transform", event.transform);
   }
   // Create a legend for the choropleth map
-  createChoroplethLegend(dataSuicide);
+  createChoroplethLegend();
 }
 
 function createTooltipChoropleth(d, dataSuicide) {
@@ -72,9 +72,12 @@ function createTooltipChoropleth(d, dataSuicide) {
   }
 }
 
-function createChoroplethLegend(dataSuicide) {
+function createChoroplethLegend() {
   // Create a legend for the choropleth map
   const colorScale = d3.scaleQuantize([0, 0.34], d3.schemeBlues[9]);
+
+  d3.select("#scaleChoroplethCustom").attr("transform", "translate(0, 5)");
+  // d3.select("#ChoroplethChart").attr("transform", "translate(0, 10)")
 
   const svgTitle = d3
     .select("#choroplethTitle")
@@ -86,16 +89,15 @@ function createChoroplethLegend(dataSuicide) {
       let numb = i * 77 + 2;
       numb = numb === "Nan" ? 0 : numb;
       return "translate(" + numb + ", 10)";
-    })
-    
+    });
+
   svgTitle
     .append("rect")
     .attr("width", 76)
     .attr("height", 20)
     .style("fill", function (d) {
       return d;
-    })
-    ;
+    });
 
   svgTitle
     .append("text")
@@ -109,8 +111,7 @@ function createChoroplethLegend(dataSuicide) {
       )} - ${((0.34 / 9) * (i + 1)).toPrecision(2)}`;
     });
 
-    d3
-    .select("#choroplethTitle")
+  d3.select("#choroplethTitle")
     .append("text")
     .attr("x", widthChoroplethChart / 3 + 50)
     .attr("y", 1)
@@ -118,5 +119,4 @@ function createChoroplethLegend(dataSuicide) {
     .style("font-size", "15px")
     .text("Suicides ratio \u2030")
     .attr("transform", `translate(0, 5)`);
-
 }
