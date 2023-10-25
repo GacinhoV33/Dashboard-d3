@@ -20,6 +20,7 @@ function clearAllFilters() {
   updateCustomBubbleChart(globalDataSuicide, globalDataForestIncomeInflation);
   updateChoroplethChart(globalDataSuicide);
   updatePyramidChart(globalDataSuicide);
+  calcTooltipData();
 }
 
 function calcTooltipData() {
