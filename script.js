@@ -54,10 +54,9 @@ function importFiles(file1, file2) {
 // This function initiates the dashboard and loads the JSON data.
 function startDashboard() {
   // Load the JSON data using D3.js.
-
-  const file2 = "suicides_ready_df.csv";
-  const file1 = "data_countries.json";
-
+  const file3 = "./data/forest_area_adjusted_nni_inflation_ready_df.csv";
+  const file2 = "./data/suicides_ready_df.csv";
+  const file1 = "./data/data_countries.json";
   importFiles(file1, file2).then(function (results) {
     // Store the JSON data into globalDataCountries using topojson.feature
     globalDataCountries = topojson.feature(
@@ -72,7 +71,7 @@ function startDashboard() {
       globalDataSuicide = data;
     })
     .then(() => {
-      d3.csv("forest_area_adjusted_nni_inflation_ready_df.csv").then((data) => {
+      d3.csv(file3).then((data) => {
         globalDataForestIncomeInflation = data;
         tooltipSuicideData = calcSuicideRatioForCountries(globalDataSuicide);
 

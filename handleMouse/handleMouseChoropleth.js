@@ -59,7 +59,7 @@ function showTooltip(event, item) {
     document.getElementById(
       "d3_header"
     ).textContent = `${item.properties.name}`;
-    document.getElementById("d3_suicide_ratio").textContent = `suicide_ratio ${
+    document.getElementById("d3_suicide_ratio").textContent = `Suicide ratio ${
       Number(tooltipSuicideData[item.properties.name]).toPrecision(3)
     }\u2030`;
     document.getElementById("d3_inflation").textContent = `Inflation - ${
